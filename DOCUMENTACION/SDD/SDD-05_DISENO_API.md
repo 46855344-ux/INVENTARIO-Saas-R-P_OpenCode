@@ -27,15 +27,25 @@
 | Formato | JSON UTF-8 (`Accept: application/json`) |
 | Autenticación | Laravel Sanctum (token Bearer o cookie de SPA) |
 
-**Implementado en Sprint 0:**
+**Implementado (Sprint 0 y Sprint 1):**
 
-| Método | Ruta | Respuesta |
-| --- | --- | --- |
-| `GET` | `/api/health` | `{"status":"ok","service":"...","time":"..."}` |
-| `GET` | `/api/user` | Usuario autenticado (middleware `auth:sanctum`) |
+| Método | Ruta | Autenticación | Permiso |
+| --- | --- | --- | --- |
+| `GET` | `/api/health` | Pública | — |
+| `POST` | `/api/v1/auth/login` | Pública | — |
+| `POST` | `/api/v1/auth/logout` | `auth:sanctum` | — |
+| `GET` | `/api/v1/auth/me` | `auth:sanctum` | — |
+| `GET` | `/api/v1/users` | `auth:sanctum` + `X-Company-Id` | `identity.users.view` |
+| `POST` | `/api/v1/users` | `auth:sanctum` + `X-Company-Id` | `identity.users.manage` |
+| `GET` | `/api/v1/users/{id}` | `auth:sanctum` + `X-Company-Id` | `identity.users.view` |
+| `PUT` | `/api/v1/users/{id}` | `auth:sanctum` + `X-Company-Id` | `identity.users.manage` |
+| `PATCH` | `/api/v1/users/{id}/status` | `auth:sanctum` + `X-Company-Id` | `identity.users.manage` |
+| `PUT` | `/api/v1/users/{id}/role` | `auth:sanctum` + `X-Company-Id` | `identity.users.manage` |
+| `GET` | `/api/v1/roles` | `auth:sanctum` + `X-Company-Id` | `identity.roles.view` |
+| `GET` | `/api/v1/permissions` | `auth:sanctum` + `X-Company-Id` | `identity.roles.view` |
 
-**Propuesto para sprints siguientes:** todos los recursos de dominio bajo
-`/api/v1`. El prefijo se adopta al implementar US-0101.
+**Propuesto para sprints siguientes:** el resto de recursos de dominio bajo
+`/api/v1` (catálogo, inventario, compras, métricas y auditoría).
 
 ## 3. Recursos previstos
 
@@ -57,16 +67,19 @@
 
 ## 4. Autenticación y contexto de empresa
 
-1. El usuario inicia sesión y recibe un token Sanctum.
-2. El token identifica al usuario; la empresa activa se resuelve por
-   `company_user` o por cabecera validada `X-Company-Id` cuando el usuario
-   pertenezca a varias empresas.
-3. El backend valida que el usuario tenga pertenencia y permisos en esa empresa.
+1. La SPA inicia sesión contra `/api/v1/auth/login` y recibe la cookie de
+   sesión de Sanctum (ADR-0001).
+2. La empresa activa se envía en la cabecera `X-Company-Id` en cada petición
+   de tenant.
+3. El backend valida una pertenencia activa en `company_user` y el estado de
+   la empresa; si no cumple, responde `403 FORBIDDEN_TENANT`.
 4. Los recursos se filtran siempre por `company_id`.
 5. El `company_id` enviado en el cuerpo se ignora.
 
+La SPA envía la cookie de sesión y el token CSRF (`X-XSRF-TOKEN`). El token
+Bearer queda disponible para integraciones futuras (app móvil u otro dominio).
+
 ```http
-Authorization: Bearer <token>
 Accept: application/json
 X-Company-Id: 12
 ```
@@ -110,6 +123,11 @@ X-Company-Id: 12
 | 422 | Validación de campos |
 | 429 | Demasiadas solicitudes |
 | 500 | Error interno (sin detalles sensibles) |
+
+Códigos de error usados por identidad: `VALIDATION_ERROR`, `UNAUTHENTICATED`,
+`INVALID_CREDENTIALS`, `ACCOUNT_INACTIVE`, `FORBIDDEN`, `FORBIDDEN_TENANT` y
+`NOT_FOUND`. Un recurso de otra empresa responde `404 NOT_FOUND` para no
+revelar su existencia.
 
 ## 6. Listados, filtros y paginación
 

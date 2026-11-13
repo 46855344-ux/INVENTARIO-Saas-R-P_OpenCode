@@ -44,6 +44,14 @@ y el versionado semántico de [SemVer](https://semver.org/lang/es/).
     - Pantalla React de acceso, contexto de autenticación, guardia de rutas y cierre de sesión desde el layout.
     - Seeder de demostración con dos empresas y dos usuarios.
     - Pruebas backend (12), frontend (2), lint, build y smoke Cypress verificados.
+  - **Sprint 1 — US-0102 (administración de usuarios y roles):**
+    - Migraciones `permissions`, `roles`, `permission_role` y `company_user.role_id`.
+    - Roles base globales y catálogo de permisos `modulo.accion` con `IdentitySeeder`.
+    - `TenantContext` y middlewares `tenant`/`permission` con `X-Company-Id` validado.
+    - Endpoints `/api/v1/users` (listar, crear, ver, editar, estado y rol), `/api/v1/roles` y `/api/v1/permissions`.
+    - Reglas de ámbito: recurso de otra empresa → 404, rol ajeno → 422, escalada de privilegios → 403.
+    - Pantalla React de usuarios con filtros, paginación, alta, edición, estado y asignación de rol.
+    - Pruebas de identidad (15) y del servicio frontend (6); smoke Cypress ajustado a 15 s.
 
 ### Cambiado
 
@@ -55,6 +63,8 @@ y el versionado semántico de [SemVer](https://semver.org/lang/es/).
 - `config/sanctum.php` y `config/cors.php` con dominios stateful y CORS con credenciales para la SPA.
 - `.env.example` del backend con `FRONTEND_URL` y `SANCTUM_STATEFUL_DOMAINS`.
 - `config/auth.php` y las fábricas apuntan al modelo de usuario del módulo `Identity`.
+- El layout protegido incorpora navegación, selector de empresa activa y cabecera `X-Company-Id` en el cliente HTTP.
+- Las respuestas de identidad usan `API Resources` y paginación estándar.
 
 ### Corregido
 

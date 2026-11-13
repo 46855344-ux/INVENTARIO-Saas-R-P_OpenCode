@@ -128,19 +128,19 @@ Owner y es requisito para iniciar el Sprint 1 sin retrabajo.
 
 ## 9. Anexo — avance del Sprint 1 (2026-11-13)
 
-Con las aprobaciones de DD-01, DD-04 y los ADR-0001/0002/0003, se implementó
-**US-0101 — Iniciar y cerrar sesión**:
+Con las aprobaciones de DD-01, DD-04 y los ADR-0001/0002/0003, se implementaron
+**US-0101 — Iniciar y cerrar sesión** y **US-0102 — Administrar usuarios y asignar roles**.
 
 | Verificación | Comando | Resultado |
 | --- | --- | --- |
-| Pruebas backend | `php artisan test` | 12 pruebas, 46 aserciones — OK |
+| Pruebas backend | `php artisan test` | 27 pruebas, 96 aserciones — OK |
 | Estilo backend | `vendor/bin/pint --test` | Sin diferencias — OK |
-| Pruebas frontend | `npm run test` | 2 pruebas — OK |
+| Pruebas frontend | `npm run test` | 15 pruebas — OK |
 | Lint frontend | `npm run lint` | Sin errores — OK |
 | Build frontend | `npm run build` | Compilado — OK |
 | Smoke E2E | `npx cypress run` | 1 prueba — OK |
 
-Entregables: migraciones `companies`, `company_user` y ampliación de `users`;
-modelos y seeder de identidad; endpoints `/api/v1/auth/*`; pantalla React de
-acceso, contexto de autenticación y guardia de rutas. La validación con Docker y
-MySQL real sigue pendiente por no estar instalados en el equipo.
+Entregables: autenticación SPA con Sanctum; esquema y API de empresas, usuarios,
+roles y permisos; `TenantContext` con `X-Company-Id`; pantallas React de acceso y
+gestión de usuarios. La validación con Docker y MySQL real sigue pendiente por no
+estar instalados en el equipo.

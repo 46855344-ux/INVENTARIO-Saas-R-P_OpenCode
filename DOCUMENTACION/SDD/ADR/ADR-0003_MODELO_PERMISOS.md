@@ -50,10 +50,12 @@ aprobación explícita; su necesidad se reevalúa con casos reales.
 - [x] Se aprueba DD-04 (roles base globales + por empresa).
 - [x] Se aprueba el alcance sin `user_permission` para el Sprint 1.
 - [x] La matriz de permisos del plan queda ratificada.
-- [ ] Se documenta la convención `modulo.accion` en el catálogo de permisos (US-0103).
+- [x] Se documenta la convención `modulo.accion` en el catálogo de permisos.
 
 ## 6. Estado
 
-Aprobada el **2026-11-13**, junto con DD-04. El modelo se implementará en
-**US-0102** (usuarios y asignación de roles) y **US-0103** (permisos por módulo y
-acción). `user_permission` queda fuera del alcance del Sprint 1.
+Aprobada el **2026-11-13**, junto con DD-04. El modelo de roles, permisos y
+asignación por empresa se implementó en **US-0102** (`IdentitySeeder`,
+`permission_role` y `company_user.role_id`). La aplicación de permisos en todos
+los módulos corresponde a **US-0103**. `user_permission` queda fuera del alcance
+del Sprint 1.

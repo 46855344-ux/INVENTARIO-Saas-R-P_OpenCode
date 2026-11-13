@@ -311,9 +311,11 @@ Cada migración se crea **solo tras** aprobar DD-01/DD-04 y contar con MySQL (E-
 | [`SDD-05_DISENO_API.md`](./SDD-05_DISENO_API.md) | Contratos y convenciones de API |
 | [`../README_SPRINT_0.md`](../README_SPRINT_0.md) | Cierre del Sprint 0 y guía de iteraciones |
 
-## 15. Estado de implementación (US-0101)
+## 15. Estado de implementación
 
-**Completado el 2026-11-13.** Con DD-01, DD-04 y los ADR-0001/0002/0003 aprobados:
+### US-0101 — Iniciar y cerrar sesión
+
+**Completado el 2026-11-13.**
 
 - Migraciones `companies`, `company_user` y ampliación de `users` (`status`, `deleted_at`).
 - Modelos `App\Modules\Identity\Models\{Company,User}` con pertenencia multiempresa.
@@ -321,7 +323,30 @@ Cada migración se crea **solo tras** aprobar DD-01/DD-04 y contar con MySQL (E-
 - Autenticación SPA con Sanctum (cookie + CSRF) y logout que invalida la sesión.
 - Pantalla React de acceso, contexto de autenticación y guardia de rutas.
 - Pruebas T-01 a T-04 en `backend/tests/Feature/Auth/AuthenticationTest.php`.
-- Evidencia: backend 12 pruebas OK, Pint OK, frontend 2 pruebas OK, lint OK, build OK, Cypress 1 prueba OK.
 
-Pendiente para el resto del sprint: US-0102, US-0103 y US-0104. La validación
-contra MySQL real requiere Docker o MySQL instalado (E-07).
+### US-0102 — Administrar usuarios y asignar roles
+
+**Completado el 2026-11-13.**
+
+- Migraciones `permissions`, `roles`, `permission_role` y `company_user.role_id`.
+- Modelos `Role`, `Permission` y `CompanyUser`; roles base globales (`owner`,
+  `admin`, `operator`, `viewer`) y permisos `modulo.accion` (ADR-0003).
+- `TenantContext` y middleware `tenant`: empresa activa validada por
+  `X-Company-Id`; middleware `permission` para autorizar por permiso.
+- Endpoints `/api/v1/users` (listar, crear, ver, editar, cambiar estado y
+  asignar rol), `/api/v1/roles` y `/api/v1/permissions`.
+- Reglas: pertenencia activa, recurso de otra empresa → `404 NOT_FOUND`, rol de
+  otra empresa → `422`, escalada de privilegios → `403 FORBIDDEN`.
+- Pantalla React de usuarios con filtros, paginación, alta, edición, cambio de
+  estado, asignación de rol y selector de empresa activa.
+- Pruebas T-05, T-07, T-08, T-09 y T-10 (ámbito de identidad) en
+  `backend/tests/Feature/Identity/UserManagementTest.php`.
+- Evidencia: backend 27 pruebas / 96 aserciones OK, Pint OK, frontend 15
+  pruebas OK, lint OK, build OK, Cypress 1 prueba OK.
+
+### Pendiente
+
+US-0103 (aplicación de permisos en todos los módulos) y US-0104 (aislamiento
+global con `TenantScope` para modelos de dominio). T-06 (costos y márgenes)
+queda para el sprint de métricas. La validación contra MySQL real requiere
+Docker o MySQL instalado (E-07).
