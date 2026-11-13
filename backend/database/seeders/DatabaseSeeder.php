@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Modules\Identity\Models\Company;
+use App\Modules\Identity\Models\Role;
 use App\Modules\Identity\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -14,11 +15,16 @@ class DatabaseSeeder extends Seeder
     /**
      * Seed the application's database.
      *
-     * Datos de demostración de US-0101: dos empresas y dos usuarios.
-     * El administrador pertenece a ambas empresas; el operador, solo a la principal.
+     * Datos de demostración: dos empresas, dos usuarios y los roles base.
      */
     public function run(): void
     {
+        $this->call(IdentitySeeder::class);
+
+        $owner = Role::query()->whereNull('company_id')->where('code', Role::CODE_OWNER)->firstOrFail();
+        $adminRole = Role::query()->whereNull('company_id')->where('code', Role::CODE_ADMIN)->firstOrFail();
+        $operatorRole = Role::query()->whereNull('company_id')->where('code', Role::CODE_OPERATOR)->firstOrFail();
+
         $main = Company::factory()->create([
             'name' => 'Empresa Demo',
             'slug' => 'empresa-demo',
@@ -34,13 +40,23 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@empresa-demo.test',
         ]);
 
-        $admin->companies()->attach([$main->id, $branch->id], ['status' => 'active']);
+        $admin->companies()->attach($main->id, [
+            'status' => Company::STATUS_ACTIVE,
+            'role_id' => $owner->id,
+        ]);
+        $admin->companies()->attach($branch->id, [
+            'status' => Company::STATUS_ACTIVE,
+            'role_id' => $adminRole->id,
+        ]);
 
         $operator = User::factory()->create([
             'name' => 'Operador Demo',
             'email' => 'operador@empresa-demo.test',
         ]);
 
-        $operator->companies()->attach($main->id, ['status' => 'active']);
+        $operator->companies()->attach($main->id, [
+            'status' => Company::STATUS_ACTIVE,
+            'role_id' => $operatorRole->id,
+        ]);
     }
 }

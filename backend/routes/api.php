@@ -1,7 +1,9 @@
 <?php
 
 use App\Modules\Identity\Http\Controllers\AuthController;
-use Illuminate\Http\Request;
+use App\Modules\Identity\Http\Controllers\PermissionController;
+use App\Modules\Identity\Http\Controllers\RoleController;
+use App\Modules\Identity\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -9,7 +11,7 @@ use Illuminate\Support\Facades\Route;
 | API routes
 |--------------------------------------------------------------------------
 | Los recursos se nombran en plural y en inglés. El ámbito de empresa se
-| resuelve desde el usuario autenticado (ver ESTANDAR.md, sección 6.4).
+| resuelve desde la cabecera validada X-Company-Id (ver ADR-0002).
 */
 
 Route::get('/health', function () {
@@ -29,8 +31,24 @@ Route::prefix('v1')->group(function () {
             Route::get('/me', [AuthController::class, 'me']);
         });
     });
-});
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
+    Route::middleware(['auth:sanctum', 'tenant'])->group(function () {
+        Route::get('/roles', [RoleController::class, 'index'])
+            ->middleware('permission:identity.roles.view');
+        Route::get('/permissions', [PermissionController::class, 'index'])
+            ->middleware('permission:identity.roles.view');
+
+        Route::get('/users', [UserController::class, 'index'])
+            ->middleware('permission:identity.users.view');
+        Route::post('/users', [UserController::class, 'store'])
+            ->middleware('permission:identity.users.manage');
+        Route::get('/users/{id}', [UserController::class, 'show'])
+            ->middleware('permission:identity.users.view');
+        Route::put('/users/{id}', [UserController::class, 'update'])
+            ->middleware('permission:identity.users.manage');
+        Route::patch('/users/{id}/status', [UserController::class, 'updateStatus'])
+            ->middleware('permission:identity.users.manage');
+        Route::put('/users/{id}/role', [UserController::class, 'assignRole'])
+            ->middleware('permission:identity.users.manage');
+    });
+});

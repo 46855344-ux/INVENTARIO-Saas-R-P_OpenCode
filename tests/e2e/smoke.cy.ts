@@ -1,6 +1,6 @@
 describe('Aplicación', () => {
-  it('muestra la página de inicio', () => {
+  it('muestra la pantalla de acceso', () => {
     cy.visit('/');
-    cy.contains('SAAS Inversiones R&P');
+    cy.contains('SAAS Inversiones R&P', { timeout: 15000 }).should('be.visible');
   });
 });

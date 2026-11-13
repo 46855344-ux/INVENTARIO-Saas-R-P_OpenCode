@@ -162,16 +162,4 @@ class AuthenticationTest extends TestCase
             ->assertStatus(401)
             ->assertJsonPath('error.code', 'UNAUTHENTICATED');
     }
-
-    /**
-     * Simula el arranque de una nueva petición HTTP: en producción cada
-     * petición se atiende con guardas nuevas, pero el contenedor de pruebas
-     * conserva las instancias y el usuario cacheado por el guard de Sanctum.
-     */
-    private function resetAuthState(): void
-    {
-        config(['auth.defaults.guard' => 'web']);
-
-        $this->app['auth']->forgetGuards();
-    }
 }

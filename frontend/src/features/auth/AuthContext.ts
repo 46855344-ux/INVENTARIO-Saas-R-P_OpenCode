@@ -7,6 +7,10 @@ export interface AuthContextValue {
   status: AuthStatus;
   user: AuthUser | null;
   companies: Company[];
+  activeCompany: Company | null;
+  permissions: string[];
+  hasPermission: (code: string) => boolean;
+  setActiveCompany: (companyId: number) => void;
   login: (email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
 }

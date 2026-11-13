@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -44,8 +45,23 @@ class User extends Authenticatable
     public function companies(): BelongsToMany
     {
         return $this->belongsToMany(Company::class)
-            ->withPivot('status')
+            ->withPivot('role_id', 'status')
             ->withTimestamps();
+    }
+
+    /**
+     * Pertenencia del usuario a cada empresa, con rol y estado.
+     *
+     * @return HasMany<CompanyUser, $this>
+     */
+    public function memberships(): HasMany
+    {
+        return $this->hasMany(CompanyUser::class);
+    }
+
+    public function membershipIn(Company $company): ?CompanyUser
+    {
+        return $this->memberships()->where('company_id', $company->id)->first();
     }
 
     /**

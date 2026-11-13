@@ -11,8 +11,27 @@ const { me, login, logout } = vi.hoisted(() => ({
 
 vi.mock('../src/services/auth', () => ({ me, login, logout }));
 
+const session = {
+  user: {
+    id: 1,
+    name: 'Administrador Demo',
+    email: 'admin@empresa-demo.test',
+  },
+  companies: [
+    {
+      id: 1,
+      name: 'Empresa Demo',
+      slug: 'empresa-demo',
+      role: { id: 1, code: 'owner', name: 'Propietario' },
+      permissions: ['identity.users.view', 'identity.users.manage', 'identity.roles.view'],
+    },
+  ],
+  permissions: ['identity.users.view', 'identity.users.manage', 'identity.roles.view'],
+};
+
 describe('App', () => {
   beforeEach(() => {
+    window.localStorage.clear();
     me.mockReset().mockRejectedValue(new Error('unauthorized'));
     login.mockReset();
     logout.mockReset();
@@ -36,15 +55,7 @@ describe('App', () => {
   });
 
   it('inicia sesión y muestra el nombre del usuario', async () => {
-    login.mockResolvedValue({
-      user: {
-        id: 1,
-        name: 'Administrador Demo',
-        email: 'admin@empresa-demo.test',
-      },
-      companies: [{ id: 1, name: 'Empresa Demo', slug: 'empresa-demo' }],
-      permissions: [],
-    });
+    login.mockResolvedValue(session);
 
     render(<App />);
 
@@ -58,5 +69,6 @@ describe('App', () => {
     await userEvent.click(screen.getByRole('button', { name: /ingresar/i }));
 
     expect(await screen.findByText('Administrador Demo')).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /usuarios/i })).toBeInTheDocument();
   });
 });

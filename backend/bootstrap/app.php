@@ -1,6 +1,10 @@
 <?php
 
 use App\Modules\Identity\Exceptions\AuthenticationFailedException;
+use App\Modules\Identity\Exceptions\ForbiddenException;
+use App\Modules\Identity\Exceptions\ForbiddenTenantException;
+use App\Modules\Identity\Http\Middleware\EnsurePermission;
+use App\Modules\Identity\Http\Middleware\ResolveTenant;
 use App\Modules\Shared\Http\ErrorResponse;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Application;
@@ -8,6 +12,7 @@ use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -19,6 +24,11 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         // Autenticación de SPA con cookies de Sanctum (ver ADR-0001).
         $middleware->statefulApi();
+
+        $middleware->alias([
+            'tenant' => ResolveTenant::class,
+            'permission' => EnsurePermission::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->shouldRenderJsonWhen(
@@ -56,5 +66,29 @@ return Application::configure(basePath: dirname(__DIR__))
             }
 
             return ErrorResponse::make($e->errorCode, $e->getMessage(), $e->status);
+        });
+
+        $exceptions->render(function (ForbiddenTenantException $e, Request $request) {
+            if (! $request->is('api/*') && ! $request->expectsJson()) {
+                return null;
+            }
+
+            return ErrorResponse::make('FORBIDDEN_TENANT', $e->getMessage(), 403);
+        });
+
+        $exceptions->render(function (ForbiddenException $e, Request $request) {
+            if (! $request->is('api/*') && ! $request->expectsJson()) {
+                return null;
+            }
+
+            return ErrorResponse::make('FORBIDDEN', $e->getMessage(), 403);
+        });
+
+        $exceptions->render(function (NotFoundHttpException $e, Request $request) {
+            if (! $request->is('api/*') && ! $request->expectsJson()) {
+                return null;
+            }
+
+            return ErrorResponse::make('NOT_FOUND', 'El recurso solicitado no existe.', 404);
         });
     })->create();
