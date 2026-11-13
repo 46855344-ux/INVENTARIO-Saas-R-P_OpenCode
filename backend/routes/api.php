@@ -34,21 +34,21 @@ Route::prefix('v1')->group(function () {
 
     Route::middleware(['auth:sanctum', 'tenant'])->group(function () {
         Route::get('/roles', [RoleController::class, 'index'])
-            ->middleware('permission:identity.roles.view');
+            ->middleware('can:identity.roles.view');
         Route::get('/permissions', [PermissionController::class, 'index'])
-            ->middleware('permission:identity.roles.view');
+            ->middleware('can:identity.roles.view');
 
         Route::get('/users', [UserController::class, 'index'])
-            ->middleware('permission:identity.users.view');
+            ->middleware('can:identity.users.view');
         Route::post('/users', [UserController::class, 'store'])
-            ->middleware('permission:identity.users.manage');
+            ->middleware('can:identity.users.manage');
         Route::get('/users/{id}', [UserController::class, 'show'])
-            ->middleware('permission:identity.users.view');
+            ->middleware('can:identity.users.view');
         Route::put('/users/{id}', [UserController::class, 'update'])
-            ->middleware('permission:identity.users.manage');
+            ->middleware('can:identity.users.manage');
         Route::patch('/users/{id}/status', [UserController::class, 'updateStatus'])
-            ->middleware('permission:identity.users.manage');
+            ->middleware('can:identity.users.manage');
         Route::put('/users/{id}/role', [UserController::class, 'assignRole'])
-            ->middleware('permission:identity.users.manage');
+            ->middleware('can:identity.users.manage');
     });
 });

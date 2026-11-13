@@ -1,11 +1,12 @@
 import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { useAuth } from '../features/auth/AuthContext';
+import { Can } from '../features/auth/Can';
 
 const linkClass = ({ isActive }: { isActive: boolean }) =>
   isActive ? 'app-nav-link is-active' : 'app-nav-link';
 
 export function AppLayout() {
-  const { user, companies, activeCompany, hasPermission, setActiveCompany, logout } = useAuth();
+  const { user, companies, activeCompany, setActiveCompany, logout } = useAuth();
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -23,11 +24,11 @@ export function AppLayout() {
           <NavLink to="/" end className={linkClass}>
             Inicio
           </NavLink>
-          {hasPermission('identity.users.view') && (
+          <Can permission="identity.users.view">
             <NavLink to="/users" className={linkClass}>
               Usuarios
             </NavLink>
-          )}
+          </Can>
           {companies.length > 1 && (
             <label className="company-picker">
               <span>Empresa</span>

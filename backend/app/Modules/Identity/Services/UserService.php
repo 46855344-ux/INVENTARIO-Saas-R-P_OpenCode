@@ -89,10 +89,8 @@ class UserService
     /**
      * @param  array{name?: string, email?: string, password?: string|null}  $data
      */
-    public function update(TenantContext $context, int $userId, array $data): CompanyUser
+    public function update(CompanyUser $membership, array $data): CompanyUser
     {
-        $membership = $this->find($context, $userId);
-
         $attributes = Arr::only($data, ['name', 'email']);
 
         if (! empty($data['password'])) {
@@ -106,17 +104,15 @@ class UserService
         return $membership->fresh(['user', 'role']);
     }
 
-    public function changeStatus(TenantContext $context, int $userId, string $status): CompanyUser
+    public function changeStatus(CompanyUser $membership, string $status): CompanyUser
     {
-        $membership = $this->find($context, $userId);
         $membership->update(['status' => $status]);
 
         return $membership->fresh(['user', 'role']);
     }
 
-    public function assignRole(TenantContext $context, int $userId, int $roleId): CompanyUser
+    public function assignRole(TenantContext $context, CompanyUser $membership, int $roleId): CompanyUser
     {
-        $membership = $this->find($context, $userId);
         $role = Role::query()->with('permissions')->findOrFail($roleId);
         $this->assertRoleAssignable($context, $role);
 

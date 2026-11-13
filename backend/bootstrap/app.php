@@ -3,7 +3,6 @@
 use App\Modules\Identity\Exceptions\AuthenticationFailedException;
 use App\Modules\Identity\Exceptions\ForbiddenException;
 use App\Modules\Identity\Exceptions\ForbiddenTenantException;
-use App\Modules\Identity\Http\Middleware\EnsurePermission;
 use App\Modules\Identity\Http\Middleware\ResolveTenant;
 use App\Modules\Shared\Http\ErrorResponse;
 use Illuminate\Auth\AuthenticationException;
@@ -12,7 +11,7 @@ use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -27,7 +26,6 @@ return Application::configure(basePath: dirname(__DIR__))
 
         $middleware->alias([
             'tenant' => ResolveTenant::class,
-            'permission' => EnsurePermission::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
@@ -84,11 +82,23 @@ return Application::configure(basePath: dirname(__DIR__))
             return ErrorResponse::make('FORBIDDEN', $e->getMessage(), 403);
         });
 
-        $exceptions->render(function (NotFoundHttpException $e, Request $request) {
+        $exceptions->render(function (HttpException $e, Request $request) {
             if (! $request->is('api/*') && ! $request->expectsJson()) {
                 return null;
             }
 
-            return ErrorResponse::make('NOT_FOUND', 'El recurso solicitado no existe.', 404);
+            return match ($e->getStatusCode()) {
+                403 => ErrorResponse::make(
+                    'FORBIDDEN',
+                    'No tiene permiso para realizar esta acción.',
+                    403,
+                ),
+                404 => ErrorResponse::make(
+                    'NOT_FOUND',
+                    'El recurso solicitado no existe.',
+                    404,
+                ),
+                default => null,
+            };
         });
     })->create();

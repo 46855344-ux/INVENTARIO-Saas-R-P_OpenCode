@@ -7,6 +7,8 @@ use App\Modules\Identity\Models\CompanyUser;
 use App\Modules\Identity\Models\Role;
 use App\Modules\Identity\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Route;
 use Tests\TestCase;
 
 class UserManagementTest extends TestCase
@@ -305,6 +307,43 @@ class UserManagementTest extends TestCase
 
         $this->assertTrue($codes->contains('identity.users.view'));
         $this->assertTrue($codes->contains('identity.roles.view'));
+    }
+
+    public function test_an_operator_cannot_list_users(): void
+    {
+        $company = Company::factory()->create();
+        $operator = $this->member($company, ['inventory.view', 'inventory.move']);
+
+        $this->asMember($operator)
+            ->getJson('/api/v1/users')
+            ->assertStatus(403)
+            ->assertJsonPath('error.code', 'FORBIDDEN');
+    }
+
+    public function test_the_permission_gate_enforces_the_costs_permission(): void
+    {
+        Route::middleware(['auth:sanctum', 'tenant'])
+            ->get('/api/v1/__test/costs', function () {
+                return response()->json([
+                    'allowed' => Gate::allows('metrics.costs.view'),
+                ]);
+            });
+
+        $company = Company::factory()->create();
+
+        $allowed = $this->member($company, ['metrics.costs.view']);
+        $this->asMember($allowed)
+            ->getJson('/api/v1/__test/costs')
+            ->assertOk()
+            ->assertJsonPath('allowed', true);
+
+        $this->resetAuthState();
+
+        $denied = $this->member($company, ['inventory.view']);
+        $this->asMember($denied)
+            ->getJson('/api/v1/__test/costs')
+            ->assertOk()
+            ->assertJsonPath('allowed', false);
     }
 
     private function member(Company $company, array $permissions): CompanyUser

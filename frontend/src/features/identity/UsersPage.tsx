@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import type { FormEvent } from 'react';
+import { Can } from '../auth/Can';
 import { useAuth } from '../auth/AuthContext';
 import { resolveApiError } from '../../services/errors';
 import {
@@ -207,7 +208,7 @@ export function UsersPage() {
             Usuarios de {activeCompany?.name ?? 'la empresa activa'}.
           </p>
         </div>
-        {canManage && (
+        <Can permission="identity.users.manage">
           <button
             type="button"
             className="button-primary"
@@ -216,7 +217,7 @@ export function UsersPage() {
           >
             Nuevo usuario
           </button>
-        )}
+        </Can>
       </header>
 
       {actionError && (
@@ -311,7 +312,9 @@ export function UsersPage() {
               <th>Correo</th>
               <th>Rol</th>
               <th>Estado</th>
-              {canManage && <th>Acciones</th>}
+              <Can permission="identity.users.manage">
+                <th>Acciones</th>
+              </Can>
             </tr>
           </thead>
           <tbody>
@@ -325,7 +328,7 @@ export function UsersPage() {
                     {member.status === 'active' ? 'Activo' : 'Inactivo'}
                   </span>
                 </td>
-                {canManage && (
+                <Can permission="identity.users.manage">
                   <td className="users-actions">
                     <button
                       type="button"
@@ -344,7 +347,7 @@ export function UsersPage() {
                       {member.status === 'active' ? 'Desactivar' : 'Activar'}
                     </button>
                   </td>
-                )}
+                </Can>
               </tr>
             ))}
           </tbody>
