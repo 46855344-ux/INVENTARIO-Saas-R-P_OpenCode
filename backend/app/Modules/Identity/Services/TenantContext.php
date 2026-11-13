@@ -25,6 +25,13 @@ final readonly class TenantContext
         public array $permissions,
     ) {}
 
+    public static function current(): ?self
+    {
+        $context = request()->attributes->get(self::class);
+
+        return $context instanceof self ? $context : null;
+    }
+
     public static function fromRequest(Request $request): self
     {
         $context = $request->attributes->get(self::class);
