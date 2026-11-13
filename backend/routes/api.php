@@ -8,6 +8,9 @@ use App\Modules\Identity\Http\Controllers\AuthController;
 use App\Modules\Identity\Http\Controllers\PermissionController;
 use App\Modules\Identity\Http\Controllers\RoleController;
 use App\Modules\Identity\Http\Controllers\UserController;
+use App\Modules\Inventory\Http\Controllers\LocationController;
+use App\Modules\Inventory\Http\Controllers\UnitController;
+use App\Modules\Inventory\Http\Controllers\UnitConversionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -80,6 +83,39 @@ Route::prefix('v1')->group(function () {
             ->middleware('can:catalog.manage');
         Route::patch('/variants/{id}/status', [ProductVariantController::class, 'updateStatus'])
             ->middleware('can:catalog.manage');
+
+        Route::get('/units', [UnitController::class, 'index'])
+            ->middleware('can:settings.view');
+        Route::post('/units', [UnitController::class, 'store'])
+            ->middleware('can:settings.manage');
+        Route::get('/units/{id}', [UnitController::class, 'show'])
+            ->middleware('can:settings.view');
+        Route::put('/units/{id}', [UnitController::class, 'update'])
+            ->middleware('can:settings.manage');
+        Route::patch('/units/{id}/status', [UnitController::class, 'updateStatus'])
+            ->middleware('can:settings.manage');
+
+        Route::get('/conversions', [UnitConversionController::class, 'index'])
+            ->middleware('can:settings.view');
+        Route::post('/conversions', [UnitConversionController::class, 'store'])
+            ->middleware('can:settings.manage');
+        Route::post('/conversions/simulate', [UnitConversionController::class, 'simulate'])
+            ->middleware('can:settings.view');
+        Route::put('/conversions/{id}', [UnitConversionController::class, 'update'])
+            ->middleware('can:settings.manage');
+        Route::patch('/conversions/{id}/status', [UnitConversionController::class, 'updateStatus'])
+            ->middleware('can:settings.manage');
+
+        Route::get('/locations', [LocationController::class, 'index'])
+            ->middleware('can:settings.view');
+        Route::post('/locations', [LocationController::class, 'store'])
+            ->middleware('can:settings.manage');
+        Route::get('/locations/{id}', [LocationController::class, 'show'])
+            ->middleware('can:settings.view');
+        Route::put('/locations/{id}', [LocationController::class, 'update'])
+            ->middleware('can:settings.manage');
+        Route::patch('/locations/{id}/status', [LocationController::class, 'updateStatus'])
+            ->middleware('can:settings.manage');
 
         Route::get('/roles', [RoleController::class, 'index'])
             ->middleware('can:identity.roles.view');

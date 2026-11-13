@@ -4,6 +4,8 @@ use App\Modules\Identity\Exceptions\AuthenticationFailedException;
 use App\Modules\Identity\Exceptions\ForbiddenException;
 use App\Modules\Identity\Exceptions\ForbiddenTenantException;
 use App\Modules\Identity\Http\Middleware\ResolveTenant;
+use App\Modules\Inventory\Exceptions\ConversionNotDefinedException;
+use App\Modules\Inventory\Exceptions\IncompatibleUnitsException;
 use App\Modules\Shared\Http\ErrorResponse;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Application;
@@ -80,6 +82,22 @@ return Application::configure(basePath: dirname(__DIR__))
             }
 
             return ErrorResponse::make('FORBIDDEN', $e->getMessage(), 403);
+        });
+
+        $exceptions->render(function (IncompatibleUnitsException $e, Request $request) {
+            if (! $request->is('api/*') && ! $request->expectsJson()) {
+                return null;
+            }
+
+            return ErrorResponse::make('INCOMPATIBLE_UNITS', $e->getMessage(), 422);
+        });
+
+        $exceptions->render(function (ConversionNotDefinedException $e, Request $request) {
+            if (! $request->is('api/*') && ! $request->expectsJson()) {
+                return null;
+            }
+
+            return ErrorResponse::make('CONVERSION_NOT_DEFINED', $e->getMessage(), 422);
         });
 
         $exceptions->render(function (HttpException $e, Request $request) {

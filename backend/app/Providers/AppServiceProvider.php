@@ -17,6 +17,12 @@ use App\Modules\Identity\Policies\PermissionPolicy;
 use App\Modules\Identity\Policies\RolePolicy;
 use App\Modules\Identity\Policies\UserPolicy;
 use App\Modules\Identity\Services\TenantContext;
+use App\Modules\Inventory\Models\Location;
+use App\Modules\Inventory\Models\Unit;
+use App\Modules\Inventory\Models\UnitConversion;
+use App\Modules\Inventory\Policies\LocationPolicy;
+use App\Modules\Inventory\Policies\UnitConversionPolicy;
+use App\Modules\Inventory\Policies\UnitPolicy;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
@@ -58,5 +64,8 @@ class AppServiceProvider extends ServiceProvider
         Gate::policy(Brand::class, BrandPolicy::class);
         Gate::policy(Product::class, ProductPolicy::class);
         Gate::policy(ProductVariant::class, ProductVariantPolicy::class);
+        Gate::policy(Unit::class, UnitPolicy::class);
+        Gate::policy(UnitConversion::class, UnitConversionPolicy::class);
+        Gate::policy(Location::class, LocationPolicy::class);
     }
 }

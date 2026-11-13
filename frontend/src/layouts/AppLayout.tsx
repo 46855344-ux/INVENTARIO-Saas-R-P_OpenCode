@@ -29,6 +29,11 @@ export function AppLayout() {
               Catálogo
             </NavLink>
           </Can>
+          <Can permission="settings.view">
+            <NavLink to="/settings" className={linkClass}>
+              Configuración
+            </NavLink>
+          </Can>
           <Can permission="identity.users.view">
             <NavLink to="/users" className={linkClass}>
               Usuarios

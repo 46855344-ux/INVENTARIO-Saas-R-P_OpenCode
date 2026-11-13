@@ -120,3 +120,68 @@ export interface ProductVariant {
   created_at?: string;
   updated_at?: string;
 }
+
+export type UnitDimension = 'mass' | 'volume' | 'count' | 'length' | 'time' | 'other';
+
+export interface Unit {
+  id: number;
+  code: string;
+  name: string;
+  dimension: UnitDimension;
+  precision: number;
+  status: CatalogStatus;
+  created_at?: string;
+  updated_at?: string;
+}
+
+export interface UnitSummary {
+  id: number;
+  code: string;
+  name: string;
+  dimension: UnitDimension;
+  precision?: number;
+}
+
+export interface UnitConversion {
+  id: number;
+  from_unit_id: number;
+  to_unit_id: number;
+  factor: string;
+  status: CatalogStatus;
+  from_unit: UnitSummary | null;
+  to_unit: UnitSummary | null;
+  created_at?: string;
+  updated_at?: string;
+}
+
+export interface SimulationResult {
+  from_unit: UnitSummary;
+  to_unit: UnitSummary;
+  quantity: string;
+  factor: string;
+  result: string;
+  rule: string;
+  rounding: string;
+  scale: number;
+}
+
+export type LocationType = 'warehouse' | 'zone' | 'shelf' | 'bin' | 'other';
+
+export interface LocationSummary {
+  id: number;
+  code: string;
+  name: string;
+  type: LocationType;
+}
+
+export interface Location {
+  id: number;
+  code: string;
+  name: string;
+  type: LocationType;
+  parent_id: number | null;
+  status: CatalogStatus;
+  parent: LocationSummary | null;
+  created_at?: string;
+  updated_at?: string;
+}

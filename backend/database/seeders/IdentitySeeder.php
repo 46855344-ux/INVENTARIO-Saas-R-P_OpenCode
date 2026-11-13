@@ -21,6 +21,8 @@ class IdentitySeeder extends Seeder
         'identity.roles.manage' => 'Administrar roles',
         'catalog.view' => 'Ver catálogo',
         'catalog.manage' => 'Administrar catálogo',
+        'settings.view' => 'Ver configuración de inventario',
+        'settings.manage' => 'Administrar configuración de inventario',
         'inventory.view' => 'Ver inventario',
         'inventory.move' => 'Registrar movimientos',
         'inventory.adjust' => 'Ajustar inventario',
@@ -47,6 +49,8 @@ class IdentitySeeder extends Seeder
                 'identity.roles.view',
                 'catalog.view',
                 'catalog.manage',
+                'settings.view',
+                'settings.manage',
                 'inventory.view',
                 'inventory.move',
                 'inventory.adjust',
@@ -58,12 +62,12 @@ class IdentitySeeder extends Seeder
         'operator' => [
             'name' => 'Operador',
             'description' => 'Registro de movimientos de inventario.',
-            'permissions' => ['catalog.view', 'inventory.view', 'inventory.move'],
+            'permissions' => ['catalog.view', 'settings.view', 'inventory.view', 'inventory.move'],
         ],
         'viewer' => [
             'name' => 'Consulta',
             'description' => 'Lectura de inventario.',
-            'permissions' => ['catalog.view', 'inventory.view'],
+            'permissions' => ['catalog.view', 'settings.view', 'inventory.view'],
         ],
     ];
 

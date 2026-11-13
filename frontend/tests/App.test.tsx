@@ -26,6 +26,8 @@ const session = {
       permissions: [
         'catalog.view',
         'catalog.manage',
+        'settings.view',
+        'settings.manage',
         'identity.users.view',
         'identity.users.manage',
         'identity.roles.view',
@@ -35,6 +37,8 @@ const session = {
   permissions: [
     'catalog.view',
     'catalog.manage',
+    'settings.view',
+    'settings.manage',
     'identity.users.view',
     'identity.users.manage',
     'identity.roles.view',
@@ -82,6 +86,7 @@ describe('App', () => {
 
     expect(await screen.findByText('Administrador Demo')).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /catálogo/i })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /configuración/i })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /usuarios/i })).toBeInTheDocument();
   });
 });
