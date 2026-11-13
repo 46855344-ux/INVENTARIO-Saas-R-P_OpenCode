@@ -31,6 +31,11 @@ y el versionado semántico de [SemVer](https://semver.org/lang/es/).
     - `database/diagrams/DER_LOGICO.md`: diagrama entidad-relación lógico y clasificación de tablas.
     - `database/dictionaries/DICCIONARIO_DATOS.md`: diccionario de datos con tipos, claves, índices y matriz de ámbito.
     - `REGISTRO_DECISIONES_SPRINT_0.md` ampliado con la plantilla de cierre (alternativas, fundamento, aprobador, migraciones/API afectadas y enlace ADR).
+  - **Planificación del Sprint 1 (EP-01):**
+    - `DOCUMENTACION/SDD/PLAN_SPRINT_1_IDENTIDAD_MULTIEMPRESA.md`: checklist de entrada, backlog refinado, diseño, contratos API, matriz de permisos y matriz de pruebas.
+    - `DOCUMENTACION/SDD/ADR/ADR-0001_ESTRATEGIA_AUTENTICACION_SPA.md`: propuesta de autenticación SPA.
+    - `DOCUMENTACION/SDD/ADR/ADR-0002_ESTRATEGIA_RESOLUCION_TENANT.md`: propuesta de resolución de la empresa activa.
+    - `DOCUMENTACION/SDD/ADR/ADR-0003_MODELO_PERMISOS.md`: propuesta de roles y permisos.
 
 ### Cambiado
 

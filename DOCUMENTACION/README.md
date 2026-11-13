@@ -49,3 +49,13 @@ Sprint 0:
 | Sprint | Documento de cierre | Estado |
 | --- | --- | --- |
 | 0 | [`README_SPRINT_0.md`](./README_SPRINT_0.md) | Cerrado técnicamente |
+| 1 | [`SDD/PLAN_SPRINT_1_IDENTIDAD_MULTIEMPRESA.md`](./SDD/PLAN_SPRINT_1_IDENTIDAD_MULTIEMPRESA.md) | En planificación (bloqueado por DD-01/DD-04) |
+
+## Planificación del Sprint 1
+
+| Documento | Contenido |
+| --- | --- |
+| [`SDD/PLAN_SPRINT_1_IDENTIDAD_MULTIEMPRESA.md`](./SDD/PLAN_SPRINT_1_IDENTIDAD_MULTIEMPRESA.md) | Plan del Sprint 1: checklist de entrada, backlog refinado, diseño, contratos, permisos y pruebas |
+| [`SDD/ADR/ADR-0001_ESTRATEGIA_AUTENTICACION_SPA.md`](./SDD/ADR/ADR-0001_ESTRATEGIA_AUTENTICACION_SPA.md) | Propuesta: cookie de SPA vs token Bearer |
+| [`SDD/ADR/ADR-0002_ESTRATEGIA_RESOLUCION_TENANT.md`](./SDD/ADR/ADR-0002_ESTRATEGIA_RESOLUCION_TENANT.md) | Propuesta: resolución de la empresa activa |
+| [`SDD/ADR/ADR-0003_MODELO_PERMISOS.md`](./SDD/ADR/ADR-0003_MODELO_PERMISOS.md) | Propuesta: roles, permisos y excepciones |
