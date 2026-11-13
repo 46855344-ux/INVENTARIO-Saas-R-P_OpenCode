@@ -68,6 +68,11 @@ Controles obligatorios:
 | Producto | `products` | `id`, `company_id`, `category_id`, `brand_id`, `name`, `description`, `status` |
 | Variante | `product_variants` | `id`, `company_id`, `product_id`, `sku`, `barcode`, `attributes`, `cost`, `price`, `status` |
 
+> **Implementado (Sprint 2, US-0201):** `categories` y `brands` existen con
+> `company_id`, `status` y unicidad `(company_id, name)`; usan
+> `BelongsToCompany` y el `TenantScope`. `products` y `product_variants` quedan
+> para US-0202/US-0203.
+
 ### 3.3 Unidades y ubicaciones
 
 | Entidad | Tabla | Campos principales |

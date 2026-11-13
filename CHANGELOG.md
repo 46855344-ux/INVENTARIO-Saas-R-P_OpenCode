@@ -63,6 +63,13 @@ y el versionado semántico de [SemVer](https://semver.org/lang/es/).
     - `company_id` asignado desde `TenantContext` al crear e inmutable al actualizar.
     - Helper `belongsToSameCompany` para validar relaciones compuestas.
     - Pruebas de aislamiento con modelo de fixture (lectura, alta, actualización y relación cruzada).
+  - **Sprint 2 — US-0201 (categorías y marcas):**
+    - Migraciones `categories` y `brands` con `company_id`, estado y unicidad por empresa.
+    - Modelos `Category`/`Brand` con `BelongsToCompany`; políticas y `CatalogService`.
+    - Endpoints `/api/v1/categories` y `/api/v1/brands` (listar, crear, ver, editar y estado).
+    - Permisos `catalog.view`/`catalog.manage` en `IdentitySeeder`.
+    - Pantalla React «Catálogo» con pestañas, filtros, alta, edición y desactivación.
+    - Pruebas de API (12) y de frontend para el catálogo.
 
 ### Cambiado
 

@@ -49,7 +49,8 @@ Sprint 0:
 | Sprint | Documento de cierre | Estado |
 | --- | --- | --- |
 | 0 | [`README_SPRINT_0.md`](./README_SPRINT_0.md) | Cerrado técnicamente |
-| 1 | [`SDD/PLAN_SPRINT_1_IDENTIDAD_MULTIEMPRESA.md`](./SDD/PLAN_SPRINT_1_IDENTIDAD_MULTIEMPRESA.md) | En planificación (bloqueado por DD-01/DD-04) |
+| 1 | [`SDD/PLAN_SPRINT_1_IDENTIDAD_MULTIEMPRESA.md`](./SDD/PLAN_SPRINT_1_IDENTIDAD_MULTIEMPRESA.md) | Implementado (US-0101 a US-0104) |
+| 2 | [`SDD/PLAN_SPRINT_2_CATALOGO.md`](./SDD/PLAN_SPRINT_2_CATALOGO.md) | En curso (US-0201 implementada) |
 
 ## Planificación del Sprint 1
 
@@ -59,3 +60,9 @@ Sprint 0:
 | [`SDD/ADR/ADR-0001_ESTRATEGIA_AUTENTICACION_SPA.md`](./SDD/ADR/ADR-0001_ESTRATEGIA_AUTENTICACION_SPA.md) | Propuesta: cookie de SPA vs token Bearer |
 | [`SDD/ADR/ADR-0002_ESTRATEGIA_RESOLUCION_TENANT.md`](./SDD/ADR/ADR-0002_ESTRATEGIA_RESOLUCION_TENANT.md) | Propuesta: resolución de la empresa activa |
 | [`SDD/ADR/ADR-0003_MODELO_PERMISOS.md`](./SDD/ADR/ADR-0003_MODELO_PERMISOS.md) | Propuesta: roles, permisos y excepciones |
+
+## Planificación del Sprint 2
+
+| Documento | Contenido |
+| --- | --- |
+| [`SDD/PLAN_SPRINT_2_CATALOGO.md`](./SDD/PLAN_SPRINT_2_CATALOGO.md) | Catálogo: decisiones, historias US-0201 a US-0203, contratos, diseño y pruebas |

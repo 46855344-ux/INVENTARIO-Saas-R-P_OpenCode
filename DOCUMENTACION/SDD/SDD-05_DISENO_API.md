@@ -43,9 +43,19 @@
 | `PUT` | `/api/v1/users/{id}/role` | `auth:sanctum` + `X-Company-Id` | `identity.users.manage` |
 | `GET` | `/api/v1/roles` | `auth:sanctum` + `X-Company-Id` | `identity.roles.view` |
 | `GET` | `/api/v1/permissions` | `auth:sanctum` + `X-Company-Id` | `identity.roles.view` |
+| `GET` | `/api/v1/categories` | `auth:sanctum` + `X-Company-Id` | `catalog.view` |
+| `POST` | `/api/v1/categories` | `auth:sanctum` + `X-Company-Id` | `catalog.manage` |
+| `GET` | `/api/v1/categories/{id}` | `auth:sanctum` + `X-Company-Id` | `catalog.view` |
+| `PUT` | `/api/v1/categories/{id}` | `auth:sanctum` + `X-Company-Id` | `catalog.manage` |
+| `PATCH` | `/api/v1/categories/{id}/status` | `auth:sanctum` + `X-Company-Id` | `catalog.manage` |
+| `GET` | `/api/v1/brands` | `auth:sanctum` + `X-Company-Id` | `catalog.view` |
+| `POST` | `/api/v1/brands` | `auth:sanctum` + `X-Company-Id` | `catalog.manage` |
+| `GET` | `/api/v1/brands/{id}` | `auth:sanctum` + `X-Company-Id` | `catalog.view` |
+| `PUT` | `/api/v1/brands/{id}` | `auth:sanctum` + `X-Company-Id` | `catalog.manage` |
+| `PATCH` | `/api/v1/brands/{id}/status` | `auth:sanctum` + `X-Company-Id` | `catalog.manage` |
 
-**Propuesto para sprints siguientes:** el resto de recursos de dominio bajo
-`/api/v1` (catálogo, inventario, compras, métricas y auditoría).
+**Propuesto para sprints siguientes:** productos y variantes (US-0202/0203),
+unidades, ubicaciones, inventario, compras, métricas y auditoría.
 
 ## 3. Recursos previstos
 
