@@ -83,6 +83,14 @@ y el versionado semántico de [SemVer](https://semver.org/lang/es/).
     - Endpoints `/api/v1/products/{id}/variants` y `/api/v1/variants/{id}`.
     - UI de variantes por producto con alta, edición y estado.
     - Pruebas de API (10) y de frontend para variantes.
+  - **Sprint 3 — US-0301 a US-0303 (unidades, conversiones y ubicaciones):**
+    - Migraciones `units`, `unit_conversions` y `locations`.
+    - Modelos, validaciones, policies y servicios de configuración.
+    - `UnitConversionService` con factor decimal, inversa automática y redondeo `HALF_UP` a 4 decimales.
+    - Endpoints `/api/v1/units`, `/api/v1/conversions` y `/api/v1/locations`.
+    - Guardia preparada para no desactivar ubicaciones con stock (Sprint 4).
+    - Pantalla React «Configuración» con pestañas, simulador y CRUD.
+    - Pruebas de API (28) y de frontend para configuración.
   - **Documentación de cierre de sprints:**
     - `DOCUMENTACION/README_SPRINT_1.md`: cierre del Sprint 1 (identidad, usuarios, permisos y aislamiento).
     - `DOCUMENTACION/README_SPRINT_2.md`: cierre del Sprint 2 (catálogo de productos y variantes).

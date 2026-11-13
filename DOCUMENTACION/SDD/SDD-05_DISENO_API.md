@@ -63,9 +63,23 @@
 | `GET` | `/api/v1/variants/{id}` | `auth:sanctum` + `X-Company-Id` | `catalog.view` |
 | `PUT` | `/api/v1/variants/{id}` | `auth:sanctum` + `X-Company-Id` | `catalog.manage` |
 | `PATCH` | `/api/v1/variants/{id}/status` | `auth:sanctum` + `X-Company-Id` | `catalog.manage` |
+| `GET` | `/api/v1/units` | `auth:sanctum` + `X-Company-Id` | `settings.view` |
+| `POST` | `/api/v1/units` | `auth:sanctum` + `X-Company-Id` | `settings.manage` |
+| `GET` | `/api/v1/units/{id}` | `auth:sanctum` + `X-Company-Id` | `settings.view` |
+| `PUT` | `/api/v1/units/{id}` | `auth:sanctum` + `X-Company-Id` | `settings.manage` |
+| `PATCH` | `/api/v1/units/{id}/status` | `auth:sanctum` + `X-Company-Id` | `settings.manage` |
+| `GET` | `/api/v1/conversions` | `auth:sanctum` + `X-Company-Id` | `settings.view` |
+| `POST` | `/api/v1/conversions` | `auth:sanctum` + `X-Company-Id` | `settings.manage` |
+| `POST` | `/api/v1/conversions/simulate` | `auth:sanctum` + `X-Company-Id` | `settings.view` |
+| `PUT` | `/api/v1/conversions/{id}` | `auth:sanctum` + `X-Company-Id` | `settings.manage` |
+| `PATCH` | `/api/v1/conversions/{id}/status` | `auth:sanctum` + `X-Company-Id` | `settings.manage` |
+| `GET` | `/api/v1/locations` | `auth:sanctum` + `X-Company-Id` | `settings.view` |
+| `POST` | `/api/v1/locations` | `auth:sanctum` + `X-Company-Id` | `settings.manage` |
+| `GET` | `/api/v1/locations/{id}` | `auth:sanctum` + `X-Company-Id` | `settings.view` |
+| `PUT` | `/api/v1/locations/{id}` | `auth:sanctum` + `X-Company-Id` | `settings.manage` |
+| `PATCH` | `/api/v1/locations/{id}/status` | `auth:sanctum` + `X-Company-Id` | `settings.manage` |
 
-**Propuesto para sprints siguientes:** unidades, ubicaciones, inventario,
-compras, métricas y auditoría.
+**Propuesto para sprints siguientes:** inventario, compras, métricas y auditoría.
 
 ## 3. Recursos previstos
 

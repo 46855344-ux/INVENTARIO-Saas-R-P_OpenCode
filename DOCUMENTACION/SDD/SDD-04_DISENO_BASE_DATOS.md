@@ -81,6 +81,11 @@ Controles obligatorios:
 | Conversión | `unit_conversions` | `id`, `company_id`, `from_unit_id`, `to_unit_id`, `factor` |
 | Ubicación | `locations` | `id`, `company_id`, `name`, `code`, `type`, `parent_id`, `status` |
 
+> **Implementado (Sprint 3, US-0301 a US-0303):** `units`, `unit_conversions` y
+> `locations` existen con `company_id`, estado y unicidad por empresa; usan
+> `BelongsToCompany` y el `TenantScope`. La tabla `stock_balances` y la guardia
+> de desactivación con stock se activan en el Sprint 4.
+
 ### 3.4 Inventario
 
 | Entidad | Tabla | Campos principales |

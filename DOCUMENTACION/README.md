@@ -51,6 +51,7 @@ Sprint 0:
 | 0 | [`README_SPRINT_0.md`](./README_SPRINT_0.md) | Cerrado técnicamente |
 | 1 | [`README_SPRINT_1.md`](./README_SPRINT_1.md) | Cerrado técnicamente |
 | 2 | [`README_SPRINT_2.md`](./README_SPRINT_2.md) | Cerrado técnicamente |
+| 3 | [`SDD/PLAN_SPRINT_3_UNIDADES_UBICACIONES.md`](./SDD/PLAN_SPRINT_3_UNIDADES_UBICACIONES.md) | Implementado (US-0301 a US-0303) |
 
 > Los READMEs de cierre resumen objetivo, entregables, historias, decisiones,
 > evidencias de prueba, DoD, demo y pendientes de cada iteración.
@@ -69,3 +70,9 @@ Sprint 0:
 | Documento | Contenido |
 | --- | --- |
 | [`SDD/PLAN_SPRINT_2_CATALOGO.md`](./SDD/PLAN_SPRINT_2_CATALOGO.md) | Catálogo: decisiones, historias US-0201 a US-0203, contratos, diseño y pruebas |
+
+## Planificación del Sprint 3
+
+| Documento | Contenido |
+| --- | --- |
+| [`SDD/PLAN_SPRINT_3_UNIDADES_UBICACIONES.md`](./SDD/PLAN_SPRINT_3_UNIDADES_UBICACIONES.md) | Unidades, conversiones y ubicaciones: decisiones, historias US-0301 a US-0303, contratos y pruebas |
