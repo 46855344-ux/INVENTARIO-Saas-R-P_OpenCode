@@ -129,18 +129,20 @@ Owner y es requisito para iniciar el Sprint 1 sin retrabajo.
 ## 9. Anexo — avance del Sprint 1 (2026-11-13)
 
 Con las aprobaciones de DD-01, DD-04 y los ADR-0001/0002/0003, se implementaron
-**US-0101 — Iniciar y cerrar sesión** y **US-0102 — Administrar usuarios y asignar roles**.
+**US-0101 — Iniciar y cerrar sesión**, **US-0102 — Administrar usuarios y asignar roles**
+y **US-0103 — Aplicar permisos por módulo y acción**.
 
 | Verificación | Comando | Resultado |
 | --- | --- | --- |
-| Pruebas backend | `php artisan test` | 27 pruebas, 96 aserciones — OK |
+| Pruebas backend | `php artisan test` | 29 pruebas, 102 aserciones — OK |
 | Estilo backend | `vendor/bin/pint --test` | Sin diferencias — OK |
-| Pruebas frontend | `npm run test` | 15 pruebas — OK |
+| Pruebas frontend | `npm run test` | 17 pruebas — OK |
 | Lint frontend | `npm run lint` | Sin errores — OK |
 | Build frontend | `npm run build` | Compilado — OK |
 | Smoke E2E | `npx cypress run` | 1 prueba — OK |
 
 Entregables: autenticación SPA con Sanctum; esquema y API de empresas, usuarios,
-roles y permisos; `TenantContext` con `X-Company-Id`; pantallas React de acceso y
-gestión de usuarios. La validación con Docker y MySQL real sigue pendiente por no
-estar instalados en el equipo.
+roles y permisos; `TenantContext` con `X-Company-Id`; Gates, policies y
+middleware `can:`; pantallas React de acceso y gestión de usuarios con gating por
+permisos. La validación con Docker y MySQL real sigue pendiente por no estar
+instalados en el equipo.

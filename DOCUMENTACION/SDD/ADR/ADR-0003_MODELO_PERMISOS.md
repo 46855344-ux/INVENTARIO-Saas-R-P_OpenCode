@@ -54,8 +54,7 @@ aprobación explícita; su necesidad se reevalúa con casos reales.
 
 ## 6. Estado
 
-Aprobada el **2026-11-13**, junto con DD-04. El modelo de roles, permisos y
-asignación por empresa se implementó en **US-0102** (`IdentitySeeder`,
-`permission_role` y `company_user.role_id`). La aplicación de permisos en todos
-los módulos corresponde a **US-0103**. `user_permission` queda fuera del alcance
-del Sprint 1.
+Aprobada el **2026-11-13**, junto con DD-04. El modelo de roles y permisos se
+implementó en **US-0102** y su aplicación en **US-0103**: `Gate::before` resuelve
+los códigos `modulo.accion`, las policies autorizan recursos y las rutas usan el
+middleware `can:`. `user_permission` queda fuera del alcance del Sprint 1.

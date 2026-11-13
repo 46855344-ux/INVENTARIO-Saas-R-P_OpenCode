@@ -79,6 +79,10 @@
 La SPA envía la cookie de sesión y el token CSRF (`X-XSRF-TOKEN`). El token
 Bearer queda disponible para integraciones futuras (app móvil u otro dominio).
 
+La autorización se resuelve con `Gate` (códigos `modulo.accion`), `Policy` por
+recurso y el middleware `can:` en las rutas. La interfaz solo oculta acciones;
+el backend siempre vuelve a validar.
+
 ```http
 Accept: application/json
 X-Company-Id: 12

@@ -344,9 +344,26 @@ Cada migración se crea **solo tras** aprobar DD-01/DD-04 y contar con MySQL (E-
 - Evidencia: backend 27 pruebas / 96 aserciones OK, Pint OK, frontend 15
   pruebas OK, lint OK, build OK, Cypress 1 prueba OK.
 
+### US-0103 — Aplicar permisos por módulo y acción
+
+**Completado el 2026-11-13.**
+
+- `Gate::before` resuelve cualquier código `modulo.accion` contra los permisos
+  del rol activo en la empresa de la petición.
+- Policies `UserPolicy`, `RolePolicy` y `PermissionPolicy` para autorizar
+  recursos y pertenencia al tenant.
+- Rutas protegidas con el middleware `can:` y controladores con
+  `$this->authorize(...)` como segunda barrera.
+- Errores de autorización normalizados a `403 FORBIDDEN`; recurso de otra
+  empresa → `404 NOT_FOUND`.
+- Componente React `Can` para ocultar navegación y acciones sin permiso, sin
+  sustituir la validación del servidor.
+- Pruebas positivas y negativas por rol, incluida la verificación del permiso
+  `metrics.costs.view` (T-06 a nivel de Gate).
+
 ### Pendiente
 
-US-0103 (aplicación de permisos en todos los módulos) y US-0104 (aislamiento
-global con `TenantScope` para modelos de dominio). T-06 (costos y márgenes)
-queda para el sprint de métricas. La validación contra MySQL real requiere
-Docker o MySQL instalado (E-07).
+US-0104 (aislamiento global con `TenantScope` para modelos de dominio). El
+endpoint de métricas/costos se implementará en el sprint de métricas; el permiso
+`metrics.costs.view` ya se aplica en el Gate. La validación contra MySQL real
+requiere Docker o MySQL instalado (E-07).

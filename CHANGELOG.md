@@ -52,6 +52,12 @@ y el versionado semántico de [SemVer](https://semver.org/lang/es/).
     - Reglas de ámbito: recurso de otra empresa → 404, rol ajeno → 422, escalada de privilegios → 403.
     - Pantalla React de usuarios con filtros, paginación, alta, edición, estado y asignación de rol.
     - Pruebas de identidad (15) y del servicio frontend (6); smoke Cypress ajustado a 15 s.
+  - **Sprint 1 — US-0103 (permisos por módulo y acción):**
+    - `Gate::before` para resolver códigos `modulo.accion` y policies por recurso (`UserPolicy`, `RolePolicy`, `PermissionPolicy`).
+    - Rutas con middleware `can:` y controladores con `$this->authorize(...)`.
+    - Errores 403/404 unificados con el contrato de error.
+    - Componente React `Can` y gating de navegación y acciones de usuarios.
+    - Pruebas de autorización positivas/negativas y del permiso `metrics.costs.view` (T-06 a nivel de Gate).
 
 ### Cambiado
 
