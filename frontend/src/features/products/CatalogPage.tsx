@@ -12,6 +12,7 @@ import {
 } from '../../services/catalog';
 import { CatalogSection } from './CatalogSection';
 import type { CatalogResource } from './CatalogSection';
+import { ProductsSection } from './ProductsSection';
 
 const categoryResource: CatalogResource = {
   title: 'Categorías',
@@ -31,7 +32,7 @@ const brandResource: CatalogResource = {
   changeStatus: updateBrandStatus,
 };
 
-type CatalogTab = 'categories' | 'brands';
+type CatalogTab = 'categories' | 'brands' | 'products';
 
 export function CatalogPage() {
   const { activeCompany, hasPermission } = useAuth();
@@ -74,13 +75,22 @@ export function CatalogPage() {
         >
           Marcas
         </button>
+        <button
+          type="button"
+          className={tab === 'products' ? 'catalog-tab is-active' : 'catalog-tab'}
+          onClick={() => setTab('products')}
+        >
+          Productos
+        </button>
       </nav>
 
-      {tab === 'categories' ? (
+      {tab === 'categories' && (
         <CatalogSection resource={categoryResource} canManage={canManage} />
-      ) : (
+      )}
+      {tab === 'brands' && (
         <CatalogSection resource={brandResource} canManage={canManage} />
       )}
+      {tab === 'products' && <ProductsSection canManage={canManage} />}
     </section>
   );
 }

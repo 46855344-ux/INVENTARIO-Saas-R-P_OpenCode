@@ -14,11 +14,15 @@ vi.mock('../src/services/api', () => ({
 import {
   createBrand,
   createCategory,
+  createProduct,
   listBrands,
   listCategories,
+  listProducts,
   updateBrandStatus,
   updateCategory,
   updateCategoryStatus,
+  updateProduct,
+  updateProductStatus,
 } from '../src/services/catalog';
 
 const item = { id: 1, name: 'Bebidas', status: 'active' as const };
@@ -72,5 +76,57 @@ describe('catalog service', () => {
     await updateBrandStatus(2, 'inactive');
 
     expect(patch).toHaveBeenCalledWith('/v1/brands/2/status', { status: 'inactive' });
+  });
+
+  it('lista y crea productos con sus filtros', async () => {
+    await listProducts({
+      page: 1,
+      per_page: 10,
+      search: 'café',
+      status: 'active',
+      category_id: 3,
+      brand_id: 4,
+    });
+    await createProduct({
+      name: 'Café',
+      description: '500 g',
+      category_id: 3,
+      brand_id: 4,
+    });
+
+    expect(get).toHaveBeenCalledWith('/v1/products', {
+      params: {
+        page: 1,
+        per_page: 10,
+        search: 'café',
+        status: 'active',
+        category_id: 3,
+        brand_id: 4,
+      },
+    });
+    expect(post).toHaveBeenCalledWith('/v1/products', {
+      name: 'Café',
+      description: '500 g',
+      category_id: 3,
+      brand_id: 4,
+    });
+  });
+
+  it('actualiza y cambia el estado de un producto', async () => {
+    await updateProduct(9, {
+      name: 'Café',
+      description: '',
+      category_id: null,
+      brand_id: null,
+    });
+    await updateProductStatus(9, 'inactive');
+
+    expect(put).toHaveBeenCalledWith('/v1/products/9', {
+      name: 'Café',
+      description: '',
+      category_id: null,
+      brand_id: null,
+    });
+    expect(patch).toHaveBeenCalledWith('/v1/products/9/status', { status: 'inactive' });
   });
 });

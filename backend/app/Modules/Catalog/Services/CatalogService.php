@@ -4,12 +4,15 @@ namespace App\Modules\Catalog\Services;
 
 use App\Modules\Catalog\Models\Brand;
 use App\Modules\Catalog\Models\Category;
+use App\Modules\Catalog\Models\Product;
 use App\Modules\Identity\Services\TenantContext;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Arr;
+use Illuminate\Validation\ValidationException;
 
 /**
- * Reglas del catálogo: categorías y marcas acotadas a la empresa activa.
+ * Reglas del catálogo: categorías, marcas y productos acotados a la empresa activa.
  */
 class CatalogService
 {
@@ -133,5 +136,118 @@ class CatalogService
         $brand->update(['status' => $status]);
 
         return $brand->fresh();
+    }
+
+    /**
+     * @param  array{search?: string|null, status?: string|null, category_id?: int|null, brand_id?: int|null, per_page?: int|null}  $filters
+     */
+    public function paginateProducts(TenantContext $context, array $filters): LengthAwarePaginator
+    {
+        $search = $filters['search'] ?? null;
+
+        return Product::query()
+            ->with(['category', 'brand'])
+            ->where('company_id', $context->company->id)
+            ->when($search !== null && $search !== '', function ($query) use ($search): void {
+                $query->where(function ($nested) use ($search): void {
+                    $nested->where('name', 'like', "%{$search}%")
+                        ->orWhere('description', 'like', "%{$search}%");
+                });
+            })
+            ->when(isset($filters['status']), fn ($query) => $query->where('status', $filters['status']))
+            ->when(isset($filters['category_id']), fn ($query) => $query->where('category_id', $filters['category_id']))
+            ->when(isset($filters['brand_id']), fn ($query) => $query->where('brand_id', $filters['brand_id']))
+            ->orderBy('name')
+            ->paginate($filters['per_page'] ?? 20)
+            ->withQueryString();
+    }
+
+    /**
+     * @param  array{name: string, description?: string|null, category_id?: int|null, brand_id?: int|null}  $data
+     */
+    public function createProduct(TenantContext $context, array $data): Product
+    {
+        $this->assertProductReferences($context, $data);
+
+        $product = Product::query()->create([
+            'company_id' => $context->company->id,
+            'category_id' => $data['category_id'] ?? null,
+            'brand_id' => $data['brand_id'] ?? null,
+            'name' => $data['name'],
+            'description' => $data['description'] ?? null,
+            'status' => Product::STATUS_ACTIVE,
+        ]);
+
+        return $product->load(['category', 'brand']);
+    }
+
+    public function findProduct(TenantContext $context, int $productId): Product
+    {
+        $product = Product::query()
+            ->with(['category', 'brand'])
+            ->where('company_id', $context->company->id)
+            ->whereKey($productId)
+            ->first();
+
+        if ($product === null) {
+            throw (new ModelNotFoundException)->setModel(Product::class, [$productId]);
+        }
+
+        return $product;
+    }
+
+    /**
+     * @param  array{name?: string, description?: string|null, category_id?: int|null, brand_id?: int|null}  $data
+     */
+    public function updateProduct(TenantContext $context, Product $product, array $data): Product
+    {
+        $this->assertProductReferences($context, $data);
+
+        $attributes = Arr::only($data, ['name', 'description', 'category_id', 'brand_id']);
+
+        if ($attributes !== []) {
+            $product->update($attributes);
+        }
+
+        return $product->fresh(['category', 'brand']);
+    }
+
+    public function changeProductStatus(Product $product, string $status): Product
+    {
+        $product->update(['status' => $status]);
+
+        return $product->fresh(['category', 'brand']);
+    }
+
+    /**
+     * @param  array{category_id?: int|null, brand_id?: int|null}  $data
+     */
+    private function assertProductReferences(TenantContext $context, array $data): void
+    {
+        if (array_key_exists('category_id', $data) && $data['category_id'] !== null) {
+            $exists = Category::query()
+                ->where('company_id', $context->company->id)
+                ->whereKey($data['category_id'])
+                ->exists();
+
+            if (! $exists) {
+                throw ValidationException::withMessages([
+                    'category_id' => ['La categoría no pertenece a la empresa activa.'],
+                ]);
+            }
+        }
+
+        if (array_key_exists('brand_id', $data) && $data['brand_id'] !== null) {
+            $exists = Brand::query()
+                ->where('company_id', $context->company->id)
+                ->whereKey($data['brand_id'])
+                ->exists();
+
+            if (! $exists) {
+                throw ValidationException::withMessages([
+                    'brand_id' => ['La marca no pertenece a la empresa activa.'],
+                ]);
+            }
+        }
     }
 }

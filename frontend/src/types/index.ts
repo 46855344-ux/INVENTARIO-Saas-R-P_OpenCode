@@ -86,3 +86,22 @@ export interface CatalogItem {
   created_at?: string;
   updated_at?: string;
 }
+
+export interface CatalogReference {
+  id: number;
+  name: string;
+}
+
+/** Producto del catálogo. */
+export interface Product {
+  id: number;
+  name: string;
+  description: string | null;
+  status: CatalogStatus;
+  category_id: number | null;
+  brand_id: number | null;
+  category: CatalogReference | null;
+  brand: CatalogReference | null;
+  created_at?: string;
+  updated_at?: string;
+}

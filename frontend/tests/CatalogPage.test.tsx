@@ -5,20 +5,25 @@ import { AuthContext } from '../src/features/auth/AuthContext';
 import type { AuthContextValue } from '../src/features/auth/AuthContext';
 import { CatalogPage } from '../src/features/products/CatalogPage';
 
-const { listCategories, listBrands } = vi.hoisted(() => ({
+const { listCategories, listBrands, listProducts } = vi.hoisted(() => ({
   listCategories: vi.fn(),
   listBrands: vi.fn(),
+  listProducts: vi.fn(),
 }));
 
 vi.mock('../src/services/catalog', () => ({
   listCategories,
   listBrands,
+  listProducts,
   createCategory: vi.fn(),
   updateCategory: vi.fn(),
   updateCategoryStatus: vi.fn(),
   createBrand: vi.fn(),
   updateBrand: vi.fn(),
   updateBrandStatus: vi.fn(),
+  createProduct: vi.fn(),
+  updateProduct: vi.fn(),
+  updateProductStatus: vi.fn(),
 }));
 
 function authValue(permissions: string[]): AuthContextValue {
@@ -56,6 +61,10 @@ describe('CatalogPage', () => {
     listBrands.mockReset().mockResolvedValue({
       data: [{ id: 2, name: 'Marca X', status: 'active' }],
       meta: { current_page: 1, last_page: 1, per_page: 10, total: 1 },
+    });
+    listProducts.mockReset().mockResolvedValue({
+      data: [],
+      meta: { current_page: 1, last_page: 1, per_page: 10, total: 0 },
     });
   });
 
@@ -125,5 +134,35 @@ describe('CatalogPage', () => {
 
     expect(await screen.findByText('Marca X')).toBeInTheDocument();
     expect(listBrands).toHaveBeenCalledWith({ page: 1, per_page: 10 });
+  });
+
+  it('muestra los productos en su pestaña', async () => {
+    listProducts.mockResolvedValue({
+      data: [
+        {
+          id: 5,
+          name: 'Café molido',
+          description: null,
+          status: 'active',
+          category_id: null,
+          brand_id: null,
+          category: null,
+          brand: null,
+        },
+      ],
+      meta: { current_page: 1, last_page: 1, per_page: 10, total: 1 },
+    });
+
+    render(
+      <AuthContext.Provider value={authValue(['catalog.view'])}>
+        <CatalogPage />
+      </AuthContext.Provider>,
+    );
+
+    await screen.findByText('Bebidas');
+    await userEvent.click(screen.getByRole('button', { name: 'Productos' }));
+
+    expect(await screen.findByText('Café molido')).toBeInTheDocument();
+    expect(listProducts).toHaveBeenCalledWith({ page: 1, per_page: 10 });
   });
 });

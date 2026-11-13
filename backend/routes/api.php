@@ -2,6 +2,7 @@
 
 use App\Modules\Catalog\Http\Controllers\BrandController;
 use App\Modules\Catalog\Http\Controllers\CategoryController;
+use App\Modules\Catalog\Http\Controllers\ProductController;
 use App\Modules\Identity\Http\Controllers\AuthController;
 use App\Modules\Identity\Http\Controllers\PermissionController;
 use App\Modules\Identity\Http\Controllers\RoleController;
@@ -55,6 +56,17 @@ Route::prefix('v1')->group(function () {
         Route::put('/brands/{id}', [BrandController::class, 'update'])
             ->middleware('can:catalog.manage');
         Route::patch('/brands/{id}/status', [BrandController::class, 'updateStatus'])
+            ->middleware('can:catalog.manage');
+
+        Route::get('/products', [ProductController::class, 'index'])
+            ->middleware('can:catalog.view');
+        Route::post('/products', [ProductController::class, 'store'])
+            ->middleware('can:catalog.manage');
+        Route::get('/products/{id}', [ProductController::class, 'show'])
+            ->middleware('can:catalog.view');
+        Route::put('/products/{id}', [ProductController::class, 'update'])
+            ->middleware('can:catalog.manage');
+        Route::patch('/products/{id}/status', [ProductController::class, 'updateStatus'])
             ->middleware('can:catalog.manage');
 
         Route::get('/roles', [RoleController::class, 'index'])

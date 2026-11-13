@@ -4,8 +4,10 @@ namespace App\Providers;
 
 use App\Modules\Catalog\Models\Brand;
 use App\Modules\Catalog\Models\Category;
+use App\Modules\Catalog\Models\Product;
 use App\Modules\Catalog\Policies\BrandPolicy;
 use App\Modules\Catalog\Policies\CategoryPolicy;
+use App\Modules\Catalog\Policies\ProductPolicy;
 use App\Modules\Identity\Models\CompanyUser;
 use App\Modules\Identity\Models\Permission;
 use App\Modules\Identity\Models\Role;
@@ -52,5 +54,6 @@ class AppServiceProvider extends ServiceProvider
         Gate::policy(Permission::class, PermissionPolicy::class);
         Gate::policy(Category::class, CategoryPolicy::class);
         Gate::policy(Brand::class, BrandPolicy::class);
+        Gate::policy(Product::class, ProductPolicy::class);
     }
 }
