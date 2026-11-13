@@ -19,3 +19,24 @@ export interface Paginated<T> {
 }
 
 export type CompanyId = number;
+
+/** Usuario autenticado (contrato de `GET /api/v1/auth/me`). */
+export interface AuthUser {
+  id: number;
+  name: string;
+  email: string;
+}
+
+/** Empresa a la que pertenece el usuario y que puede activar en la sesión. */
+export interface Company {
+  id: number;
+  name: string;
+  slug: string;
+}
+
+/** Perfil de sesión devuelto por login y `me`. */
+export interface AuthSession {
+  user: AuthUser;
+  companies: Company[];
+  permissions: string[];
+}

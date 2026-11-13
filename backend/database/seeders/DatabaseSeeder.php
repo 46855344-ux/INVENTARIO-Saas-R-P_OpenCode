@@ -2,7 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
+use App\Modules\Identity\Models\Company;
+use App\Modules\Identity\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -12,14 +13,34 @@ class DatabaseSeeder extends Seeder
 
     /**
      * Seed the application's database.
+     *
+     * Datos de demostración de US-0101: dos empresas y dos usuarios.
+     * El administrador pertenece a ambas empresas; el operador, solo a la principal.
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        $main = Company::factory()->create([
+            'name' => 'Empresa Demo',
+            'slug' => 'empresa-demo',
         ]);
+
+        $branch = Company::factory()->create([
+            'name' => 'Empresa Sucursal',
+            'slug' => 'empresa-sucursal',
+        ]);
+
+        $admin = User::factory()->create([
+            'name' => 'Administrador Demo',
+            'email' => 'admin@empresa-demo.test',
+        ]);
+
+        $admin->companies()->attach([$main->id, $branch->id], ['status' => 'active']);
+
+        $operator = User::factory()->create([
+            'name' => 'Operador Demo',
+            'email' => 'operador@empresa-demo.test',
+        ]);
+
+        $operator->companies()->attach($main->id, ['status' => 'active']);
     }
 }

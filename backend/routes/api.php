@@ -1,5 +1,6 @@
 <?php
 
+use App\Modules\Identity\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,6 +18,17 @@ Route::get('/health', function () {
         'service' => config('app.name'),
         'time' => now()->toIso8601String(),
     ]);
+});
+
+Route::prefix('v1')->group(function () {
+    Route::prefix('auth')->group(function () {
+        Route::post('/login', [AuthController::class, 'login']);
+
+        Route::middleware('auth:sanctum')->group(function () {
+            Route::post('/logout', [AuthController::class, 'logout']);
+            Route::get('/me', [AuthController::class, 'me']);
+        });
+    });
 });
 
 Route::get('/user', function (Request $request) {

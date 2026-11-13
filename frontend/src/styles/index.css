@@ -109,3 +109,108 @@ a {
     padding: 1.5rem;
   }
 }
+
+.app-nav {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.app-user {
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.button-primary,
+.button-link {
+  font: inherit;
+  cursor: pointer;
+}
+
+.button-link {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--color-brand);
+  text-decoration: underline;
+}
+
+.button-primary {
+  padding: 0.7rem 1.25rem;
+  border: 0;
+  border-radius: 8px;
+  background-color: var(--color-brand);
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.button-primary:disabled {
+  cursor: progress;
+  opacity: 0.7;
+}
+
+.auth-page {
+  display: flex;
+  justify-content: center;
+  padding: 3rem 1.5rem;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 420px;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 2.5rem;
+}
+
+.auth-card h1 {
+  margin: 0;
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  line-height: 1.2;
+}
+
+.auth-form {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.field {
+  display: grid;
+  gap: 0.35rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.field input {
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  font: inherit;
+  font-weight: 400;
+}
+
+.field input:focus {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 1px;
+}
+
+.form-error {
+  margin: 1rem 0 0;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  background-color: #fef2f2;
+  color: #b91c1c;
+  font-size: 0.875rem;
+}
+
+.auth-hint {
+  margin: 1.5rem 0 0;
+  font-size: 0.8125rem;
+  color: var(--color-muted);
+}
+
+.loading {
+  color: var(--color-muted);
+}
