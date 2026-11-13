@@ -41,6 +41,11 @@ Controles obligatorios:
 > El identificador interno es `company_id`; la interfaz muestra «Empresa».
 > Ver glosario en `Reglas/ESTANDAR.md`, Anexo A.
 
+> **Implementación (US-0104):** `App\Modules\Shared\Tenancy\BelongsToCompany`
+> aplica el `TenantScope`, asigna `company_id` desde el contexto e impide mover
+> registros entre empresas. Las pruebas de aislamiento usan un modelo de fixture
+> hasta que el Sprint 2 introduzca los modelos de dominio.
+
 ## 3. Entidades del modelo lógico
 
 ### 3.1 Identidad y acceso

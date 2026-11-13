@@ -58,6 +58,11 @@ y el versionado semántico de [SemVer](https://semver.org/lang/es/).
     - Errores 403/404 unificados con el contrato de error.
     - Componente React `Can` y gating de navegación y acciones de usuarios.
     - Pruebas de autorización positivas/negativas y del permiso `metrics.costs.view` (T-06 a nivel de Gate).
+  - **Sprint 1 — US-0104 (aislamiento por empresa):**
+    - Trait `BelongsToCompany` y `TenantScope` global para modelos de dominio.
+    - `company_id` asignado desde `TenantContext` al crear e inmutable al actualizar.
+    - Helper `belongsToSameCompany` para validar relaciones compuestas.
+    - Pruebas de aislamiento con modelo de fixture (lectura, alta, actualización y relación cruzada).
 
 ### Cambiado
 

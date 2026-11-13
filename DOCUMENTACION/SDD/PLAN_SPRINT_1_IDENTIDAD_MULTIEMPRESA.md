@@ -279,7 +279,7 @@ Cada migración se crea **solo tras** aprobar DD-01/DD-04 y contar con MySQL (E-
 
 ## 12. Definition of Done del sprint
 
-- [ ] US-0101 a US-0104 cumplen sus criterios de aceptación.
+- [x] US-0101 a US-0104 cumplen sus criterios de aceptación.
 - [ ] Migraciones, relaciones, índices y restricciones implementados y revisados.
 - [ ] Las reglas residen en Laravel; React no duplica autorización.
 - [ ] Validaciones y autorizaciones de backend activas.
@@ -361,9 +361,23 @@ Cada migración se crea **solo tras** aprobar DD-01/DD-04 y contar con MySQL (E-
 - Pruebas positivas y negativas por rol, incluida la verificación del permiso
   `metrics.costs.view` (T-06 a nivel de Gate).
 
+### US-0104 — Aislar datos por empresa
+
+**Completado el 2026-11-13.**
+
+- Trait `BelongsToCompany` y `TenantScope` global para modelos de dominio.
+- `company_id` se asigna desde `TenantContext` al crear e ignora el valor del
+  payload; al actualizar se restaura el original (no se puede mover un registro
+  entre empresas).
+- Helper `belongsToSameCompany` para validar relaciones compuestas.
+- Pruebas de aislamiento con modelo de fixture: lectura filtrada, alta con
+  `company_id` del contexto, inmutabilidad y detección de registros cruzados.
+- Evidencia: backend 33 pruebas / 113 aserciones OK, Pint OK.
+
 ### Pendiente
 
-US-0104 (aislamiento global con `TenantScope` para modelos de dominio). El
-endpoint de métricas/costos se implementará en el sprint de métricas; el permiso
-`metrics.costs.view` ya se aplica en el Gate. La validación contra MySQL real
-requiere Docker o MySQL instalado (E-07).
+- Endpoint de métricas/costos (el permiso `metrics.costs.view` ya se aplica en
+  el Gate; T-06 queda cubierto a nivel de autorización).
+- Validación contra MySQL real y `docker compose` (E-07).
+- Sprint 2: catálogo de productos, donde los modelos de dominio adoptarán
+  `BelongsToCompany` y `TenantScope`.

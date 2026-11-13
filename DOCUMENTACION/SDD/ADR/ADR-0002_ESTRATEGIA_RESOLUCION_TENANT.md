@@ -49,12 +49,11 @@ Reglas obligatorias:
 - [x] El Líder técnico aprueba la alternativa A.
 - [x] Se documenta el contrato de `GET /api/v1/companies` y la cabecera.
 - [x] El `TenantContext` está implementado (US-0102).
-- [ ] El `TenantScope` global de modelos de dominio está implementado (US-0104).
-- [x] Las pruebas de aislamiento de identidad (T-08, T-09) están implementadas; las de modelos de dominio quedan para US-0104.
+- [x] El `TenantScope` global de modelos de dominio está implementado (US-0104).
+- [x] Las pruebas de aislamiento (T-08, T-09) están implementadas para identidad y para el modelo de tenancy.
 
 ## 6. Estado
 
-Aprobada el **2026-11-13**. El `TenantContext` y el middleware `tenant` se
-implementaron en **US-0102** para las rutas de identidad; el `TenantScope` global
-y las pruebas de aislamiento de los modelos de dominio se completarán en
-**US-0104**.
+Aprobada el **2026-11-13**. El `TenantContext`, el middleware `tenant`, el trait
+`BelongsToCompany` y el `TenantScope` global están implementados. US-0102 cubrió
+la resolución de la empresa y US-0104 el aislamiento de los modelos de dominio.
