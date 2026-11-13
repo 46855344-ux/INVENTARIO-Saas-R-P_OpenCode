@@ -77,6 +77,12 @@ y el versionado semántico de [SemVer](https://semver.org/lang/es/).
     - Validación de categoría/marca de la misma empresa.
     - Pestaña React «Productos» con filtros, formulario y desactivación.
     - Pruebas de API (10) y de frontend para productos.
+  - **Sprint 2 — US-0203 (variantes y códigos):**
+    - Migración `product_variants` con SKU y código de barras únicos por empresa.
+    - Modelo, resource, policy y métodos de `CatalogService`.
+    - Endpoints `/api/v1/products/{id}/variants` y `/api/v1/variants/{id}`.
+    - UI de variantes por producto con alta, edición y estado.
+    - Pruebas de API (10) y de frontend para variantes.
 
 ### Cambiado
 

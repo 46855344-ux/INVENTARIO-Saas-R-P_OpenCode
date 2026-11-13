@@ -64,9 +64,10 @@ por historial se activará al incorporar movimientos (Sprint 4).
 - Los códigos no se duplican dentro de la empresa.
 - La variante queda disponible para las operaciones de inventario.
 
-**Planificado:** `product_variants` (`company_id`, `product_id`, `sku`,
-`barcode`, `attributes`, `cost`, `price`, `status`) con `sku` único por
-empresa y `barcode` único nullable. Si se requieren múltiples códigos por
+**Implementado:** `product_variants` (`company_id`, `product_id`, `name`, `sku`,
+`barcode`, `attributes`, `cost`, `price`, `status`) con `sku` único por empresa
+y `barcode` único nullable. Endpoints de variantes anidados al producto y una
+pantalla de variantes dentro del catálogo. Si se requieren múltiples códigos por
 variante, se añadirá `product_variant_codes` en una decisión posterior.
 
 ## 4. Diseño técnico (US-0201)
@@ -149,4 +150,12 @@ carga, error y vacío; pruebas de API y UI; documentación actualizada.
 - Validación de que categoría y marca pertenecen a la empresa activa.
 - Endpoints `/api/v1/products` (listar, crear, ver, editar y estado).
 - Pantalla React con pestaña «Productos», filtros, formulario y desactivación.
+- Pruebas de API y de frontend.
+
+**US-0203 — completada el 2026-11-13.**
+
+- Migración `product_variants` con SKU y código de barras únicos por empresa.
+- Modelo `ProductVariant`, resource, policy y métodos en `CatalogService`.
+- Endpoints `/api/v1/products/{id}/variants` y `/api/v1/variants/{id}`.
+- Pantalla React de variantes por producto, con alta, edición y estado.
 - Pruebas de API y de frontend.

@@ -68,10 +68,10 @@ Controles obligatorios:
 | Producto | `products` | `id`, `company_id`, `category_id`, `brand_id`, `name`, `description`, `status` |
 | Variante | `product_variants` | `id`, `company_id`, `product_id`, `sku`, `barcode`, `attributes`, `cost`, `price`, `status` |
 
-> **Implementado (Sprint 2, US-0201/US-0202):** `categories`, `brands` y
-> `products` existen con `company_id`, `status` y unicidad `(company_id, name)`;
-> usan `BelongsToCompany` y el `TenantScope`. `product_variants` queda para
-> US-0203.
+> **Implementado (Sprint 2, US-0201 a US-0203):** `categories`, `brands`,
+> `products` y `product_variants` existen con `company_id`, estado y unicidad
+> por empresa; usan `BelongsToCompany` y el `TenantScope`. El catálogo queda
+> listo para enlazarse con unidades/almacenes (Sprint 3) e inventario (Sprint 4).
 
 ### 3.3 Unidades y ubicaciones
 

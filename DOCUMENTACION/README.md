@@ -50,7 +50,7 @@ Sprint 0:
 | --- | --- | --- |
 | 0 | [`README_SPRINT_0.md`](./README_SPRINT_0.md) | Cerrado técnicamente |
 | 1 | [`SDD/PLAN_SPRINT_1_IDENTIDAD_MULTIEMPRESA.md`](./SDD/PLAN_SPRINT_1_IDENTIDAD_MULTIEMPRESA.md) | Implementado (US-0101 a US-0104) |
-| 2 | [`SDD/PLAN_SPRINT_2_CATALOGO.md`](./SDD/PLAN_SPRINT_2_CATALOGO.md) | En curso (US-0201 y US-0202 implementadas) |
+| 2 | [`SDD/PLAN_SPRINT_2_CATALOGO.md`](./SDD/PLAN_SPRINT_2_CATALOGO.md) | Implementado (US-0201 a US-0203) |
 
 ## Planificación del Sprint 1
 
