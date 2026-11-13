@@ -11,7 +11,7 @@ async function ensureCsrfCookie(): Promise<void> {
 export async function login(email: string, password: string): Promise<AuthSession> {
   await ensureCsrfCookie();
 
-  const { data } = await api.post<{ data: AuthSession }>('/auth/login', {
+  const { data } = await api.post<{ data: AuthSession }>('/v1/auth/login', {
     email,
     password,
   });
@@ -20,11 +20,11 @@ export async function login(email: string, password: string): Promise<AuthSessio
 }
 
 export async function logout(): Promise<void> {
-  await api.post('/auth/logout');
+  await api.post('/v1/auth/logout');
 }
 
 export async function me(): Promise<AuthSession> {
-  const { data } = await api.get<{ data: AuthSession }>('/auth/me');
+  const { data } = await api.get<{ data: AuthSession }>('/v1/auth/me');
 
   return data.data;
 }

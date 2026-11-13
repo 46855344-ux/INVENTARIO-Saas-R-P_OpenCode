@@ -10,11 +10,11 @@ const modules = [
 export function HomePage() {
   return (
     <section className="home">
-      <p className="eyebrow">Sprint 0 · Fundación técnica</p>
+      <p className="eyebrow">Sprint 1 · Identidad y multiempresa</p>
       <h1>SAAS Inversiones R&amp;P</h1>
       <p className="lead">
-        Sistema de gestión de inventario y almacén. Esta es la base del proyecto:
-        frontend React, API Laravel y MySQL.
+        Sistema de gestión de inventario y almacén. Sesión iniciada con
+        autenticación SPA (React + Laravel Sanctum).
       </p>
 
       <h2>Módulos previstos</h2>
