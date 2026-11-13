@@ -49,8 +49,11 @@ Sprint 0:
 | Sprint | Documento de cierre | Estado |
 | --- | --- | --- |
 | 0 | [`README_SPRINT_0.md`](./README_SPRINT_0.md) | Cerrado técnicamente |
-| 1 | [`SDD/PLAN_SPRINT_1_IDENTIDAD_MULTIEMPRESA.md`](./SDD/PLAN_SPRINT_1_IDENTIDAD_MULTIEMPRESA.md) | Implementado (US-0101 a US-0104) |
-| 2 | [`SDD/PLAN_SPRINT_2_CATALOGO.md`](./SDD/PLAN_SPRINT_2_CATALOGO.md) | Implementado (US-0201 a US-0203) |
+| 1 | [`README_SPRINT_1.md`](./README_SPRINT_1.md) | Cerrado técnicamente |
+| 2 | [`README_SPRINT_2.md`](./README_SPRINT_2.md) | Cerrado técnicamente |
+
+> Los READMEs de cierre resumen objetivo, entregables, historias, decisiones,
+> evidencias de prueba, DoD, demo y pendientes de cada iteración.
 
 ## Planificación del Sprint 1
 

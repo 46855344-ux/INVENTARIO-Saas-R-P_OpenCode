@@ -83,6 +83,9 @@ y el versionado semántico de [SemVer](https://semver.org/lang/es/).
     - Endpoints `/api/v1/products/{id}/variants` y `/api/v1/variants/{id}`.
     - UI de variantes por producto con alta, edición y estado.
     - Pruebas de API (10) y de frontend para variantes.
+  - **Documentación de cierre de sprints:**
+    - `DOCUMENTACION/README_SPRINT_1.md`: cierre del Sprint 1 (identidad, usuarios, permisos y aislamiento).
+    - `DOCUMENTACION/README_SPRINT_2.md`: cierre del Sprint 2 (catálogo de productos y variantes).
 
 ### Cambiado
 
