@@ -3,6 +3,7 @@
 **Proyecto:** SaaS Inversiones R&P
 **Versión:** 1.0 — Sprint 0
 **Fecha:** 2026-11-12
+**Última re-verificación:** 2026-11-13 (backend, frontend, build, Cypress y ausencia de secretos)
 **Responsable:** Equipo de desarrollo
 
 ---
@@ -31,8 +32,8 @@ El Sprint 0 no incluye pruebas funcionales de módulos de negocio.
 | TC-S0-01 | `GET /api/health` responde | Integración | HTTP 200, `status=ok`, nombre del servicio |
 | TC-S0-02 | La aplicación Laravel responde | Integración | HTTP 200 |
 | TC-S0-03 | Verificación base de PHPUnit | Unitaria | `true` es verdadero |
-| TC-S0-04 | La SPA muestra el nombre del proyecto | Componente | Se renderiza «SAAS Inversiones R&P» |
-| TC-S0-05 | La SPA muestra el módulo de inventario | Componente | Se renderiza el texto de inventario y almacén |
+| TC-S0-04 | La SPA muestra el nombre del proyecto | Componente | Se renderiza «SAAS Inversiones R&P» (aserción 1) |
+| TC-S0-05 | La SPA muestra el módulo de inventario | Componente | Se renderiza el texto de inventario y almacén (aserción 2 de la misma prueba) |
 | TC-S0-06 | Smoke E2E de la página de inicio | E2E | La página contiene el nombre del proyecto |
 | TC-S0-07 | Estilo del backend | Estático | Pint sin diferencias |
 | TC-S0-08 | Estilo del frontend | Estático | Oxlint sin errores |
@@ -66,7 +67,7 @@ $ vendor/bin/pint --test
 $ npm run test
 
 Test Files  1 passed (1)
-     Tests  1 passed (1)
+     Tests  1 passed (1)   # 1 prueba de componentes con 2 aserciones (TC-S0-04 y TC-S0-05)
 ```
 
 ### 4.4 Frontend — Oxlint
