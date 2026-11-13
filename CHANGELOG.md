@@ -70,6 +70,13 @@ y el versionado semántico de [SemVer](https://semver.org/lang/es/).
     - Permisos `catalog.view`/`catalog.manage` en `IdentitySeeder`.
     - Pantalla React «Catálogo» con pestañas, filtros, alta, edición y desactivación.
     - Pruebas de API (12) y de frontend para el catálogo.
+  - **Sprint 2 — US-0202 (productos):**
+    - Migración `products` con categoría/marca y unicidad por empresa.
+    - Modelo `Product`, `ProductResource`, `ProductPolicy` y métodos en `CatalogService`.
+    - Endpoints `/api/v1/products` (listar, crear, ver, editar y estado).
+    - Validación de categoría/marca de la misma empresa.
+    - Pestaña React «Productos» con filtros, formulario y desactivación.
+    - Pruebas de API (10) y de frontend para productos.
 
 ### Cambiado
 

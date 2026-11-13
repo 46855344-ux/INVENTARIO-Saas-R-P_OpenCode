@@ -53,9 +53,14 @@
 | `GET` | `/api/v1/brands/{id}` | `auth:sanctum` + `X-Company-Id` | `catalog.view` |
 | `PUT` | `/api/v1/brands/{id}` | `auth:sanctum` + `X-Company-Id` | `catalog.manage` |
 | `PATCH` | `/api/v1/brands/{id}/status` | `auth:sanctum` + `X-Company-Id` | `catalog.manage` |
+| `GET` | `/api/v1/products` | `auth:sanctum` + `X-Company-Id` | `catalog.view` |
+| `POST` | `/api/v1/products` | `auth:sanctum` + `X-Company-Id` | `catalog.manage` |
+| `GET` | `/api/v1/products/{id}` | `auth:sanctum` + `X-Company-Id` | `catalog.view` |
+| `PUT` | `/api/v1/products/{id}` | `auth:sanctum` + `X-Company-Id` | `catalog.manage` |
+| `PATCH` | `/api/v1/products/{id}/status` | `auth:sanctum` + `X-Company-Id` | `catalog.manage` |
 
-**Propuesto para sprints siguientes:** productos y variantes (US-0202/0203),
-unidades, ubicaciones, inventario, compras, métricas y auditoría.
+**Propuesto para sprints siguientes:** variantes (US-0203), unidades,
+ubicaciones, inventario, compras, métricas y auditoría.
 
 ## 3. Recursos previstos
 

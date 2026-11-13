@@ -51,10 +51,10 @@ React de catálogo con pestañas de categorías y marcas.
 - Validar campos obligatorios y códigos únicos.
 - No eliminar un producto con historial: restringir o desactivar.
 
-**Planificado:** tabla `products` (`company_id`, `category_id`, `brand_id`,
-`name`, `description`, `status`), `CatalogService`, endpoints y pantalla de
-productos. La restricción por historial se activará al incorporar movimientos
-(Sprint 4).
+**Implementado:** tabla `products` (`company_id`, `category_id`, `brand_id`,
+`name`, `description`, `status`), validación de categoría/marca de la misma
+empresa, `CatalogService`, endpoints y pestaña React de productos. La restricción
+por historial se activará al incorporar movimientos (Sprint 4).
 
 ### US-0203 — Gestionar variantes y códigos
 
@@ -141,4 +141,12 @@ carga, error y vacío; pruebas de API y UI; documentación actualizada.
 - Endpoints de categorías y marcas.
 - Permisos `catalog.view` / `catalog.manage` en `IdentitySeeder`.
 - Pantalla React «Catálogo» con pestañas y gating por permisos.
+- Pruebas de API y de frontend.
+
+**US-0202 — completada el 2026-11-13.**
+
+- Migración `products` con `category_id`/`brand_id` y unicidad `(company_id, name)`.
+- Validación de que categoría y marca pertenecen a la empresa activa.
+- Endpoints `/api/v1/products` (listar, crear, ver, editar y estado).
+- Pantalla React con pestaña «Productos», filtros, formulario y desactivación.
 - Pruebas de API y de frontend.
