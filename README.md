@@ -143,11 +143,15 @@ npx cypress verify
 | Documento | Contenido |
 | --- | --- |
 | [`Reglas/ESTANDAR.md`](./Reglas/ESTANDAR.md) | Estándar obligatorio: ISO, nombres, SOLID, multiempresa, pruebas |
+| [`DOCUMENTACION/README_SPRINT_0.md`](./DOCUMENTACION/README_SPRINT_0.md) | README de cierre del Sprint 0 y guía de iteraciones |
 | [`DOCUMENTACION/SDD/SDD-01_ARQUITECTURA_GENERAL.md`](./DOCUMENTACION/SDD/SDD-01_ARQUITECTURA_GENERAL.md) | Arquitectura general |
 | [`DOCUMENTACION/SDD/SDD-04_DISENO_BASE_DATOS.md`](./DOCUMENTACION/SDD/SDD-04_DISENO_BASE_DATOS.md) | Modelo de datos y multiempresa |
+| [`DOCUMENTACION/SDD/SDD-05_DISENO_API.md`](./DOCUMENTACION/SDD/SDD-05_DISENO_API.md) | Contratos y convenciones de la API |
 | [`DOCUMENTACION/SDD/SDD-09_ESTRUCTURA_REPOSITORIO.md`](./DOCUMENTACION/SDD/SDD-09_ESTRUCTURA_REPOSITORIO.md) | Estructura y convenciones |
 | [`DOCUMENTACION/SDD/ADR/REGISTRO_DECISIONES_SPRINT_0.md`](./DOCUMENTACION/SDD/ADR/REGISTRO_DECISIONES_SPRINT_0.md) | Decisiones DP/DD y bloqueos |
 | [`DOCUMENTACION/SDD/ACTA_CIERRE_SPRINT_0.md`](./DOCUMENTACION/SDD/ACTA_CIERRE_SPRINT_0.md) | Acta de cierre del Sprint 0 |
+| [`database/diagrams/DER_LOGICO.md`](./database/diagrams/DER_LOGICO.md) | Diagrama entidad-relación lógico |
+| [`database/dictionaries/DICCIONARIO_DATOS.md`](./database/dictionaries/DICCIONARIO_DATOS.md) | Diccionario de datos |
 | [`DOCUMENTACION/MANUALES/MANUAL_INSTALACION.md`](./DOCUMENTACION/MANUALES/MANUAL_INSTALACION.md) | Instalación paso a paso |
 | [`DOCUMENTACION/DEVSECOPS/CI_CD.md`](./DOCUMENTACION/DEVSECOPS/CI_CD.md) | Pipeline de integración continua |
 | [`DOCUMENTACION/TESTING/PLAN_PRUEBAS_SPRINT_0.md`](./DOCUMENTACION/TESTING/PLAN_PRUEBAS_SPRINT_0.md) | Plan y evidencias de prueba |

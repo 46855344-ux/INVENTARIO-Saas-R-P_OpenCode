@@ -27,10 +27,14 @@ estructurales registradas, sin desarrollar prematuramente los módulos de negoci
 | Plantilla de entorno | `.env.example` | Completo |
 | Manual de instalación | `DOCUMENTACION/MANUALES/MANUAL_INSTALACION.md` | Completo |
 | Arquitectura general | `DOCUMENTACION/SDD/SDD-01_ARQUITECTURA_GENERAL.md` | Completo |
+| Contratos de API | `DOCUMENTACION/SDD/SDD-05_DISENO_API.md` | Completo |
 | Modelo de datos y multiempresa | `DOCUMENTACION/SDD/SDD-04_DISENO_BASE_DATOS.md` | Propuesta |
+| DER lógico | `database/diagrams/DER_LOGICO.md` | Propuesta |
+| Diccionario de datos | `database/dictionaries/DICCIONARIO_DATOS.md` | Propuesta |
 | Estructura y convenciones | `DOCUMENTACION/SDD/SDD-09_ESTRUCTURA_REPOSITORIO.md` | Completo |
 | Registro de decisiones | `DOCUMENTACION/SDD/ADR/REGISTRO_DECISIONES_SPRINT_0.md` | Pendiente de aprobación |
 | Plan y evidencias de prueba | `DOCUMENTACION/TESTING/PLAN_PRUEBAS_SPRINT_0.md` | Completo |
+| README de cierre del sprint | `DOCUMENTACION/README_SPRINT_0.md` | Completo |
 
 ## 3. Cumplimiento por historia
 
@@ -48,9 +52,9 @@ estructurales registradas, sin desarrollar prematuramente los módulos de negoci
 
 | Criterio | Evidencia | Estado |
 | --- | --- | --- |
-| Entidades y relaciones revisadas | `SDD-04` §3 | Cumplido (propuesta) |
-| Representación de `company_id` | `SDD-04` §2 | Cumplido (propuesta) |
-| Restricciones, claves e índices | `SDD-04` §5 | Cumplido |
+| Entidades y relaciones revisadas | `SDD-04` §3; `database/diagrams/DER_LOGICO.md` | Cumplido (propuesta) |
+| Representación de `company_id` | `SDD-04` §2; `DER_LOGICO.md` §1 | Cumplido (propuesta) |
+| Restricciones, claves e índices | `SDD-04` §5; `database/dictionaries/DICCIONARIO_DATOS.md` | Cumplido |
 | Estrategia de aislamiento y pruebas | `SDD-04` §2 y §7 | Cumplido |
 
 ### US-0003 — Entorno local y pipeline inicial

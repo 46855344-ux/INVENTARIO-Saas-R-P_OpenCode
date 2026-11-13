@@ -25,6 +25,12 @@ y el versionado semántico de [SemVer](https://semver.org/lang/es/).
   - Scripts de preparación (`setup.ps1`, `setup.sh`), respaldo y restauración de MySQL.
   - Documentación: `SDD-01`, `SDD-04`, `SDD-09`, registro de decisiones DP/DD, acta de cierre del Sprint 0, manual de instalación, plan de pruebas y guía de CI/CD.
   - Script SQL de inicialización `database/scripts/01-init.sql`.
+  - **Cierre documental del Sprint 0:**
+    - `DOCUMENTACION/README_SPRINT_0.md`: README de cierre con entregables, evidencias, DoD, demo, pendientes y guía de iteraciones.
+    - `DOCUMENTACION/SDD/SDD-05_DISENO_API.md`: contratos, versionado, autenticación, tenant y error de la API.
+    - `database/diagrams/DER_LOGICO.md`: diagrama entidad-relación lógico y clasificación de tablas.
+    - `database/dictionaries/DICCIONARIO_DATOS.md`: diccionario de datos con tipos, claves, índices y matriz de ámbito.
+    - `REGISTRO_DECISIONES_SPRINT_0.md` ampliado con la plantilla de cierre (alternativas, fundamento, aprobador, migraciones/API afectadas y enlace ADR).
 
 ### Cambiado
 
