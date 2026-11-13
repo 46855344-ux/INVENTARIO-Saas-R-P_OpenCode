@@ -1,0 +1,17 @@
+{
+  "name": "saas-inversiones-rp",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Pruebas E2E y automatización del proyecto SaaS Inversiones R&P",
+  "scripts": {
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run",
+    "e2e": "cypress run",
+    "e2e:headed": "cypress run --headed"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "cypress": "^16.3.0",
+    "typescript": "^7.0.2"
+  }
+}

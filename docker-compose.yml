@@ -1,0 +1,95 @@
+# =============================================================================
+# SaaS Inversiones R&P — entorno de desarrollo con Docker
+# Uso: docker compose up --build
+# =============================================================================
+name: ${COMPOSE_PROJECT_NAME:-saas-inversiones-rp}
+
+services:
+  # --- API REST Laravel ------------------------------------------------------
+  backend:
+    build:
+      context: .
+      dockerfile: infrastructure/docker/Dockerfile.backend
+    container_name: ${COMPOSE_PROJECT_NAME:-saas-inversiones-rp}-backend
+    restart: unless-stopped
+    working_dir: /var/www/html
+    volumes:
+      - ./backend:/var/www/html
+    ports:
+      - "${DOCKER_APP_PORT:-8000}:8000"
+    environment:
+      APP_ENV: ${APP_ENV:-local}
+      APP_DEBUG: ${APP_DEBUG:-true}
+      APP_URL: ${APP_URL:-http://localhost:8000}
+      APP_TIMEZONE: ${APP_TIMEZONE:-UTC}
+      APP_LOCALE: ${APP_LOCALE:-es}
+      DB_CONNECTION: mysql
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_DATABASE: ${MYSQL_DATABASE:-saas_inversiones_rp}
+      DB_USERNAME: ${MYSQL_USER:-saas}
+      DB_PASSWORD: ${MYSQL_PASSWORD:-secret}
+      SESSION_DRIVER: database
+      CACHE_STORE: database
+      QUEUE_CONNECTION: database
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - saas-network
+
+  # --- Frontend React + Vite -------------------------------------------------
+  frontend:
+    build:
+      context: .
+      dockerfile: infrastructure/docker/Dockerfile.frontend
+    container_name: ${COMPOSE_PROJECT_NAME:-saas-inversiones-rp}-frontend
+    restart: unless-stopped
+    working_dir: /app
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    ports:
+      - "${DOCKER_WEB_PORT:-5173}:5173"
+    environment:
+      VITE_API_URL: ${VITE_API_URL:-http://localhost:8000/api}
+      CHOKIDAR_USEPOLLING: "true"
+    depends_on:
+      - backend
+    networks:
+      - saas-network
+
+  # --- Base de datos MySQL ---------------------------------------------------
+  db:
+    image: mysql:8.0
+    container_name: ${COMPOSE_PROJECT_NAME:-saas-inversiones-rp}-db
+    restart: unless-stopped
+    ports:
+      - "${DOCKER_DB_PORT:-3306}:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-saas_inversiones_rp}
+      MYSQL_USER: ${MYSQL_USER:-saas}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-secret}
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - db-data:/var/lib/mysql
+      - ./database/scripts:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-u", "root", "-p${MYSQL_ROOT_PASSWORD:-root}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+    networks:
+      - saas-network
+
+volumes:
+  db-data:
+    driver: local
+
+networks:
+  saas-network:
+    driver: bridge

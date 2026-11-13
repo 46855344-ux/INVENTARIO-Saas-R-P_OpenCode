@@ -1,0 +1,12 @@
+# Contexto de build de Docker: solo lo necesario.
+.git
+.github
+node_modules
+**/node_modules
+backend/vendor
+backend/storage/logs
+backend/.env
+frontend/dist
+tests/reports
+DOCUMENTACION/DOCS_origen
+.tools
