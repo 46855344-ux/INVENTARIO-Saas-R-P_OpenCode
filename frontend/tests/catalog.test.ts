@@ -15,14 +15,18 @@ import {
   createBrand,
   createCategory,
   createProduct,
+  createVariant,
   listBrands,
   listCategories,
   listProducts,
+  listVariants,
   updateBrandStatus,
   updateCategory,
   updateCategoryStatus,
   updateProduct,
   updateProductStatus,
+  updateVariant,
+  updateVariantStatus,
 } from '../src/services/catalog';
 
 const item = { id: 1, name: 'Bebidas', status: 'active' as const };
@@ -128,5 +132,47 @@ describe('catalog service', () => {
       brand_id: null,
     });
     expect(patch).toHaveBeenCalledWith('/v1/products/9/status', { status: 'inactive' });
+  });
+
+  it('lista y crea variantes de un producto', async () => {
+    await listVariants(5, { page: 1, per_page: 10, search: 'SKU', status: 'active' });
+    await createVariant(5, {
+      name: 'Talle M',
+      sku: 'SKU-001',
+      barcode: null,
+      cost: '10.5',
+      price: '15',
+    });
+
+    expect(get).toHaveBeenCalledWith('/v1/products/5/variants', {
+      params: { page: 1, per_page: 10, search: 'SKU', status: 'active' },
+    });
+    expect(post).toHaveBeenCalledWith('/v1/products/5/variants', {
+      name: 'Talle M',
+      sku: 'SKU-001',
+      barcode: null,
+      cost: '10.5',
+      price: '15',
+    });
+  });
+
+  it('actualiza y cambia el estado de una variante', async () => {
+    await updateVariant(8, {
+      name: 'Talle L',
+      sku: 'SKU-002',
+      barcode: 'BAR-001',
+      cost: '0',
+      price: '0',
+    });
+    await updateVariantStatus(8, 'inactive');
+
+    expect(put).toHaveBeenCalledWith('/v1/variants/8', {
+      name: 'Talle L',
+      sku: 'SKU-002',
+      barcode: 'BAR-001',
+      cost: '0',
+      price: '0',
+    });
+    expect(patch).toHaveBeenCalledWith('/v1/variants/8/status', { status: 'inactive' });
   });
 });

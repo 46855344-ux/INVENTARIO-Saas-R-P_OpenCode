@@ -5,6 +5,7 @@ namespace App\Modules\Catalog\Services;
 use App\Modules\Catalog\Models\Brand;
 use App\Modules\Catalog\Models\Category;
 use App\Modules\Catalog\Models\Product;
+use App\Modules\Catalog\Models\ProductVariant;
 use App\Modules\Identity\Services\TenantContext;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -217,6 +218,82 @@ class CatalogService
         $product->update(['status' => $status]);
 
         return $product->fresh(['category', 'brand']);
+    }
+
+    /**
+     * @param  array{search?: string|null, status?: string|null, per_page?: int|null}  $filters
+     */
+    public function paginateVariants(TenantContext $context, Product $product, array $filters): LengthAwarePaginator
+    {
+        $search = $filters['search'] ?? null;
+
+        return ProductVariant::query()
+            ->where('company_id', $context->company->id)
+            ->where('product_id', $product->id)
+            ->when($search !== null && $search !== '', function ($query) use ($search): void {
+                $query->where(function ($nested) use ($search): void {
+                    $nested->where('name', 'like', "%{$search}%")
+                        ->orWhere('sku', 'like', "%{$search}%")
+                        ->orWhere('barcode', 'like', "%{$search}%");
+                });
+            })
+            ->when(isset($filters['status']), fn ($query) => $query->where('status', $filters['status']))
+            ->orderBy('name')
+            ->paginate($filters['per_page'] ?? 20)
+            ->withQueryString();
+    }
+
+    /**
+     * @param  array{name: string, sku: string, barcode?: string|null, attributes?: array<string, mixed>|null, cost?: string|float|int|null, price?: string|float|int|null}  $data
+     */
+    public function createVariant(TenantContext $context, Product $product, array $data): ProductVariant
+    {
+        return ProductVariant::query()->create([
+            'company_id' => $context->company->id,
+            'product_id' => $product->id,
+            'name' => $data['name'],
+            'sku' => $data['sku'],
+            'barcode' => $data['barcode'] ?? null,
+            'attributes' => $data['attributes'] ?? null,
+            'cost' => $data['cost'] ?? '0',
+            'price' => $data['price'] ?? '0',
+            'status' => ProductVariant::STATUS_ACTIVE,
+        ]);
+    }
+
+    public function findVariant(TenantContext $context, int $variantId): ProductVariant
+    {
+        $variant = ProductVariant::query()
+            ->where('company_id', $context->company->id)
+            ->whereKey($variantId)
+            ->first();
+
+        if ($variant === null) {
+            throw (new ModelNotFoundException)->setModel(ProductVariant::class, [$variantId]);
+        }
+
+        return $variant;
+    }
+
+    /**
+     * @param  array{name?: string, sku?: string, barcode?: string|null, attributes?: array<string, mixed>|null, cost?: string|float|int|null, price?: string|float|int|null}  $data
+     */
+    public function updateVariant(ProductVariant $variant, array $data): ProductVariant
+    {
+        $attributes = Arr::only($data, ['name', 'sku', 'barcode', 'attributes', 'cost', 'price']);
+
+        if ($attributes !== []) {
+            $variant->update($attributes);
+        }
+
+        return $variant->fresh();
+    }
+
+    public function changeVariantStatus(ProductVariant $variant, string $status): ProductVariant
+    {
+        $variant->update(['status' => $status]);
+
+        return $variant->fresh();
     }
 
     /**

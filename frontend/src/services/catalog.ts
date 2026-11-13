@@ -1,4 +1,10 @@
-import type { CatalogItem, CatalogStatus, Paginated, Product } from '../types';
+import type {
+  CatalogItem,
+  CatalogStatus,
+  Paginated,
+  Product,
+  ProductVariant,
+} from '../types';
 import { api } from './api';
 
 export interface CatalogFilters {
@@ -157,6 +163,84 @@ export async function updateProductStatus(
   status: CatalogStatus,
 ): Promise<Product> {
   const { data } = await api.patch<{ data: Product }>(`/v1/products/${id}/status`, {
+    status,
+  });
+
+  return data.data;
+}
+
+export interface VariantFilters {
+  page?: number;
+  per_page?: number;
+  search?: string;
+  status?: CatalogStatus | '';
+}
+
+export interface VariantInput {
+  name: string;
+  sku: string;
+  barcode: string | null;
+  cost: string;
+  price: string;
+}
+
+function toVariantParams(filters: VariantFilters): Record<string, string | number> {
+  const params: Record<string, string | number> = {};
+
+  if (filters.page) {
+    params.page = filters.page;
+  }
+  if (filters.per_page) {
+    params.per_page = filters.per_page;
+  }
+  if (filters.search) {
+    params.search = filters.search;
+  }
+  if (filters.status) {
+    params.status = filters.status;
+  }
+
+  return params;
+}
+
+export async function listVariants(
+  productId: number,
+  filters: VariantFilters = {},
+): Promise<Paginated<ProductVariant>> {
+  const { data } = await api.get<Paginated<ProductVariant>>(
+    `/v1/products/${productId}/variants`,
+    { params: toVariantParams(filters) },
+  );
+
+  return data;
+}
+
+export async function createVariant(
+  productId: number,
+  input: VariantInput,
+): Promise<ProductVariant> {
+  const { data } = await api.post<{ data: ProductVariant }>(
+    `/v1/products/${productId}/variants`,
+    input,
+  );
+
+  return data.data;
+}
+
+export async function updateVariant(
+  id: number,
+  input: VariantInput,
+): Promise<ProductVariant> {
+  const { data } = await api.put<{ data: ProductVariant }>(`/v1/variants/${id}`, input);
+
+  return data.data;
+}
+
+export async function updateVariantStatus(
+  id: number,
+  status: CatalogStatus,
+): Promise<ProductVariant> {
+  const { data } = await api.patch<{ data: ProductVariant }>(`/v1/variants/${id}/status`, {
     status,
   });
 

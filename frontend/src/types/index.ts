@@ -105,3 +105,18 @@ export interface Product {
   created_at?: string;
   updated_at?: string;
 }
+
+/** Variante de un producto. */
+export interface ProductVariant {
+  id: number;
+  product_id: number;
+  name: string;
+  sku: string;
+  barcode: string | null;
+  attributes: Record<string, unknown> | null;
+  cost: string;
+  price: string;
+  status: CatalogStatus;
+  created_at?: string;
+  updated_at?: string;
+}

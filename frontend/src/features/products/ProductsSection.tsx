@@ -13,6 +13,7 @@ import type { ProductFilters, ProductInput } from '../../services/catalog';
 import type { CatalogItem, CatalogStatus, PaginatedMeta, Product } from '../../types';
 import { ProductForm } from './ProductForm';
 import type { ProductFormValues } from './ProductForm';
+import { VariantsSection } from './VariantsSection';
 
 const PER_PAGE = 10;
 
@@ -47,6 +48,7 @@ export function ProductsSection({ canManage }: ProductsSectionProps) {
   const [editing, setEditing] = useState<Product | null>(null);
   const [formError, setFormError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
   useEffect(() => {
     let active = true;
@@ -177,6 +179,16 @@ export function ProductsSection({ canManage }: ProductsSectionProps) {
     }
   };
 
+  if (selectedProduct !== null) {
+    return (
+      <VariantsSection
+        product={selectedProduct}
+        canManage={canManage}
+        onBack={() => setSelectedProduct(null)}
+      />
+    );
+  }
+
   return (
     <div className="catalog-section">
       <div className="catalog-section-header">
@@ -295,7 +307,7 @@ export function ProductsSection({ canManage }: ProductsSectionProps) {
               <th>Categoría</th>
               <th>Marca</th>
               <th>Estado</th>
-              {canManage && <th>Acciones</th>}
+              <th>Acciones</th>
             </tr>
           </thead>
           <tbody>
@@ -309,26 +321,35 @@ export function ProductsSection({ canManage }: ProductsSectionProps) {
                     {product.status === 'active' ? 'Activo' : 'Inactivo'}
                   </span>
                 </td>
-                {canManage && (
-                  <td className="users-actions">
-                    <button
-                      type="button"
-                      className="button-link"
-                      onClick={() => openEdit(product)}
-                    >
-                      Editar
-                    </button>
-                    <button
-                      type="button"
-                      className="button-link"
-                      onClick={() => {
-                        void handleToggleStatus(product);
-                      }}
-                    >
-                      {product.status === 'active' ? 'Desactivar' : 'Activar'}
-                    </button>
-                  </td>
-                )}
+                <td className="users-actions">
+                  <button
+                    type="button"
+                    className="button-link"
+                    onClick={() => setSelectedProduct(product)}
+                  >
+                    Variantes
+                  </button>
+                  {canManage && (
+                    <>
+                      <button
+                        type="button"
+                        className="button-link"
+                        onClick={() => openEdit(product)}
+                      >
+                        Editar
+                      </button>
+                      <button
+                        type="button"
+                        className="button-link"
+                        onClick={() => {
+                          void handleToggleStatus(product);
+                        }}
+                      >
+                        {product.status === 'active' ? 'Desactivar' : 'Activar'}
+                      </button>
+                    </>
+                  )}
+                </td>
               </tr>
             ))}
           </tbody>

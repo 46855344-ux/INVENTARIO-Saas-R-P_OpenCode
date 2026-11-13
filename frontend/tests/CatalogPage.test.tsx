@@ -5,16 +5,18 @@ import { AuthContext } from '../src/features/auth/AuthContext';
 import type { AuthContextValue } from '../src/features/auth/AuthContext';
 import { CatalogPage } from '../src/features/products/CatalogPage';
 
-const { listCategories, listBrands, listProducts } = vi.hoisted(() => ({
+const { listCategories, listBrands, listProducts, listVariants } = vi.hoisted(() => ({
   listCategories: vi.fn(),
   listBrands: vi.fn(),
   listProducts: vi.fn(),
+  listVariants: vi.fn(),
 }));
 
 vi.mock('../src/services/catalog', () => ({
   listCategories,
   listBrands,
   listProducts,
+  listVariants,
   createCategory: vi.fn(),
   updateCategory: vi.fn(),
   updateCategoryStatus: vi.fn(),
@@ -24,6 +26,9 @@ vi.mock('../src/services/catalog', () => ({
   createProduct: vi.fn(),
   updateProduct: vi.fn(),
   updateProductStatus: vi.fn(),
+  createVariant: vi.fn(),
+  updateVariant: vi.fn(),
+  updateVariantStatus: vi.fn(),
 }));
 
 function authValue(permissions: string[]): AuthContextValue {
@@ -63,6 +68,10 @@ describe('CatalogPage', () => {
       meta: { current_page: 1, last_page: 1, per_page: 10, total: 1 },
     });
     listProducts.mockReset().mockResolvedValue({
+      data: [],
+      meta: { current_page: 1, last_page: 1, per_page: 10, total: 0 },
+    });
+    listVariants.mockReset().mockResolvedValue({
       data: [],
       meta: { current_page: 1, last_page: 1, per_page: 10, total: 0 },
     });
@@ -164,5 +173,53 @@ describe('CatalogPage', () => {
 
     expect(await screen.findByText('Café molido')).toBeInTheDocument();
     expect(listProducts).toHaveBeenCalledWith({ page: 1, per_page: 10 });
+  });
+
+  it('muestra las variantes de un producto', async () => {
+    listProducts.mockResolvedValue({
+      data: [
+        {
+          id: 5,
+          name: 'Café molido',
+          description: null,
+          status: 'active',
+          category_id: null,
+          brand_id: null,
+          category: null,
+          brand: null,
+        },
+      ],
+      meta: { current_page: 1, last_page: 1, per_page: 10, total: 1 },
+    });
+    listVariants.mockResolvedValue({
+      data: [
+        {
+          id: 8,
+          product_id: 5,
+          name: 'Talle M',
+          sku: 'SKU-001',
+          barcode: null,
+          attributes: null,
+          cost: '0.0000',
+          price: '0.0000',
+          status: 'active',
+        },
+      ],
+      meta: { current_page: 1, last_page: 1, per_page: 10, total: 1 },
+    });
+
+    render(
+      <AuthContext.Provider value={authValue(['catalog.view'])}>
+        <CatalogPage />
+      </AuthContext.Provider>,
+    );
+
+    await screen.findByText('Bebidas');
+    await userEvent.click(screen.getByRole('button', { name: 'Productos' }));
+    await screen.findByText('Café molido');
+    await userEvent.click(screen.getByRole('button', { name: 'Variantes' }));
+
+    expect(await screen.findByText('SKU-001')).toBeInTheDocument();
+    expect(listVariants).toHaveBeenCalledWith(5, { page: 1, per_page: 10 });
   });
 });
