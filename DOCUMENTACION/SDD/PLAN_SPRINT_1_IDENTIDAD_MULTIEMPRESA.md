@@ -310,3 +310,18 @@ Cada migración se crea **solo tras** aprobar DD-01/DD-04 y contar con MySQL (E-
 | [`SDD-04_DISENO_BASE_DATOS.md`](./SDD-04_DISENO_BASE_DATOS.md) | Estrategia multiempresa y migraciones |
 | [`SDD-05_DISENO_API.md`](./SDD-05_DISENO_API.md) | Contratos y convenciones de API |
 | [`../README_SPRINT_0.md`](../README_SPRINT_0.md) | Cierre del Sprint 0 y guía de iteraciones |
+
+## 15. Estado de implementación (US-0101)
+
+**Completado el 2026-11-13.** Con DD-01, DD-04 y los ADR-0001/0002/0003 aprobados:
+
+- Migraciones `companies`, `company_user` y ampliación de `users` (`status`, `deleted_at`).
+- Modelos `App\Modules\Identity\Models\{Company,User}` con pertenencia multiempresa.
+- Endpoints `POST /api/v1/auth/login`, `POST /api/v1/auth/logout`, `GET /api/v1/auth/me`.
+- Autenticación SPA con Sanctum (cookie + CSRF) y logout que invalida la sesión.
+- Pantalla React de acceso, contexto de autenticación y guardia de rutas.
+- Pruebas T-01 a T-04 en `backend/tests/Feature/Auth/AuthenticationTest.php`.
+- Evidencia: backend 12 pruebas OK, Pint OK, frontend 2 pruebas OK, lint OK, build OK, Cypress 1 prueba OK.
+
+Pendiente para el resto del sprint: US-0102, US-0103 y US-0104. La validación
+contra MySQL real requiere Docker o MySQL instalado (E-07).

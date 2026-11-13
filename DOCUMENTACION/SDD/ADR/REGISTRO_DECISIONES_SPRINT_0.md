@@ -2,10 +2,10 @@
 
 **Proyecto:** SaaS Inversiones R&P
 **Documento:** Registro de decisiones de negocio (DP) y de datos (DD)
-**Versión:** 1.1 — Sprint 0
+**Versión:** 1.2 — Sprint 0 / Sprint 1
 **Fecha:** 2026-11-13
 **Responsable del registro:** Product Owner
-**Estado general:** Propuestas documentadas — pendientes de aprobación formal
+**Estado general:** DD-01 y DD-04 aprobadas; ADR-0001, ADR-0002 y ADR-0003 aprobadas; DP-01..DP-10 y DD-02/03/05 siguen como propuestas
 
 ---
 
@@ -58,10 +58,10 @@ Campos utilizados:
 
 | Código | Tema | Alternativa elegida (resumen) | Aprobador | Fecha | Estado | Historias afectadas |
 | --- | --- | --- | --- | --- | --- | --- |
-| DD-01 | Unicidad del correo electrónico | `users.email` único global + `company_user` | Líder técnico | 2026-11-13 | Propuesta | US-0101, US-0102 |
+| DD-01 | Unicidad del correo electrónico | `users.email` único global + `company_user` | Líder técnico | 2026-11-13 | Aprobada | US-0101, US-0102 |
 | DD-02 | Nivel del stock mínimo | Por variante (por defecto) y por ubicación | Líder técnico | 2026-11-13 | Propuesta | US-0602 |
 | DD-03 | Ubicación en el movimiento | Obligatoria en todo movimiento que afecte stock | Líder técnico | 2026-11-13 | Propuesta | US-0402–US-0503 |
-| DD-04 | Roles globales o por empresa | Roles base globales + roles personalizados por empresa | Líder técnico | 2026-11-13 | Propuesta | US-0102, US-0103 |
+| DD-04 | Roles globales o por empresa | Roles base globales + roles personalizados por empresa | Líder técnico | 2026-11-13 | Aprobada | US-0102, US-0103 |
 | DD-05 | Borrado lógico y auditoría | Baja lógica en maestros; movimientos inmutables; `audit_logs` | Líder técnico | 2026-11-13 | Propuesta | Catálogo y trazabilidad |
 
 ## 4. Fichas detalladas
@@ -208,6 +208,7 @@ Campos utilizados:
 | Historias afectadas | US-0101, US-0102 |
 | Migraciones/API afectadas | `users.email UNIQUE`; `company_user`; `POST /api/v1/auth/login` |
 | Enlace ADR | `SDD-04` §5; `DICCIONARIO_DATOS.md` §3.2 |
+| Estado | Aprobada (2026-11-13) |
 
 ### DD-02 — Nivel del stock mínimo
 
@@ -247,6 +248,7 @@ Campos utilizados:
 | Historias afectadas | US-0102, US-0103 |
 | Migraciones/API afectadas | `roles.company_id` nullable; `permission_role`; endpoints de roles/permisos |
 | Enlace ADR | `SDD-04` §3.1; `DICCIONARIO_DATOS.md` §3.4 |
+| Estado | Aprobada (2026-11-13) |
 
 ### DD-05 — Borrado lógico y relaciones de auditoría
 
@@ -281,7 +283,15 @@ Campos utilizados:
 
 | Fecha | Decisión | Aprobado por | Observaciones |
 | --- | --- | --- | --- |
-| — | — | — | Pendiente de revisión del Product Owner |
+| 2026-11-13 | DD-01 — Unicidad del correo electrónico | Product Owner | Aprobada; habilita US-0101 y US-0102. |
+| 2026-11-13 | DD-04 — Roles globales o por empresa | Product Owner | Aprobada; habilita US-0102 y US-0103. |
+| 2026-11-13 | ADR-0001 — Autenticación SPA con Sanctum | Product Owner / Líder técnico | Aprobada e implementada en US-0101 (cookie de SPA + CSRF). |
+| 2026-11-13 | ADR-0002 — Empresa activa por `X-Company-Id` | Product Owner / Líder técnico | Aprobada; se implementa en US-0104. |
+| 2026-11-13 | ADR-0003 — Roles y permisos sin `user_permission` | Product Owner / Líder técnico | Aprobada; se implementa en US-0102 y US-0103. |
+
+> Con estas aprobaciones, US-0101 queda desbloqueada y se implementó el
+> 2026-11-13. Los bloqueos de US-0102 y US-0103 quedan resueltos; sus historias
+> se implementarán en las siguientes iteraciones del Sprint 1.
 
 > Al aprobar cada decisión, actualizar la columna **Estado** de las tablas resumen,
 > completar este registro y reflejar los cambios en `SDD-04`, en el

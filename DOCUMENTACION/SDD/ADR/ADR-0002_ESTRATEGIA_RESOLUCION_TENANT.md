@@ -1,7 +1,7 @@
 # ADR-0002 — Estrategia de resolución de la empresa activa (tenant)
 
 **Proyecto:** SaaS Inversiones R&P
-**Estado:** Propuesta — pendiente de aprobación del Líder técnico
+**Estado:** Aprobada — pendiente de implementación (US-0104)
 **Fecha:** 2026-11-13
 **Sprint:** 1 (EP-01)
 **Historias afectadas:** US-0102, US-0104
@@ -46,11 +46,13 @@ Reglas obligatorias:
 
 ## 5. Criterios de aceptación de la decisión
 
-- [ ] El Líder técnico aprueba la alternativa A.
-- [ ] Se documenta el contrato de `GET /api/v1/companies` y la cabecera.
-- [ ] El `TenantContext` y el `TenantScope` están especificados.
-- [ ] Las pruebas de aislamiento (T-08, T-09) están definidas.
+- [x] El Líder técnico aprueba la alternativa A.
+- [x] Se documenta el contrato de `GET /api/v1/companies` y la cabecera.
+- [ ] El `TenantContext` y el `TenantScope` están implementados (US-0104).
+- [ ] Las pruebas de aislamiento (T-08, T-09) están implementadas (US-0104).
 
 ## 6. Estado
 
-Propuesta registrada. No se implementa aislamiento hasta su aprobación.
+Aprobada el **2026-11-13**. La resolución de la empresa activa y el aislamiento
+de datos se implementarán en **US-0104**; US-0101 no requiere `X-Company-Id`
+porque solo devuelve las empresas del usuario en el perfil de sesión.

@@ -1,7 +1,7 @@
 # ADR-0003 — Modelo de roles, permisos y excepciones
 
 **Proyecto:** SaaS Inversiones R&P
-**Estado:** Propuesta — pendiente de aprobación del Líder técnico y del Product Owner (DD-04)
+**Estado:** Aprobada — pendiente de implementación (US-0102/US-0103)
 **Fecha:** 2026-11-13
 **Sprint:** 1 (EP-01)
 **Historias afectadas:** US-0102, US-0103
@@ -47,11 +47,13 @@ aprobación explícita; su necesidad se reevalúa con casos reales.
 
 ## 5. Criterios de aceptación de la decisión
 
-- [ ] Se aprueba DD-04 (roles base globales + por empresa).
-- [ ] Se aprueba el alcance sin `user_permission` para el Sprint 1.
-- [ ] La matriz de permisos del plan queda ratificada.
-- [ ] Se documenta la convención `modulo.accion` en el catálogo de permisos.
+- [x] Se aprueba DD-04 (roles base globales + por empresa).
+- [x] Se aprueba el alcance sin `user_permission` para el Sprint 1.
+- [x] La matriz de permisos del plan queda ratificada.
+- [ ] Se documenta la convención `modulo.accion` en el catálogo de permisos (US-0103).
 
 ## 6. Estado
 
-Propuesta registrada. No se implementan permisos hasta su aprobación.
+Aprobada el **2026-11-13**, junto con DD-04. El modelo se implementará en
+**US-0102** (usuarios y asignación de roles) y **US-0103** (permisos por módulo y
+acción). `user_permission` queda fuera del alcance del Sprint 1.

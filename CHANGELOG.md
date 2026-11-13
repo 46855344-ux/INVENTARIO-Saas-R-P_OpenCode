@@ -36,6 +36,14 @@ y el versionado semántico de [SemVer](https://semver.org/lang/es/).
     - `DOCUMENTACION/SDD/ADR/ADR-0001_ESTRATEGIA_AUTENTICACION_SPA.md`: propuesta de autenticación SPA.
     - `DOCUMENTACION/SDD/ADR/ADR-0002_ESTRATEGIA_RESOLUCION_TENANT.md`: propuesta de resolución de la empresa activa.
     - `DOCUMENTACION/SDD/ADR/ADR-0003_MODELO_PERMISOS.md`: propuesta de roles y permisos.
+  - **Sprint 1 — US-0101 (inicio y cierre de sesión):**
+    - Migraciones `companies`, `company_user` y ampliación de `users` (`status` y borrado lógico).
+    - Modelos `App\Modules\Identity\Models\{Company,User}` con pertenencia multiempresa y fábricas asociadas.
+    - Autenticación SPA con Sanctum (cookie + CSRF): `POST /api/v1/auth/login`, `POST /api/v1/auth/logout`, `GET /api/v1/auth/me`.
+    - Contrato de error único con `trace_id` (`VALIDATION_ERROR`, `INVALID_CREDENTIALS`, `ACCOUNT_INACTIVE`, `UNAUTHENTICATED`).
+    - Pantalla React de acceso, contexto de autenticación, guardia de rutas y cierre de sesión desde el layout.
+    - Seeder de demostración con dos empresas y dos usuarios.
+    - Pruebas backend (12), frontend (2), lint, build y smoke Cypress verificados.
 
 ### Cambiado
 
@@ -44,6 +52,9 @@ y el versionado semántico de [SemVer](https://semver.org/lang/es/).
 - `.gitignore` ampliado para entorno, dependencias, reportes y respaldos.
 - `composer.json` del backend con Sanctum y Laravel Boost como dependencia de desarrollo.
 - `phpunit.xml` configurado con SQLite en memoria para pruebas sin MySQL.
+- `config/sanctum.php` y `config/cors.php` con dominios stateful y CORS con credenciales para la SPA.
+- `.env.example` del backend con `FRONTEND_URL` y `SANCTUM_STATEFUL_DOMAINS`.
+- `config/auth.php` y las fábricas apuntan al modelo de usuario del módulo `Identity`.
 
 ### Corregido
 

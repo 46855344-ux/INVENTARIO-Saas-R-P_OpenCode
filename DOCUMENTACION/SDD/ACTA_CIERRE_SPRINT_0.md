@@ -93,7 +93,7 @@ estructurales registradas, sin desarrollar prematuramente los módulos de negoci
 | Validar `docker compose up --build` | Docker no instalado en el equipo | Desarrollo | Instalar Docker Desktop |
 | Ejecutar migraciones contra MySQL real | MySQL no instalado localmente | Desarrollo | Instalar MySQL o usar Docker |
 | Ejecutar E2E completo | Requiere frontend levantado | Desarrollo | Validado localmente con `npm run e2e` (1 prueba) |
-| Aprobar DP-01..DP-10 y DD-01..DD-05 | Decisiones de negocio | Product Owner | Completar registro §5 |
+| Aprobar DP-01..DP-10 y DD-01..DD-05 | Decisiones de negocio | Product Owner | DD-01 y DD-04 aprobadas (2026-11-13); el resto sigue pendiente |
 | SonarQube y OWASP Dependency-Check | Fuera del alcance del Sprint 0 | DevSecOps | Incorporar en Sprint 1–2 |
 
 ## 6. Riesgos abiertos
@@ -115,7 +115,7 @@ Historias previstas:
 
 Condiciones de entrada:
 
-1. Aprobar DD-01 y DD-04.
+1. Aprobar DD-01 y DD-04. _(Cumplido el 2026-11-13.)_
 2. Contar con MySQL disponible (Docker o local).
 3. Ejecutar las migraciones base de `companies`, `users` y `company_user`.
 
@@ -125,3 +125,22 @@ El Sprint 0 queda **cerrado técnicamente**: el repositorio, los proyectos base,
 la infraestructura configurada, el pipeline y la documentación están disponibles.
 La aprobación de las decisiones de negocio (US-0004) queda en manos del Product
 Owner y es requisito para iniciar el Sprint 1 sin retrabajo.
+
+## 9. Anexo — avance del Sprint 1 (2026-11-13)
+
+Con las aprobaciones de DD-01, DD-04 y los ADR-0001/0002/0003, se implementó
+**US-0101 — Iniciar y cerrar sesión**:
+
+| Verificación | Comando | Resultado |
+| --- | --- | --- |
+| Pruebas backend | `php artisan test` | 12 pruebas, 46 aserciones — OK |
+| Estilo backend | `vendor/bin/pint --test` | Sin diferencias — OK |
+| Pruebas frontend | `npm run test` | 2 pruebas — OK |
+| Lint frontend | `npm run lint` | Sin errores — OK |
+| Build frontend | `npm run build` | Compilado — OK |
+| Smoke E2E | `npx cypress run` | 1 prueba — OK |
+
+Entregables: migraciones `companies`, `company_user` y ampliación de `users`;
+modelos y seeder de identidad; endpoints `/api/v1/auth/*`; pantalla React de
+acceso, contexto de autenticación y guardia de rutas. La validación con Docker y
+MySQL real sigue pendiente por no estar instalados en el equipo.

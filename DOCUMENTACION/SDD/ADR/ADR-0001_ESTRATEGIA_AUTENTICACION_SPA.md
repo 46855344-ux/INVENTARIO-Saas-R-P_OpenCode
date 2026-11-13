@@ -1,7 +1,7 @@
 # ADR-0001 — Estrategia de autenticación para la SPA
 
 **Proyecto:** SaaS Inversiones R&P
-**Estado:** Propuesta — pendiente de aprobación del Líder técnico
+**Estado:** Aprobada — implementada en US-0101
 **Fecha:** 2026-11-13
 **Sprint:** 1 (EP-01)
 **Historias afectadas:** US-0101, US-0102, US-0103, US-0104
@@ -45,10 +45,16 @@ Condiciones:
 
 ## 5. Criterios de aceptación de la decisión
 
-- [ ] El Líder técnico aprueba la alternativa A como modo principal.
-- [ ] Se documenta la configuración de `SANCTUM_STATEFUL_DOMAINS` y CORS.
-- [ ] El flujo de logout invalida la sesión y las pruebas T-03/T-04 pasan.
+- [x] El Líder técnico aprueba la alternativa A como modo principal.
+- [x] Se documenta la configuración de `SANCTUM_STATEFUL_DOMAINS` y CORS.
+- [x] El flujo de logout invalida la sesión y las pruebas T-03/T-04 pasan.
 
 ## 6. Estado
 
-Propuesta registrada. No se implementa autenticación hasta su aprobación.
+Aprobada el **2026-11-13** e implementada en **US-0101**:
+
+- `statefulApi()` en `backend/bootstrap/app.php`.
+- Cookie CSRF en `<origen>/sanctum/csrf-cookie` y cabecera `X-XSRF-TOKEN`.
+- CORS con credenciales y `SANCTUM_STATEFUL_DOMAINS` para `http://localhost:5173`.
+- `POST /api/v1/auth/logout` invalida la sesión y rota el token CSRF.
+- Pruebas `T-01` a `T-04` cubiertas en `tests/Feature/Auth/AuthenticationTest.php`.
