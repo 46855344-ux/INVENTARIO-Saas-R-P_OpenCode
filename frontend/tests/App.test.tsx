@@ -23,10 +23,22 @@ const session = {
       name: 'Empresa Demo',
       slug: 'empresa-demo',
       role: { id: 1, code: 'owner', name: 'Propietario' },
-      permissions: ['identity.users.view', 'identity.users.manage', 'identity.roles.view'],
+      permissions: [
+        'catalog.view',
+        'catalog.manage',
+        'identity.users.view',
+        'identity.users.manage',
+        'identity.roles.view',
+      ],
     },
   ],
-  permissions: ['identity.users.view', 'identity.users.manage', 'identity.roles.view'],
+  permissions: [
+    'catalog.view',
+    'catalog.manage',
+    'identity.users.view',
+    'identity.users.manage',
+    'identity.roles.view',
+  ],
 };
 
 describe('App', () => {
@@ -69,6 +81,7 @@ describe('App', () => {
     await userEvent.click(screen.getByRole('button', { name: /ingresar/i }));
 
     expect(await screen.findByText('Administrador Demo')).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /catálogo/i })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /usuarios/i })).toBeInTheDocument();
   });
 });

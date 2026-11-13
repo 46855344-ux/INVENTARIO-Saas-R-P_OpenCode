@@ -215,6 +215,46 @@ a {
   color: var(--color-muted);
 }
 
+.catalog-tabs {
+  display: flex;
+  gap: 0.5rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.catalog-tab {
+  padding: 0.5rem 1rem;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: none;
+  font: inherit;
+  font-weight: 600;
+  color: var(--color-muted);
+  cursor: pointer;
+}
+
+.catalog-tab.is-active {
+  color: var(--color-brand);
+  border-bottom-color: var(--color-brand);
+}
+
+.catalog-section {
+  display: grid;
+  gap: 1rem;
+}
+
+.catalog-section-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.catalog-section-header h2 {
+  margin: 0;
+  font-size: 1.15rem;
+}
+
 .app-nav {
   flex-wrap: wrap;
 }

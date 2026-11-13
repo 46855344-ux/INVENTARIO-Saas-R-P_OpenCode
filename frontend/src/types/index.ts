@@ -74,3 +74,15 @@ export interface Member {
   status: 'active' | 'inactive';
   role: Role | null;
 }
+
+export type CatalogStatus = 'active' | 'inactive';
+
+/** Elemento del catálogo (categoría o marca). */
+export interface CatalogItem {
+  id: number;
+  name: string;
+  status: CatalogStatus;
+  parent_id?: number | null;
+  created_at?: string;
+  updated_at?: string;
+}

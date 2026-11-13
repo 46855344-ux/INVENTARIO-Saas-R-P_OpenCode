@@ -24,6 +24,11 @@ export function AppLayout() {
           <NavLink to="/" end className={linkClass}>
             Inicio
           </NavLink>
+          <Can permission="catalog.view">
+            <NavLink to="/catalog" className={linkClass}>
+              Catálogo
+            </NavLink>
+          </Can>
           <Can permission="identity.users.view">
             <NavLink to="/users" className={linkClass}>
               Usuarios

@@ -44,12 +44,4 @@ class UserPolicy
     {
         return $this->update($user, $membership);
     }
-
-    private function belongsToTenant(CompanyUser $membership): bool
-    {
-        $context = $this->tenantContext();
-
-        return $context !== null
-            && (int) $membership->company_id === (int) $context->company->id;
-    }
 }

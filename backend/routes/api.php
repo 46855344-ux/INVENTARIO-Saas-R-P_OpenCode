@@ -1,5 +1,7 @@
 <?php
 
+use App\Modules\Catalog\Http\Controllers\BrandController;
+use App\Modules\Catalog\Http\Controllers\CategoryController;
 use App\Modules\Identity\Http\Controllers\AuthController;
 use App\Modules\Identity\Http\Controllers\PermissionController;
 use App\Modules\Identity\Http\Controllers\RoleController;
@@ -33,6 +35,28 @@ Route::prefix('v1')->group(function () {
     });
 
     Route::middleware(['auth:sanctum', 'tenant'])->group(function () {
+        Route::get('/categories', [CategoryController::class, 'index'])
+            ->middleware('can:catalog.view');
+        Route::post('/categories', [CategoryController::class, 'store'])
+            ->middleware('can:catalog.manage');
+        Route::get('/categories/{id}', [CategoryController::class, 'show'])
+            ->middleware('can:catalog.view');
+        Route::put('/categories/{id}', [CategoryController::class, 'update'])
+            ->middleware('can:catalog.manage');
+        Route::patch('/categories/{id}/status', [CategoryController::class, 'updateStatus'])
+            ->middleware('can:catalog.manage');
+
+        Route::get('/brands', [BrandController::class, 'index'])
+            ->middleware('can:catalog.view');
+        Route::post('/brands', [BrandController::class, 'store'])
+            ->middleware('can:catalog.manage');
+        Route::get('/brands/{id}', [BrandController::class, 'show'])
+            ->middleware('can:catalog.view');
+        Route::put('/brands/{id}', [BrandController::class, 'update'])
+            ->middleware('can:catalog.manage');
+        Route::patch('/brands/{id}/status', [BrandController::class, 'updateStatus'])
+            ->middleware('can:catalog.manage');
+
         Route::get('/roles', [RoleController::class, 'index'])
             ->middleware('can:identity.roles.view');
         Route::get('/permissions', [PermissionController::class, 'index'])
