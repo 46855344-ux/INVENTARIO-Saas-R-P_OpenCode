@@ -94,6 +94,7 @@ y el versionado semántico de [SemVer](https://semver.org/lang/es/).
   - **Documentación de cierre de sprints:**
     - `DOCUMENTACION/README_SPRINT_1.md`: cierre del Sprint 1 (identidad, usuarios, permisos y aislamiento).
     - `DOCUMENTACION/README_SPRINT_2.md`: cierre del Sprint 2 (catálogo de productos y variantes).
+    - `DOCUMENTACION/README_SPRINT_3.md`: cierre del Sprint 3 (unidades, conversiones y ubicaciones).
 
 ### Cambiado
 
