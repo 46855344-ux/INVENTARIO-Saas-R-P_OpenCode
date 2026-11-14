@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 /**
  * Cabecera inmutable de un movimiento de inventario.
  */
-#[Fillable(['company_id', 'type', 'status', 'user_id', 'reason', 'document_reference', 'original_movement_id', 'reversal_of_movement_id', 'idempotency_key', 'confirmed_at'])]
+#[Fillable(['company_id', 'type', 'status', 'user_id', 'reason', 'document_reference', 'reference_type', 'reference_id', 'original_movement_id', 'reversal_of_movement_id', 'idempotency_key', 'confirmed_at'])]
 class StockMovement extends Model
 {
     /** @use HasFactory<StockMovementFactory> */
@@ -28,6 +28,10 @@ class StockMovement extends Model
     public const TYPE_RETURN = 'return';
 
     public const TYPE_ADJUSTMENT = 'adjustment';
+
+    public const TYPE_TRANSFER_OUT = 'transfer_out';
+
+    public const TYPE_TRANSFER_IN = 'transfer_in';
 
     public const TYPE_REVERSAL = 'reversal';
 

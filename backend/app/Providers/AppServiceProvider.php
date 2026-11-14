@@ -27,6 +27,12 @@ use App\Modules\Inventory\Policies\StockBalancePolicy;
 use App\Modules\Inventory\Policies\StockMovementPolicy;
 use App\Modules\Inventory\Policies\UnitConversionPolicy;
 use App\Modules\Inventory\Policies\UnitPolicy;
+use App\Modules\Purchasing\Models\Purchase;
+use App\Modules\Purchasing\Models\Supplier;
+use App\Modules\Purchasing\Models\Transfer;
+use App\Modules\Purchasing\Policies\PurchasePolicy;
+use App\Modules\Purchasing\Policies\SupplierPolicy;
+use App\Modules\Purchasing\Policies\TransferPolicy;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
@@ -73,5 +79,8 @@ class AppServiceProvider extends ServiceProvider
         Gate::policy(Location::class, LocationPolicy::class);
         Gate::policy(StockBalance::class, StockBalancePolicy::class);
         Gate::policy(StockMovement::class, StockMovementPolicy::class);
+        Gate::policy(Supplier::class, SupplierPolicy::class);
+        Gate::policy(Purchase::class, PurchasePolicy::class);
+        Gate::policy(Transfer::class, TransferPolicy::class);
     }
 }

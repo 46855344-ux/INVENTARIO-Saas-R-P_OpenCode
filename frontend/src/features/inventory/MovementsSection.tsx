@@ -40,6 +40,8 @@ const MOVEMENT_LABELS: Record<StockMovementType, string> = {
   exit: 'Salida',
   return: 'Devolución',
   adjustment: 'Ajuste',
+  transfer_in: 'Entrada por traslado',
+  transfer_out: 'Salida por traslado',
   reversal: 'Reversión',
 };
 

@@ -12,7 +12,7 @@ class IndexMovementRequest extends PaginationRequest
     public function rules(): array
     {
         return array_merge(parent::rules(), [
-            'type' => ['sometimes', 'nullable', 'in:entry,exit,return,adjustment,reversal'],
+            'type' => ['sometimes', 'nullable', 'in:entry,exit,return,adjustment,transfer_in,transfer_out,reversal'],
             'status' => ['sometimes', 'nullable', 'in:confirmed'],
         ]);
     }

@@ -27,6 +27,11 @@ class IdentitySeeder extends Seeder
         'inventory.move' => 'Registrar movimientos',
         'inventory.adjust' => 'Ajustar inventario',
         'inventory.approve' => 'Aprobar inventario',
+        'purchases.view' => 'Ver proveedores y compras',
+        'purchases.manage' => 'Administrar proveedores y compras',
+        'purchases.receive' => 'Confirmar recepción de compras',
+        'transfers.view' => 'Ver traslados',
+        'transfers.manage' => 'Registrar traslados',
         'metrics.costs.view' => 'Ver costos y márgenes',
         'audit.view' => 'Ver auditoría',
     ];
@@ -55,6 +60,11 @@ class IdentitySeeder extends Seeder
                 'inventory.move',
                 'inventory.adjust',
                 'inventory.approve',
+                'purchases.view',
+                'purchases.manage',
+                'purchases.receive',
+                'transfers.view',
+                'transfers.manage',
                 'metrics.costs.view',
                 'audit.view',
             ],
@@ -62,12 +72,26 @@ class IdentitySeeder extends Seeder
         'operator' => [
             'name' => 'Operador',
             'description' => 'Registro de movimientos de inventario.',
-            'permissions' => ['catalog.view', 'settings.view', 'inventory.view', 'inventory.move'],
+            'permissions' => [
+                'catalog.view',
+                'settings.view',
+                'inventory.view',
+                'inventory.move',
+                'purchases.view',
+                'transfers.view',
+                'transfers.manage',
+            ],
         ],
         'viewer' => [
             'name' => 'Consulta',
             'description' => 'Lectura de inventario.',
-            'permissions' => ['catalog.view', 'settings.view', 'inventory.view'],
+            'permissions' => [
+                'catalog.view',
+                'settings.view',
+                'inventory.view',
+                'purchases.view',
+                'transfers.view',
+            ],
         ],
     ];
 

@@ -22,6 +22,8 @@ class StockMovementResource extends JsonResource
             'status' => $this->status,
             'reason' => $this->reason,
             'document_reference' => $this->document_reference,
+            'reference_type' => $this->reference_type,
+            'reference_id' => $this->reference_id,
             'original_movement_id' => $this->original_movement_id,
             'reversal_of_movement_id' => $this->reversal_of_movement_id,
             'confirmed_at' => $this->confirmed_at?->toIso8601String(),

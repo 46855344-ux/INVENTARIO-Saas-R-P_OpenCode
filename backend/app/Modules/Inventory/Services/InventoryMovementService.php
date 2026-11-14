@@ -116,6 +116,8 @@ class InventoryMovementService
                     'user_id' => $user->id,
                     'reason' => $data['reason'],
                     'document_reference' => $data['document_reference'] ?? null,
+                    'reference_type' => $data['reference_type'] ?? null,
+                    'reference_id' => $data['reference_id'] ?? null,
                     'original_movement_id' => $data['original_movement_id'] ?? null,
                     'reversal_of_movement_id' => null,
                     'idempotency_key' => $key !== '' ? $key : null,
@@ -166,6 +168,8 @@ class InventoryMovementService
                     'user_id' => $user->id,
                     'reason' => $reason,
                     'document_reference' => null,
+                    'reference_type' => $original->reference_type,
+                    'reference_id' => $original->reference_id,
                     'original_movement_id' => null,
                     'reversal_of_movement_id' => $original->id,
                     'idempotency_key' => null,
@@ -226,7 +230,7 @@ class InventoryMovementService
     private function directionFor(string $type, array $data): string
     {
         return match ($type) {
-            StockMovement::TYPE_EXIT => StockMovementLine::DIRECTION_OUT,
+            StockMovement::TYPE_EXIT, StockMovement::TYPE_TRANSFER_OUT => StockMovementLine::DIRECTION_OUT,
             StockMovement::TYPE_ADJUSTMENT => $data['direction'] ?? StockMovementLine::DIRECTION_IN,
             default => StockMovementLine::DIRECTION_IN,
         };

@@ -186,7 +186,14 @@ export interface Location {
   updated_at?: string;
 }
 
-export type StockMovementType = 'entry' | 'exit' | 'return' | 'adjustment' | 'reversal';
+export type StockMovementType =
+  | 'entry'
+  | 'exit'
+  | 'return'
+  | 'adjustment'
+  | 'transfer_in'
+  | 'transfer_out'
+  | 'reversal';
 
 export interface StockBalance {
   id: number;
@@ -223,6 +230,8 @@ export interface StockMovement {
   status: string;
   reason: string;
   document_reference: string | null;
+  reference_type: string | null;
+  reference_id: number | null;
   original_movement_id: number | null;
   reversal_of_movement_id: number | null;
   confirmed_at: string | null;
@@ -230,4 +239,68 @@ export interface StockMovement {
   user: { id: number; name: string } | null;
   lines: StockMovementLine[];
   reversal: { id: number; type: string; confirmed_at: string | null } | null;
+}
+
+export type PurchaseStatus = 'draft' | 'received';
+
+/** Proveedor de la empresa activa. */
+export interface Supplier {
+  id: number;
+  name: string;
+  tax_id: string | null;
+  email: string | null;
+  phone: string | null;
+  status: CatalogStatus;
+  created_at?: string;
+  updated_at?: string;
+}
+
+/** Línea de compra con costo histórico. */
+export interface PurchaseItem {
+  id: number;
+  variant_id: number;
+  location_id: number;
+  quantity: string;
+  unit_cost: string;
+  subtotal: string;
+  variant: { id: number; sku: string; name: string } | null;
+  location: { id: number; code: string; name: string } | null;
+}
+
+/** Compra a proveedor. */
+export interface Purchase {
+  id: number;
+  status: PurchaseStatus;
+  document_number: string | null;
+  ordered_at: string | null;
+  notes: string | null;
+  total: string;
+  received_at: string | null;
+  supplier: { id: number; name: string; tax_id: string | null } | null;
+  user: { id: number; name: string } | null;
+  received_by: { id: number; name: string } | null;
+  items: PurchaseItem[];
+  created_at?: string;
+  updated_at?: string;
+}
+
+/** Línea de un traslado. */
+export interface TransferItem {
+  id: number;
+  variant_id: number;
+  quantity: string;
+  variant: { id: number; sku: string; name: string } | null;
+}
+
+/** Traslado confirmado entre ubicaciones. */
+export interface Transfer {
+  id: number;
+  status: 'confirmed';
+  notes: string | null;
+  confirmed_at: string | null;
+  from_location: { id: number; code: string; name: string } | null;
+  to_location: { id: number; code: string; name: string } | null;
+  user: { id: number; name: string } | null;
+  items: TransferItem[];
+  created_at?: string;
 }

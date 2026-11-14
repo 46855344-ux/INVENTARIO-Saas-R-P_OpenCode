@@ -13,6 +13,9 @@ use App\Modules\Inventory\Http\Controllers\StockController;
 use App\Modules\Inventory\Http\Controllers\StockMovementController;
 use App\Modules\Inventory\Http\Controllers\UnitController;
 use App\Modules\Inventory\Http\Controllers\UnitConversionController;
+use App\Modules\Purchasing\Http\Controllers\PurchaseController;
+use App\Modules\Purchasing\Http\Controllers\SupplierController;
+use App\Modules\Purchasing\Http\Controllers\TransferController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -137,6 +140,35 @@ Route::prefix('v1')->group(function () {
             ->middleware('can:inventory.adjust');
         Route::post('/inventory/movements/{id}/reverse', [StockMovementController::class, 'reverse'])
             ->middleware('can:inventory.approve');
+
+        Route::get('/suppliers', [SupplierController::class, 'index'])
+            ->middleware('can:purchases.view');
+        Route::post('/suppliers', [SupplierController::class, 'store'])
+            ->middleware('can:purchases.manage');
+        Route::get('/suppliers/{id}', [SupplierController::class, 'show'])
+            ->middleware('can:purchases.view');
+        Route::put('/suppliers/{id}', [SupplierController::class, 'update'])
+            ->middleware('can:purchases.manage');
+        Route::patch('/suppliers/{id}/status', [SupplierController::class, 'updateStatus'])
+            ->middleware('can:purchases.manage');
+
+        Route::get('/purchases', [PurchaseController::class, 'index'])
+            ->middleware('can:purchases.view');
+        Route::post('/purchases', [PurchaseController::class, 'store'])
+            ->middleware('can:purchases.manage');
+        Route::get('/purchases/{id}', [PurchaseController::class, 'show'])
+            ->middleware('can:purchases.view');
+        Route::put('/purchases/{id}', [PurchaseController::class, 'update'])
+            ->middleware('can:purchases.manage');
+        Route::post('/purchases/{id}/receive', [PurchaseController::class, 'receive'])
+            ->middleware('can:purchases.receive');
+
+        Route::get('/transfers', [TransferController::class, 'index'])
+            ->middleware('can:transfers.view');
+        Route::post('/transfers', [TransferController::class, 'store'])
+            ->middleware('can:transfers.manage');
+        Route::get('/transfers/{id}', [TransferController::class, 'show'])
+            ->middleware('can:transfers.view');
 
         Route::get('/roles', [RoleController::class, 'index'])
             ->middleware('can:identity.roles.view');

@@ -6,8 +6,11 @@ const linkClass = ({ isActive }: { isActive: boolean }) =>
   isActive ? 'app-nav-link is-active' : 'app-nav-link';
 
 export function AppLayout() {
-  const { user, companies, activeCompany, setActiveCompany, logout } = useAuth();
+  const { user, companies, activeCompany, setActiveCompany, logout, hasPermission } =
+    useAuth();
   const navigate = useNavigate();
+  const canViewPurchasing =
+    hasPermission('purchases.view') || hasPermission('transfers.view');
 
   const handleLogout = async () => {
     await logout();
@@ -39,6 +42,11 @@ export function AppLayout() {
               Inventario
             </NavLink>
           </Can>
+          {canViewPurchasing && (
+            <NavLink to="/purchasing" className={linkClass}>
+              Compras
+            </NavLink>
+          )}
           <Can permission="identity.users.view">
             <NavLink to="/users" className={linkClass}>
               Usuarios

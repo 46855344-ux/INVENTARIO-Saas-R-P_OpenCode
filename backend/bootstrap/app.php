@@ -9,6 +9,8 @@ use App\Modules\Inventory\Exceptions\IncompatibleUnitsException;
 use App\Modules\Inventory\Exceptions\InsufficientStockException;
 use App\Modules\Inventory\Exceptions\MovementAlreadyReversedException;
 use App\Modules\Inventory\Exceptions\MovementNotReversibleException;
+use App\Modules\Purchasing\Exceptions\IdempotencyConflictException;
+use App\Modules\Purchasing\Exceptions\PurchaseNotEditableException;
 use App\Modules\Shared\Http\ErrorResponse;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Application;
@@ -125,6 +127,22 @@ return Application::configure(basePath: dirname(__DIR__))
             }
 
             return ErrorResponse::make('NOT_REVERSIBLE', $e->getMessage(), 409);
+        });
+
+        $exceptions->render(function (PurchaseNotEditableException $e, Request $request) {
+            if (! $request->is('api/*') && ! $request->expectsJson()) {
+                return null;
+            }
+
+            return ErrorResponse::make('PURCHASE_NOT_EDITABLE', $e->getMessage(), 409);
+        });
+
+        $exceptions->render(function (IdempotencyConflictException $e, Request $request) {
+            if (! $request->is('api/*') && ! $request->expectsJson()) {
+                return null;
+            }
+
+            return ErrorResponse::make('IDEMPOTENCY_CONFLICT', $e->getMessage(), 409);
         });
 
         $exceptions->render(function (HttpException $e, Request $request) {
