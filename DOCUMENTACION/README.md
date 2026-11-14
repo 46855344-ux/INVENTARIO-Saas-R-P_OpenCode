@@ -83,3 +83,9 @@ Sprint 0:
 | Documento | Contenido |
 | --- | --- |
 | [`SDD/PLAN_SPRINT_4_INVENTARIO_CENTRAL.md`](./SDD/PLAN_SPRINT_4_INVENTARIO_CENTRAL.md) | Núcleo de inventario: alcance, decisiones, modelo, contratos, reglas transaccionales, pruebas y DoR/DoD |
+
+## Planificación del Sprint 5
+
+| Documento | Contenido |
+| --- | --- |
+| [`SDD/PLAN_SPRINT_5_COMPRAS_TRASLADOS.md`](./SDD/PLAN_SPRINT_5_COMPRAS_TRASLADOS.md) | Compras y traslados: alcance, decisiones, modelo, contratos, reglas transaccionales, pruebas y DoR/DoD |
