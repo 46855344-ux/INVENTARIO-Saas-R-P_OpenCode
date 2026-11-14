@@ -27,7 +27,7 @@
 | Formato | JSON UTF-8 (`Accept: application/json`) |
 | Autenticación | Laravel Sanctum (token Bearer o cookie de SPA) |
 
-**Implementado (Sprint 0 y Sprint 1):**
+**Implementado (Sprints 0 a 4):**
 
 | Método | Ruta | Autenticación | Permiso |
 | --- | --- | --- | --- |
@@ -73,13 +73,22 @@
 | `POST` | `/api/v1/conversions/simulate` | `auth:sanctum` + `X-Company-Id` | `settings.view` |
 | `PUT` | `/api/v1/conversions/{id}` | `auth:sanctum` + `X-Company-Id` | `settings.manage` |
 | `PATCH` | `/api/v1/conversions/{id}/status` | `auth:sanctum` + `X-Company-Id` | `settings.manage` |
+| `GET` | `/api/v1/variants` | `auth:sanctum` + `X-Company-Id` | `catalog.view` |
 | `GET` | `/api/v1/locations` | `auth:sanctum` + `X-Company-Id` | `settings.view` |
 | `POST` | `/api/v1/locations` | `auth:sanctum` + `X-Company-Id` | `settings.manage` |
 | `GET` | `/api/v1/locations/{id}` | `auth:sanctum` + `X-Company-Id` | `settings.view` |
 | `PUT` | `/api/v1/locations/{id}` | `auth:sanctum` + `X-Company-Id` | `settings.manage` |
 | `PATCH` | `/api/v1/locations/{id}/status` | `auth:sanctum` + `X-Company-Id` | `settings.manage` |
+| `GET` | `/api/v1/inventory/stocks` | `auth:sanctum` + `X-Company-Id` | `inventory.view` |
+| `GET` | `/api/v1/inventory/movements` | `auth:sanctum` + `X-Company-Id` | `inventory.view` |
+| `GET` | `/api/v1/inventory/movements/{id}` | `auth:sanctum` + `X-Company-Id` | `inventory.view` |
+| `POST` | `/api/v1/inventory/entries` | `auth:sanctum` + `X-Company-Id` | `inventory.move` |
+| `POST` | `/api/v1/inventory/exits` | `auth:sanctum` + `X-Company-Id` | `inventory.move` |
+| `POST` | `/api/v1/inventory/returns` | `auth:sanctum` + `X-Company-Id` | `inventory.move` |
+| `POST` | `/api/v1/inventory/adjustments` | `auth:sanctum` + `X-Company-Id` | `inventory.adjust` |
+| `POST` | `/api/v1/inventory/movements/{id}/reverse` | `auth:sanctum` + `X-Company-Id` | `inventory.approve` |
 
-**Propuesto para sprints siguientes:** inventario, compras, métricas y auditoría.
+**Propuesto para sprints siguientes:** compras, traslados, métricas y auditoría.
 
 ## 3. Recursos previstos
 
@@ -90,8 +99,8 @@
 | Catálogo | `/api/v1/categories`, `/brands`, `/products`, `/variants` | CRUD y consulta |
 | Unidades | `/api/v1/units`, `/unit-conversions` | CRUD y conversión |
 | Ubicaciones | `/api/v1/locations` | CRUD jerárquico |
-| Inventario | `/api/v1/stock-balances` | Consulta de saldos |
-| Inventario | `/api/v1/stock-movements` | Alta, consulta y reversión |
+| Inventario | `/api/v1/inventory/stocks` | Consulta de saldos |
+| Inventario | `/api/v1/inventory/movements` | Alta, consulta y reversión |
 | Compras | `/api/v1/suppliers`, `/purchases`, `/purchases/{id}/receive` | CRUD y recepción |
 | Traslados | `/api/v1/transfers`, `/transfers/{id}/execute` | Alta y ejecución |
 | Métricas | `/api/v1/metrics/*`, `/stock-alerts` | Indicadores y alertas |

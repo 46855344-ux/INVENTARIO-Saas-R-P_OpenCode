@@ -5,8 +5,8 @@
 **Documento:** Plan de iteración, decisiones, contratos y pruebas
 **Versión:** 1.0 — Sprint 4
 **Fecha:** 2026-11-13
-**Estado:** Planificado — DP-01/DP-05/DD-03 delimitados; ratificación formal de DP-03 pendiente
-**Canvas de referencia:** [`DOCS_origen/CANVAS_SPRINT_4_INVENTARIO_CENTRAL.md`](./DOCS_origen/CANVAS_SPRINT_4_INVENTARIO_CENTRAL.md)
+**Estado:** Implementado — US-0401 a US-0406 completadas; ratificación formal de DP-03 pendiente
+**Canvas de referencia:** [`DOCS_origen/CANVAS_SPRINT_4_INVENTARIO_CENTRAL.md`](../DOCS_origen/CANVAS_SPRINT_4_INVENTARIO_CENTRAL.md)
 
 ---
 
@@ -49,14 +49,15 @@ Fuera de alcance: ventas (DP-01), recepción formal de compras y traslados
 | Tabla | Campos principales |
 | --- | --- |
 | `stock_balances` | `id`, `company_id`, `variant_id`, `location_id`, `quantity DECIMAL(15,4)`, `reserved_quantity DECIMAL(15,4)` (reservado para Sprint 5), timestamps |
-| `stock_movements` | `id`, `company_id`, `type`, `status`, `user_id`, `reason`, `document_reference`, `original_movement_id`, `idempotency_key`, `confirmed_at`, timestamps |
+| `stock_movements` | `id`, `company_id`, `type`, `status`, `user_id`, `reason`, `document_reference`, `original_movement_id` (referencia de devolución), `reversal_of_movement_id` (único, reversión), `idempotency_key`, `confirmed_at`, timestamps |
 | `stock_movement_lines` | `id`, `company_id`, `stock_movement_id`, `variant_id`, `location_id`, `unit_id`, `quantity DECIMAL(15,4)`, `normalized_quantity DECIMAL(15,4)`, `direction` (`in`/`out`), timestamps |
 
 Restricciones:
 
 - `UNIQUE (company_id, variant_id, location_id)` en `stock_balances`.
 - `UNIQUE (company_id, idempotency_key)` en `stock_movements`.
-- `UNIQUE (original_movement_id)` para impedir una segunda reversión.
+- `UNIQUE (reversal_of_movement_id)` para impedir una segunda reversión;
+  `original_movement_id` queda reservado para la referencia de devolución.
 - Movimientos confirmados inmutables: no se editan ni se eliminan.
 
 Tipos de movimiento del sprint: `entry`, `exit`, `return`, `adjustment`,
@@ -133,14 +134,14 @@ Las operaciones de escritura aceptan `Idempotency-Key`.
 
 ## 10. Definition of Done
 
-- [ ] US-0401 a US-0406 cumplen sus criterios.
-- [ ] Migraciones, índices únicos y restricciones revisados.
-- [ ] Toda mutación de stock pasa por `InventoryMovementService`.
-- [ ] Operaciones transaccionales, idempotentes y sin stock negativo.
-- [ ] Movimientos confirmados inmutables; reversiones compensatorias y únicas.
-- [ ] Autorización y aislamiento multiempresa probados.
-- [ ] React con estados de carga, error y vacío.
-- [ ] Pruebas de API y UI pasan; documentación actualizada.
+- [x] US-0401 a US-0406 cumplen sus criterios.
+- [x] Migraciones, índices únicos y restricciones revisados.
+- [x] Toda mutación de stock pasa por `InventoryMovementService`.
+- [x] Operaciones transaccionales, idempotentes y sin stock negativo.
+- [x] Movimientos confirmados inmutables; reversiones compensatorias y únicas.
+- [x] Autorización y aislamiento multiempresa probados.
+- [x] React con estados de carga, error y vacío.
+- [x] Pruebas de API y UI pasan; documentación actualizada.
 
 ## 11. Orden de implementación propuesto
 
@@ -161,3 +162,13 @@ Las operaciones de escritura aceptan `Idempotency-Key`.
 | Idempotencia entre procesos | Restricción única `(company_id, idempotency_key)` + transacción |
 | Reversión de movimientos con posteriores | Aplicar la regla de compensación sin borrar historial |
 | Ventas y compras | Mantener las salidas/entradas genéricas hasta Sprint 5 |
+
+## 13. Estado de implementación
+
+**Completado el 2026-11-13.**
+
+- Migraciones `stock_balances`, `stock_movements` y `stock_movement_lines`.
+- `InventoryMovementService` con transacciones, idempotencia, saldo no negativo y reversión compensatoria.
+- Endpoints de stock, movimientos, entradas, salidas, devoluciones, ajustes y reversión.
+- Pantalla React «Inventario» con existencias, movimientos y formularios.
+- Evidencia: backend 107 pruebas / 370 aserciones, frontend 48 pruebas, lint/build OK.

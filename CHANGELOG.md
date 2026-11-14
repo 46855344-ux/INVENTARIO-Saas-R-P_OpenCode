@@ -91,6 +91,12 @@ y el versionado semántico de [SemVer](https://semver.org/lang/es/).
     - Guardia preparada para no desactivar ubicaciones con stock (Sprint 4).
     - Pantalla React «Configuración» con pestañas, simulador y CRUD.
     - Pruebas de API (28) y de frontend para configuración.
+  - **Sprint 4 — US-0401 a US-0406 (núcleo de inventario):**
+    - Migraciones `stock_balances`, `stock_movements` y `stock_movement_lines`.
+    - `InventoryMovementService` transaccional con idempotencia, saldo no negativo y reversión compensatoria.
+    - Endpoints `/api/v1/inventory/stocks`, `/movements`, `/entries`, `/exits`, `/returns`, `/adjustments` y `/movements/{id}/reverse`.
+    - Pantalla React «Inventario» con existencias, movimientos y formularios.
+    - Pruebas de API (14) y de frontend para inventario.
   - **Documentación de cierre de sprints:**
     - `DOCUMENTACION/README_SPRINT_1.md`: cierre del Sprint 1 (identidad, usuarios, permisos y aislamiento).
     - `DOCUMENTACION/README_SPRINT_2.md`: cierre del Sprint 2 (catálogo de productos y variantes).

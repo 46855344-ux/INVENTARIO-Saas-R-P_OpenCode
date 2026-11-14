@@ -97,6 +97,17 @@ Controles obligatorios:
 Tipos de movimiento: `purchase_entry`, `sale_exit`, `return`, `adjustment`,
 `transfer_in`, `transfer_out`, `reversal`.
 
+> **Implementado (Sprint 4, US-0401 a US-0406):** `stock_balances`,
+> `stock_movements` y `stock_movement_lines` existen con `company_id`,
+> unicidad por variante/ubicación, idempotencia por empresa y reversión única
+> (`reversal_of_movement_id`). Toda mutación pasa por `InventoryMovementService`.
+>
+> La implementación lleva variante, ubicación y cantidad en
+> `stock_movement_lines`; la cabecera `stock_movements` guarda tipo, estado,
+> usuario, motivo, `document_reference`, las referencias de devolución/reversión
+> e `idempotency_key`. `unit_cost` y `reference_*` quedan previstos para compras
+> y traslados (Sprint 5).
+
 ### 3.5 Compras y traslados
 
 | Entidad | Tabla | Campos principales |
