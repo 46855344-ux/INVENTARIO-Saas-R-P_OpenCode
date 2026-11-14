@@ -4,6 +4,7 @@ import { LoginPage } from '../features/auth/LoginPage';
 import { ProtectedRoute } from '../features/auth/ProtectedRoute';
 import { UsersPage } from '../features/identity/UsersPage';
 import { CatalogPage } from '../features/products/CatalogPage';
+import { InventoryPage } from '../features/inventory/InventoryPage';
 import { ConfigurationPage } from '../features/settings/ConfigurationPage';
 import { AppLayout } from '../layouts/AppLayout';
 import { HomePage } from './HomePage';
@@ -19,6 +20,7 @@ export default function App() {
             <Route element={<AppLayout />}>
               <Route index element={<HomePage />} />
               <Route path="catalog" element={<CatalogPage />} />
+              <Route path="inventory" element={<InventoryPage />} />
               <Route path="settings" element={<ConfigurationPage />} />
               <Route path="users" element={<UsersPage />} />
               <Route path="*" element={<Navigate to="/" replace />} />

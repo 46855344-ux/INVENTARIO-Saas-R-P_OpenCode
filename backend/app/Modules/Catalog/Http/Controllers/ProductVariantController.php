@@ -31,6 +31,17 @@ class ProductVariantController extends Controller
         );
     }
 
+    public function indexAll(IndexVariantRequest $request): AnonymousResourceCollection
+    {
+        $this->authorize('viewAny', ProductVariant::class);
+
+        $context = TenantContext::fromRequest($request);
+
+        return ProductVariantResource::collection(
+            $this->catalog->paginateAllVariants($context, $request->validated()),
+        );
+    }
+
     public function store(StoreVariantRequest $request, int $product): JsonResponse
     {
         $this->authorize('create', ProductVariant::class);

@@ -18,9 +18,13 @@ use App\Modules\Identity\Policies\RolePolicy;
 use App\Modules\Identity\Policies\UserPolicy;
 use App\Modules\Identity\Services\TenantContext;
 use App\Modules\Inventory\Models\Location;
+use App\Modules\Inventory\Models\StockBalance;
+use App\Modules\Inventory\Models\StockMovement;
 use App\Modules\Inventory\Models\Unit;
 use App\Modules\Inventory\Models\UnitConversion;
 use App\Modules\Inventory\Policies\LocationPolicy;
+use App\Modules\Inventory\Policies\StockBalancePolicy;
+use App\Modules\Inventory\Policies\StockMovementPolicy;
 use App\Modules\Inventory\Policies\UnitConversionPolicy;
 use App\Modules\Inventory\Policies\UnitPolicy;
 use Illuminate\Support\Facades\Gate;
@@ -67,5 +71,7 @@ class AppServiceProvider extends ServiceProvider
         Gate::policy(Unit::class, UnitPolicy::class);
         Gate::policy(UnitConversion::class, UnitConversionPolicy::class);
         Gate::policy(Location::class, LocationPolicy::class);
+        Gate::policy(StockBalance::class, StockBalancePolicy::class);
+        Gate::policy(StockMovement::class, StockMovementPolicy::class);
     }
 }

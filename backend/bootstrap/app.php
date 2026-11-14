@@ -6,6 +6,9 @@ use App\Modules\Identity\Exceptions\ForbiddenTenantException;
 use App\Modules\Identity\Http\Middleware\ResolveTenant;
 use App\Modules\Inventory\Exceptions\ConversionNotDefinedException;
 use App\Modules\Inventory\Exceptions\IncompatibleUnitsException;
+use App\Modules\Inventory\Exceptions\InsufficientStockException;
+use App\Modules\Inventory\Exceptions\MovementAlreadyReversedException;
+use App\Modules\Inventory\Exceptions\MovementNotReversibleException;
 use App\Modules\Shared\Http\ErrorResponse;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Application;
@@ -98,6 +101,30 @@ return Application::configure(basePath: dirname(__DIR__))
             }
 
             return ErrorResponse::make('CONVERSION_NOT_DEFINED', $e->getMessage(), 422);
+        });
+
+        $exceptions->render(function (InsufficientStockException $e, Request $request) {
+            if (! $request->is('api/*') && ! $request->expectsJson()) {
+                return null;
+            }
+
+            return ErrorResponse::make('INSUFFICIENT_STOCK', $e->getMessage(), 409);
+        });
+
+        $exceptions->render(function (MovementAlreadyReversedException $e, Request $request) {
+            if (! $request->is('api/*') && ! $request->expectsJson()) {
+                return null;
+            }
+
+            return ErrorResponse::make('ALREADY_REVERSED', $e->getMessage(), 409);
+        });
+
+        $exceptions->render(function (MovementNotReversibleException $e, Request $request) {
+            if (! $request->is('api/*') && ! $request->expectsJson()) {
+                return null;
+            }
+
+            return ErrorResponse::make('NOT_REVERSIBLE', $e->getMessage(), 409);
         });
 
         $exceptions->render(function (HttpException $e, Request $request) {

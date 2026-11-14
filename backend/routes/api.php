@@ -9,6 +9,8 @@ use App\Modules\Identity\Http\Controllers\PermissionController;
 use App\Modules\Identity\Http\Controllers\RoleController;
 use App\Modules\Identity\Http\Controllers\UserController;
 use App\Modules\Inventory\Http\Controllers\LocationController;
+use App\Modules\Inventory\Http\Controllers\StockController;
+use App\Modules\Inventory\Http\Controllers\StockMovementController;
 use App\Modules\Inventory\Http\Controllers\UnitController;
 use App\Modules\Inventory\Http\Controllers\UnitConversionController;
 use Illuminate\Support\Facades\Route;
@@ -77,6 +79,8 @@ Route::prefix('v1')->group(function () {
         Route::patch('/products/{id}/status', [ProductController::class, 'updateStatus'])
             ->middleware('can:catalog.manage');
 
+        Route::get('/variants', [ProductVariantController::class, 'indexAll'])
+            ->middleware('can:catalog.view');
         Route::get('/variants/{id}', [ProductVariantController::class, 'show'])
             ->middleware('can:catalog.view');
         Route::put('/variants/{id}', [ProductVariantController::class, 'update'])
@@ -116,6 +120,23 @@ Route::prefix('v1')->group(function () {
             ->middleware('can:settings.manage');
         Route::patch('/locations/{id}/status', [LocationController::class, 'updateStatus'])
             ->middleware('can:settings.manage');
+
+        Route::get('/inventory/stocks', [StockController::class, 'index'])
+            ->middleware('can:inventory.view');
+        Route::get('/inventory/movements', [StockMovementController::class, 'index'])
+            ->middleware('can:inventory.view');
+        Route::get('/inventory/movements/{id}', [StockMovementController::class, 'show'])
+            ->middleware('can:inventory.view');
+        Route::post('/inventory/entries', [StockMovementController::class, 'storeEntry'])
+            ->middleware('can:inventory.move');
+        Route::post('/inventory/exits', [StockMovementController::class, 'storeExit'])
+            ->middleware('can:inventory.move');
+        Route::post('/inventory/returns', [StockMovementController::class, 'storeReturn'])
+            ->middleware('can:inventory.move');
+        Route::post('/inventory/adjustments', [StockMovementController::class, 'storeAdjustment'])
+            ->middleware('can:inventory.adjust');
+        Route::post('/inventory/movements/{id}/reverse', [StockMovementController::class, 'reverse'])
+            ->middleware('can:inventory.approve');
 
         Route::get('/roles', [RoleController::class, 'index'])
             ->middleware('can:identity.roles.view');

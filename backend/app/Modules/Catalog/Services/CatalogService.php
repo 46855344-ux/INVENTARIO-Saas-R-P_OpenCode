@@ -276,6 +276,29 @@ class CatalogService
     }
 
     /**
+     * @param  array{search?: string|null, status?: string|null, per_page?: int|null}  $filters
+     */
+    public function paginateAllVariants(TenantContext $context, array $filters): LengthAwarePaginator
+    {
+        $search = $filters['search'] ?? null;
+
+        return ProductVariant::query()
+            ->with('product')
+            ->where('company_id', $context->company->id)
+            ->when($search !== null && $search !== '', function ($query) use ($search): void {
+                $query->where(function ($nested) use ($search): void {
+                    $nested->where('sku', 'like', "%{$search}%")
+                        ->orWhere('name', 'like', "%{$search}%")
+                        ->orWhereHas('product', fn ($product) => $product->where('name', 'like', "%{$search}%"));
+                });
+            })
+            ->when(isset($filters['status']), fn ($query) => $query->where('status', $filters['status']))
+            ->orderBy('sku')
+            ->paginate($filters['per_page'] ?? 20)
+            ->withQueryString();
+    }
+
+    /**
      * @param  array{name?: string, sku?: string, barcode?: string|null, attributes?: array<string, mixed>|null, cost?: string|float|int|null, price?: string|float|int|null}  $data
      */
     public function updateVariant(ProductVariant $variant, array $data): ProductVariant

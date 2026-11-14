@@ -185,3 +185,49 @@ export interface Location {
   created_at?: string;
   updated_at?: string;
 }
+
+export type StockMovementType = 'entry' | 'exit' | 'return' | 'adjustment' | 'reversal';
+
+export interface StockBalance {
+  id: number;
+  variant_id: number;
+  location_id: number;
+  quantity: string;
+  reserved_quantity: string;
+  variant: {
+    id: number;
+    sku: string;
+    name: string;
+    product: { id: number; name: string } | null;
+  } | null;
+  location: { id: number; code: string; name: string } | null;
+  updated_at?: string;
+}
+
+export interface StockMovementLine {
+  id: number;
+  variant_id: number;
+  location_id: number;
+  unit_id: number | null;
+  quantity: string;
+  normalized_quantity: string;
+  direction: 'in' | 'out';
+  variant: { id: number; sku: string; name: string } | null;
+  location: { id: number; code: string; name: string } | null;
+  unit: { id: number; code: string; name: string } | null;
+}
+
+export interface StockMovement {
+  id: number;
+  type: StockMovementType;
+  status: string;
+  reason: string;
+  document_reference: string | null;
+  original_movement_id: number | null;
+  reversal_of_movement_id: number | null;
+  confirmed_at: string | null;
+  created_at: string | null;
+  user: { id: number; name: string } | null;
+  lines: StockMovementLine[];
+  reversal: { id: number; type: string; confirmed_at: string | null } | null;
+}

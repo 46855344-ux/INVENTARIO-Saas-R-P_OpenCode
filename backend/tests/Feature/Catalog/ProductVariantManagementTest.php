@@ -243,4 +243,31 @@ class ProductVariantManagementTest extends TestCase
             ->assertStatus(403)
             ->assertJsonPath('error.code', 'FORBIDDEN');
     }
+
+    public function test_variants_can_be_listed_for_the_whole_company(): void
+    {
+        $company = Company::factory()->create();
+        $otherCompany = Company::factory()->create();
+        $product = Product::factory()->create(['company_id' => $company->id]);
+        ProductVariant::factory()->create([
+            'company_id' => $company->id,
+            'product_id' => $product->id,
+            'sku' => 'SKU-GLOBAL',
+        ]);
+        $foreignProduct = Product::factory()->create(['company_id' => $otherCompany->id]);
+        ProductVariant::factory()->create([
+            'company_id' => $otherCompany->id,
+            'product_id' => $foreignProduct->id,
+            'sku' => 'SKU-FOREIGN',
+        ]);
+        $actor = $this->member($company, self::MANAGER_PERMISSIONS);
+
+        $this->asMember($actor)
+            ->getJson('/api/v1/variants')
+            ->assertOk()
+            ->assertJsonCount(1, 'data')
+            ->assertJsonPath('data.0.sku', 'SKU-GLOBAL')
+            ->assertJsonPath('data.0.product.name', $product->name)
+            ->assertJsonMissing(['sku' => 'SKU-FOREIGN']);
+    }
 }

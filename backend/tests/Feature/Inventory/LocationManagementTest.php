@@ -2,12 +2,12 @@
 
 namespace Tests\Feature\Inventory;
 
+use App\Modules\Catalog\Models\Product;
+use App\Modules\Catalog\Models\ProductVariant;
 use App\Modules\Identity\Models\Company;
 use App\Modules\Inventory\Models\Location;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Schema;
 use Tests\Concerns\InteractsWithTenant;
 use Tests\TestCase;
 
@@ -128,14 +128,19 @@ class LocationManagementTest extends TestCase
         $location = Location::factory()->create(['company_id' => $company->id]);
         $actor = $this->member($company, self::MANAGER_PERMISSIONS);
 
-        Schema::create('stock_balances', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('location_id')->constrained('locations')->cascadeOnDelete();
-            $table->decimal('quantity', 15, 4);
-        });
+        $product = Product::factory()->create(['company_id' => $company->id]);
+        $variant = ProductVariant::factory()->create([
+            'company_id' => $company->id,
+            'product_id' => $product->id,
+        ]);
         DB::table('stock_balances')->insert([
+            'company_id' => $company->id,
+            'variant_id' => $variant->id,
             'location_id' => $location->id,
             'quantity' => '1.0000',
+            'reserved_quantity' => '0.0000',
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
 
         $this->asMember($actor)

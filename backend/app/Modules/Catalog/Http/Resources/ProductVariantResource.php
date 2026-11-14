@@ -26,6 +26,14 @@ class ProductVariantResource extends JsonResource
             'cost' => $this->cost,
             'price' => $this->price,
             'status' => $this->status,
+            'product' => $this->whenLoaded(
+                'product',
+                fn (): ?array => $this->product ? [
+                    'id' => $this->product->id,
+                    'name' => $this->product->name,
+                ] : null,
+                null,
+            ),
             'created_at' => $this->created_at?->toIso8601String(),
             'updated_at' => $this->updated_at?->toIso8601String(),
         ];

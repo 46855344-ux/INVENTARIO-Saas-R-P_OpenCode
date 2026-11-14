@@ -215,6 +215,16 @@ export async function listVariants(
   return data;
 }
 
+export async function listAllVariants(
+  filters: CatalogFilters = {},
+): Promise<Paginated<ProductVariant>> {
+  const { data } = await api.get<Paginated<ProductVariant>>('/v1/variants', {
+    params: toParams(filters),
+  });
+
+  return data;
+}
+
 export async function createVariant(
   productId: number,
   input: VariantInput,
