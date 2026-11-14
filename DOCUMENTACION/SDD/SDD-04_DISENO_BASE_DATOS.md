@@ -118,6 +118,19 @@ Tipos de movimiento: `purchase_entry`, `sale_exit`, `return`, `adjustment`,
 | Traslado | `transfers` | `id`, `company_id`, `from_location_id`, `to_location_id`, `status`, `created_by`, `created_at` |
 | Detalle de traslado | `transfer_items` | `id`, `company_id`, `transfer_id`, `variant_id`, `quantity` |
 
+> **Implementado (Sprint 5, US-0501 a US-0503):** `suppliers`, `purchases`,
+> `purchase_items`, `transfers` y `transfer_items` existen con `company_id`,
+> unicidad por empresa y claves foráneas con `RESTRICT` hacia el historial.
+>
+> - La compra guarda `unit_cost` y `subtotal` por línea como costo histórico y
+>   pasa de `draft` a `received` en una recepción total.
+> - El traslado se ejecuta de forma inmediata y atómica con estado
+>   `confirmed`; descuenta origen e incrementa destino.
+> - `stock_movements` incorpora `reference_type` y `reference_id` para enlazar
+>   la recepción (`purchase`) o el traslado (`transfer`).
+> - `purchase_receipts`, la recepción parcial y el tránsito entre ubicaciones
+>   quedan fuera del alcance de este sprint.
+
 ### 3.6 Conteos, métricas y auditoría
 
 | Entidad | Tabla | Campos principales |

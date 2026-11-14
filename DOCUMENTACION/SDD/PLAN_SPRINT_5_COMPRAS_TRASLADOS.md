@@ -5,7 +5,7 @@
 **Documento:** Plan de iteración, decisiones, contratos y pruebas
 **Versión:** 1.0 — Sprint 5
 **Fecha:** 2026-11-14
-**Estado:** Planificado — recepción total y ejecución inmediata de traslados delimitadas; DP-02/DP-05 sin ratificación formal
+**Estado:** Implementado — US-0501 a US-0503 completadas; DP-02/DP-05 y validación MySQL pendientes
 **Canvas de referencia:** [`DOCS_origen/CANVAS_SPRINT_5_COMPRAS_TRASLADOS.md`](../DOCS_origen/CANVAS_SPRINT_5_COMPRAS_TRASLADOS.md)
 
 ---
@@ -108,6 +108,7 @@ Errores previstos:
 | Código | HTTP | Situación |
 | --- | --- | --- |
 | `PURCHASE_NOT_EDITABLE` | 409 | Se intenta editar una compra recibida |
+| `IDEMPOTENCY_CONFLICT` | 409 | La clave de idempotencia ya pertenece a otra operación |
 | `INSUFFICIENT_STOCK` | 409 | El traslado supera el saldo de origen |
 | `VALIDATION_ERROR` | 422 | Datos inválidos, origen igual a destino o falta la clave |
 | `FORBIDDEN` | 403 | Falta el permiso requerido |
@@ -184,14 +185,14 @@ Errores previstos:
 
 ## 10. Definition of Done
 
-- [ ] US-0501, US-0502 y US-0503 cumplen sus criterios.
-- [ ] Migraciones, índices y restricciones implementados.
-- [ ] Recepción y traslado usan exclusivamente `InventoryMovementService`.
-- [ ] Operaciones atómicas, idempotentes y sin stock negativo.
-- [ ] Costos históricos preservados y trazabilidad por referencia.
-- [ ] Policies, TenantScope y validaciones activas.
-- [ ] React con estados de carga, error, vacío y permisos.
-- [ ] Pruebas de API y UI pasan; documentación actualizada.
+- [x] US-0501, US-0502 y US-0503 cumplen sus criterios.
+- [x] Migraciones, índices y restricciones implementados.
+- [x] Recepción y traslado usan exclusivamente `InventoryMovementService`.
+- [x] Operaciones atómicas, idempotentes y sin stock negativo.
+- [x] Costos históricos preservados y trazabilidad por referencia.
+- [x] Policies, TenantScope y validaciones activas.
+- [x] React con estados de carga, error, vacío y permisos.
+- [x] Pruebas de API y UI pasan; documentación actualizada.
 
 ## 11. Orden de implementación
 
@@ -213,3 +214,18 @@ Errores previstos:
 | Recepción multi-etapa | Fuera de alcance; el modelo permite añadir `purchase_receipts` |
 | Traslados con tránsito | Fuera de alcance; ejecución inmediata y atómica |
 | Impuestos, moneda y descuentos | Fuera de alcance; total = suma de subtotales |
+
+## 13. Estado de implementación
+
+**Completado el 2026-11-14.**
+
+- Migraciones `suppliers`, `purchases`, `purchase_items`, `transfers` y
+  `transfer_items`; referencia de origen en `stock_movements`.
+- CRUD de proveedores con desactivación que preserva compras.
+- Compras en borrador con edición y costos históricos; recepción total e
+  idempotente que usa `InventoryMovementService`.
+- Traslados atómicos con `transfer_out`/`transfer_in`, validación de saldo y
+  compensación global cero.
+- Pantalla React «Compras y traslados» con proveedores, compras y traslados.
+- Evidencia: backend 131 pruebas / 488 aserciones, frontend 56 pruebas,
+  lint/build OK y recorrido real compra → recepción → traslado verificado.

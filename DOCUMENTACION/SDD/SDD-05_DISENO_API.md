@@ -27,7 +27,7 @@
 | Formato | JSON UTF-8 (`Accept: application/json`) |
 | Autenticación | Laravel Sanctum (token Bearer o cookie de SPA) |
 
-**Implementado (Sprints 0 a 4):**
+**Implementado (Sprints 0 a 5):**
 
 | Método | Ruta | Autenticación | Permiso |
 | --- | --- | --- | --- |
@@ -87,8 +87,21 @@
 | `POST` | `/api/v1/inventory/returns` | `auth:sanctum` + `X-Company-Id` | `inventory.move` |
 | `POST` | `/api/v1/inventory/adjustments` | `auth:sanctum` + `X-Company-Id` | `inventory.adjust` |
 | `POST` | `/api/v1/inventory/movements/{id}/reverse` | `auth:sanctum` + `X-Company-Id` | `inventory.approve` |
+| `GET` | `/api/v1/suppliers` | `auth:sanctum` + `X-Company-Id` | `purchases.view` |
+| `POST` | `/api/v1/suppliers` | `auth:sanctum` + `X-Company-Id` | `purchases.manage` |
+| `GET` | `/api/v1/suppliers/{id}` | `auth:sanctum` + `X-Company-Id` | `purchases.view` |
+| `PUT` | `/api/v1/suppliers/{id}` | `auth:sanctum` + `X-Company-Id` | `purchases.manage` |
+| `PATCH` | `/api/v1/suppliers/{id}/status` | `auth:sanctum` + `X-Company-Id` | `purchases.manage` |
+| `GET` | `/api/v1/purchases` | `auth:sanctum` + `X-Company-Id` | `purchases.view` |
+| `POST` | `/api/v1/purchases` | `auth:sanctum` + `X-Company-Id` | `purchases.manage` |
+| `GET` | `/api/v1/purchases/{id}` | `auth:sanctum` + `X-Company-Id` | `purchases.view` |
+| `PUT` | `/api/v1/purchases/{id}` | `auth:sanctum` + `X-Company-Id` | `purchases.manage` |
+| `POST` | `/api/v1/purchases/{id}/receive` | `auth:sanctum` + `X-Company-Id` | `purchases.receive` |
+| `GET` | `/api/v1/transfers` | `auth:sanctum` + `X-Company-Id` | `transfers.view` |
+| `POST` | `/api/v1/transfers` | `auth:sanctum` + `X-Company-Id` | `transfers.manage` |
+| `GET` | `/api/v1/transfers/{id}` | `auth:sanctum` + `X-Company-Id` | `transfers.view` |
 
-**Propuesto para sprints siguientes:** compras, traslados, métricas y auditoría.
+**Propuesto para sprints siguientes:** métricas, alertas y auditoría.
 
 ## 3. Recursos previstos
 
@@ -102,7 +115,7 @@
 | Inventario | `/api/v1/inventory/stocks` | Consulta de saldos |
 | Inventario | `/api/v1/inventory/movements` | Alta, consulta y reversión |
 | Compras | `/api/v1/suppliers`, `/purchases`, `/purchases/{id}/receive` | CRUD y recepción |
-| Traslados | `/api/v1/transfers`, `/transfers/{id}/execute` | Alta y ejecución |
+| Traslados | `/api/v1/transfers` | Alta y ejecución atómica |
 | Métricas | `/api/v1/metrics/*`, `/stock-alerts` | Indicadores y alertas |
 | Conteos | `/api/v1/physical-counts`, `/{id}/close`, `/{id}/approve` | Conteo y aprobación |
 | Auditoría | `/api/v1/audit-logs` | Consulta filtrada |

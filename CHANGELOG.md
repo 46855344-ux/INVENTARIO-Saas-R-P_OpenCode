@@ -97,6 +97,15 @@ y el versionado semántico de [SemVer](https://semver.org/lang/es/).
     - Endpoints `/api/v1/inventory/stocks`, `/movements`, `/entries`, `/exits`, `/returns`, `/adjustments` y `/movements/{id}/reverse`.
     - Pantalla React «Inventario» con existencias, movimientos y formularios.
     - Pruebas de API (14) y de frontend para inventario.
+  - **Sprint 5 — US-0501 a US-0503 (compras y traslados):**
+    - Migraciones `suppliers`, `purchases`, `purchase_items`, `transfers` y `transfer_items`.
+    - Referencia de origen (`reference_type`/`reference_id`) en `stock_movements`.
+    - CRUD de proveedores con desactivación que preserva compras históricas.
+    - Compras en borrador, edición y costos históricos por línea; recepción total idempotente vía `InventoryMovementService`.
+    - Traslados atómicos con `transfer_out`/`transfer_in`, validación de saldo y saldo global cero.
+    - Endpoints `/api/v1/suppliers`, `/purchases`, `/purchases/{id}/receive` y `/transfers`.
+    - Pantalla React «Compras y traslados» con proveedores, compras y traslados.
+    - Pruebas de API (24) y de frontend para compras y traslados.
   - **Documentación de cierre de sprints:**
     - `DOCUMENTACION/README_SPRINT_1.md`: cierre del Sprint 1 (identidad, usuarios, permisos y aislamiento).
     - `DOCUMENTACION/README_SPRINT_2.md`: cierre del Sprint 2 (catálogo de productos y variantes).
