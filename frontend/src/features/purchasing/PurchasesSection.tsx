@@ -592,7 +592,7 @@ export function PurchasesSection({ canManage, canReceive }: PurchasesSectionProp
                   )}
                   {purchase.status === 'received' && (
                     <span className="hint">
-                      {purchase.received_by?.name ?? 'Recibida'}
+                      Recibida por {purchase.received_by?.name ?? '—'}
                     </span>
                   )}
                 </td>

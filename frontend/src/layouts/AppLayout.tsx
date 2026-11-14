@@ -87,7 +87,7 @@ export function AppLayout() {
       </main>
 
       <footer className="app-footer">
-        <span>Sprint 1 · Identidad y multiempresa</span>
+        <span>Sistema de inventario y almacén</span>
         <span>React · Laravel · MySQL</span>
       </footer>
     </div>
