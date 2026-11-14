@@ -52,6 +52,7 @@ Sprint 0:
 | 1 | [`README_SPRINT_1.md`](./README_SPRINT_1.md) | Cerrado técnicamente |
 | 2 | [`README_SPRINT_2.md`](./README_SPRINT_2.md) | Cerrado técnicamente |
 | 3 | [`README_SPRINT_3.md`](./README_SPRINT_3.md) | Cerrado técnicamente |
+| 4 | [`SDD/PLAN_SPRINT_4_INVENTARIO_CENTRAL.md`](./SDD/PLAN_SPRINT_4_INVENTARIO_CENTRAL.md) | Planificado |
 
 > Los READMEs de cierre resumen objetivo, entregables, historias, decisiones,
 > evidencias de prueba, DoD, demo y pendientes de cada iteración.
@@ -76,3 +77,9 @@ Sprint 0:
 | Documento | Contenido |
 | --- | --- |
 | [`SDD/PLAN_SPRINT_3_UNIDADES_UBICACIONES.md`](./SDD/PLAN_SPRINT_3_UNIDADES_UBICACIONES.md) | Unidades, conversiones y ubicaciones: decisiones, historias US-0301 a US-0303, contratos y pruebas |
+
+## Planificación del Sprint 4
+
+| Documento | Contenido |
+| --- | --- |
+| [`SDD/PLAN_SPRINT_4_INVENTARIO_CENTRAL.md`](./SDD/PLAN_SPRINT_4_INVENTARIO_CENTRAL.md) | Núcleo de inventario: alcance, decisiones, modelo, contratos, reglas transaccionales, pruebas y DoR/DoD |

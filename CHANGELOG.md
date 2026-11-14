@@ -95,6 +95,8 @@ y el versionado semántico de [SemVer](https://semver.org/lang/es/).
     - `DOCUMENTACION/README_SPRINT_1.md`: cierre del Sprint 1 (identidad, usuarios, permisos y aislamiento).
     - `DOCUMENTACION/README_SPRINT_2.md`: cierre del Sprint 2 (catálogo de productos y variantes).
     - `DOCUMENTACION/README_SPRINT_3.md`: cierre del Sprint 3 (unidades, conversiones y ubicaciones).
+  - **Planificación del Sprint 4 (EP-04):**
+    - `DOCUMENTACION/SDD/PLAN_SPRINT_4_INVENTARIO_CENTRAL.md`: alcance US-0401 a US-0406, decisiones, modelo, contratos, reglas transaccionales, matriz de pruebas y DoR/DoD.
 
 ### Cambiado
 
