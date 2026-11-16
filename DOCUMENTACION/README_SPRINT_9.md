@@ -60,9 +60,7 @@ declaración de producción.
 ## 6. Commits
 
 ```text
-docs(sprint-9): planificar estabilizacion y produccion
-ci(security): auditar dependencias en el pipeline
-docs(sprint-9): agregar runbook y aceptacion del MVP
+393ed51 ci(release): controles de calidad y runbook de produccion
 ```
 
 ## 7. Conclusión
