@@ -122,6 +122,14 @@ y el versionado semántico de [SemVer](https://semver.org/lang/es/).
     - Endpoints `/api/v1/stock-counts` y `/api/v1/audit-events`.
     - Pantalla React «Conteos y auditoría» con formulario, revisión, aprobación y filtros.
     - Pruebas de API (4) y de frontend para conteos y auditoría.
+  - **Sprint 8 — US-0801 (chatbot de solo lectura):**
+    - `ChatAssistantService` determinista con intenciones de stock, agotados, mínimos, salidas y resumen.
+    - Endpoints `/api/v1/assistant/query` y `/assistant/suggestions`.
+    - Rechazo de escritura, SQL y prompt injection; sin LLM externo.
+    - Registro mínimo en `chat_queries` sin preguntas ni respuestas.
+    - Pantalla React «Asistente» con sugerencias, estados y aviso de solo lectura.
+    - US-0802 diferida por falta de fuente verificable de temporada.
+    - Pruebas de API (4) y de frontend para el asistente.
   - **Documentación de cierre de sprints:**
     - `DOCUMENTACION/README_SPRINT_1.md`: cierre del Sprint 1 (identidad, usuarios, permisos y aislamiento).
     - `DOCUMENTACION/README_SPRINT_2.md`: cierre del Sprint 2 (catálogo de productos y variantes).

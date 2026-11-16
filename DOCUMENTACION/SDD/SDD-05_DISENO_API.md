@@ -28,7 +28,7 @@
 | Formato | JSON UTF-8 (`Accept: application/json`) |
 | Autenticación | Laravel Sanctum (cookie de SPA + CSRF; tokens Bearer para integraciones) |
 
-**Implementado (Sprints 0 a 5, incremento v1.1, Sprint 6 y Sprint 7):**
+**Implementado (Sprints 0 a 5, incremento v1.1, Sprint 6, Sprint 7 y Sprint 8):**
 
 | Método | Ruta | Autenticación | Permiso |
 | --- | --- | --- | --- |
@@ -116,8 +116,10 @@
 | `GET` | `/api/v1/stock-counts/{id}` | `auth:sanctum` + `X-Company-Id` | `counts.view` |
 | `PATCH` | `/api/v1/stock-counts/{id}/status` | `auth:sanctum` + `X-Company-Id` | `counts.manage`/`counts.approve` |
 | `GET` | `/api/v1/audit-events` | `auth:sanctum` + `X-Company-Id` | `audit.view` |
+| `POST` | `/api/v1/assistant/query` | `auth:sanctum` + `X-Company-Id` | `assistant.use` |
+| `GET` | `/api/v1/assistant/suggestions` | `auth:sanctum` + `X-Company-Id` | `assistant.use` |
 
-**Propuesto para sprints siguientes:** chatbot de solo lectura y estabilización.
+**Propuesto para sprints siguientes:** estabilización y producción.
 
 ### 2.1 Autenticación social — propuesta v1.1 (no implementada)
 

@@ -3,7 +3,7 @@
 **Proyecto:** SaaS Inversiones R&P
 **Épica:** EP-08
 **Fecha:** 2026-11-16
-**Estado:** En implementación
+**Estado:** Implementado — validación con MySQL real pendiente
 
 ## 1. Objetivo
 
@@ -77,3 +77,12 @@ Sin texto de la pregunta ni de la respuesta.
 | Fuga entre empresas | TenantContext y permisos en cada intención |
 | Prompt injection | Lista negra y rechazo sin ejecutar consultas |
 | Costos/privacidad de LLM | Sin proveedor externo en este sprint |
+
+## 10. Estado de implementación
+
+Implementado el 2026-11-16: parser determinista con intenciones permitidas,
+`ChatAssistantService`, endpoints de consulta y sugerencias, registro mínimo en
+`chat_queries`, pantalla `/assistant` con aviso de solo lectura y pruebas de
+rechazo de escritura, SQL y prompt injection. US-0802 queda fuera de alcance por
+falta de fuente verificable de temporada. Evidencia: backend 155 pruebas / 608
+aserciones; frontend 78 pruebas; Pint, lint y build correctos.

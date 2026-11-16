@@ -182,6 +182,10 @@ Tipos de movimiento: `purchase_entry`, `sale_exit`, `return`, `adjustment`,
 > `stock_count_items` y `audit_logs` existen con `company_id` y estados
 > `open`/`reviewing`/`approved`. La aprobación ajusta stock solo mediante
 > `InventoryMovementService` y `audit_logs` es append-only.
+>
+> **Implementado (Sprint 8, US-0801):** `chat_queries` registra solo metadatos
+> (`intent`, `status`, `duration_ms`, actor y fecha), sin preguntas ni respuestas.
+> US-0802 (temporada) queda pendiente por falta de fuente verificable.
 
 ## 4. Diagrama entidad-relación (resumen)
 
