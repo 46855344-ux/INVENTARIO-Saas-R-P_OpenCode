@@ -35,6 +35,9 @@ class IdentitySeeder extends Seeder
         'metrics.view' => 'Ver métricas de inventario',
         'alerts.view' => 'Ver alertas de inventario',
         'alerts.manage' => 'Administrar reglas y alertas',
+        'counts.view' => 'Ver conteos físicos',
+        'counts.manage' => 'Registrar y revisar conteos',
+        'counts.approve' => 'Aprobar diferencias de conteo',
         'metrics.costs.view' => 'Ver costos y márgenes',
         'audit.view' => 'Ver auditoría',
     ];
@@ -71,6 +74,9 @@ class IdentitySeeder extends Seeder
                 'metrics.view',
                 'alerts.view',
                 'alerts.manage',
+                'counts.view',
+                'counts.manage',
+                'counts.approve',
                 'metrics.costs.view',
                 'audit.view',
             ],
@@ -88,6 +94,8 @@ class IdentitySeeder extends Seeder
                 'transfers.manage',
                 'metrics.view',
                 'alerts.view',
+                'counts.view',
+                'counts.manage',
             ],
         ],
         'viewer' => [
@@ -101,6 +109,7 @@ class IdentitySeeder extends Seeder
                 'transfers.view',
                 'metrics.view',
                 'alerts.view',
+                'counts.view',
             ],
         ],
     ];

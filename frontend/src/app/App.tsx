@@ -6,6 +6,7 @@ import { UsersPage } from '../features/identity/UsersPage';
 import { CatalogPage } from '../features/products/CatalogPage';
 import { InventoryPage } from '../features/inventory/InventoryPage';
 import { AccountPage } from '../features/account/AccountPage';
+import { CountsPage } from '../features/audit/CountsPage';
 import { MetricsPage } from '../features/metrics/MetricsPage';
 import { PurchasingPage } from '../features/purchasing/PurchasingPage';
 import { ConfigurationPage } from '../features/settings/ConfigurationPage';
@@ -26,6 +27,7 @@ export default function App() {
               <Route path="inventory" element={<InventoryPage />} />
               <Route path="purchasing" element={<PurchasingPage />} />
               <Route path="metrics" element={<MetricsPage />} />
+              <Route path="counts" element={<CountsPage />} />
               <Route path="account" element={<AccountPage />} />
               <Route path="settings" element={<ConfigurationPage />} />
               <Route path="users" element={<UsersPage />} />

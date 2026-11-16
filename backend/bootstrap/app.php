@@ -1,5 +1,6 @@
 <?php
 
+use App\Modules\Audit\Exceptions\InvalidStockCountStatusException;
 use App\Modules\Identity\Exceptions\AuthenticationFailedException;
 use App\Modules\Identity\Exceptions\ForbiddenException;
 use App\Modules\Identity\Exceptions\ForbiddenTenantException;
@@ -123,6 +124,14 @@ return Application::configure(basePath: dirname(__DIR__))
             }
 
             return ErrorResponse::make('LAST_AUTH_METHOD', $e->getMessage(), 409);
+        });
+
+        $exceptions->render(function (InvalidStockCountStatusException $e, Request $request) {
+            if (! $request->is('api/*') && ! $request->expectsJson()) {
+                return null;
+            }
+
+            return ErrorResponse::make('INVALID_COUNT_STATUS', $e->getMessage(), 409);
         });
 
         $exceptions->render(function (IncompatibleUnitsException $e, Request $request) {

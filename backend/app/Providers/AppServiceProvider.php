@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Modules\Audit\Models\AuditLog;
+use App\Modules\Audit\Models\StockCount;
+use App\Modules\Audit\Policies\AuditLogPolicy;
+use App\Modules\Audit\Policies\StockCountPolicy;
 use App\Modules\Catalog\Models\Brand;
 use App\Modules\Catalog\Models\Category;
 use App\Modules\Catalog\Models\Product;
@@ -88,5 +92,7 @@ class AppServiceProvider extends ServiceProvider
         Gate::policy(Transfer::class, TransferPolicy::class);
         Gate::policy(AlertRule::class, AlertRulePolicy::class);
         Gate::policy(StockAlert::class, StockAlertPolicy::class);
+        Gate::policy(StockCount::class, StockCountPolicy::class);
+        Gate::policy(AuditLog::class, AuditLogPolicy::class);
     }
 }

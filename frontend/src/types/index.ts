@@ -309,6 +309,44 @@ export interface StockAlert {
   location: { id: number; code: string; name: string } | null;
 }
 
+export type StockCountStatus = 'open' | 'reviewing' | 'approved';
+
+export interface StockCountItem {
+  id: number;
+  variant_id: number;
+  theoretical_quantity: string;
+  counted_quantity: string;
+  difference: string;
+  variant: { id: number; sku: string; name: string } | null;
+}
+
+export interface StockCount {
+  id: number;
+  status: StockCountStatus;
+  notes: string | null;
+  reason: string | null;
+  counted_at: string | null;
+  reviewed_at: string | null;
+  approved_at: string | null;
+  location: { id: number; code: string; name: string } | null;
+  user: { id: number; name: string } | null;
+  reviewed_by: { id: number; name: string } | null;
+  approved_by: { id: number; name: string } | null;
+  items: StockCountItem[];
+  created_at?: string;
+}
+
+export interface AuditLog {
+  id: number;
+  action: string;
+  entity_type: string;
+  entity_id: number | null;
+  context: Record<string, unknown> | null;
+  ip: string | null;
+  created_at: string | null;
+  user: { id: number; name: string } | null;
+}
+
 /** Proveedor de la empresa activa. */
 export interface Supplier {
   id: number;

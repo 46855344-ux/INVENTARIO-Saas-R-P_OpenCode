@@ -1,5 +1,7 @@
 <?php
 
+use App\Modules\Audit\Http\Controllers\AuditLogController;
+use App\Modules\Audit\Http\Controllers\StockCountController;
 use App\Modules\Catalog\Http\Controllers\BrandController;
 use App\Modules\Catalog\Http\Controllers\CategoryController;
 use App\Modules\Catalog\Http\Controllers\ProductController;
@@ -194,6 +196,18 @@ Route::prefix('v1')->group(function () {
             ->middleware('can:alerts.manage');
         Route::patch('/alert-rules/{id}', [AlertRuleController::class, 'update'])
             ->middleware('can:alerts.manage');
+
+        Route::get('/stock-counts', [StockCountController::class, 'index'])
+            ->middleware('can:counts.view');
+        Route::post('/stock-counts', [StockCountController::class, 'store'])
+            ->middleware('can:counts.manage');
+        Route::get('/stock-counts/{id}', [StockCountController::class, 'show'])
+            ->middleware('can:counts.view');
+        Route::patch('/stock-counts/{id}/status', [StockCountController::class, 'updateStatus'])
+            ->middleware('can:counts.view');
+
+        Route::get('/audit-events', [AuditLogController::class, 'index'])
+            ->middleware('can:audit.view');
 
         Route::get('/roles', [RoleController::class, 'index'])
             ->middleware('can:identity.roles.view');
