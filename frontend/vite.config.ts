@@ -12,6 +12,7 @@ export default defineConfig({
     environment: 'jsdom',
     setupFiles: './tests/setup.ts',
     css: true,
+    maxWorkers: 1,
     coverage: {
       provider: 'v8',
       reportsDirectory: '../tests/reports/coverage-frontend',
