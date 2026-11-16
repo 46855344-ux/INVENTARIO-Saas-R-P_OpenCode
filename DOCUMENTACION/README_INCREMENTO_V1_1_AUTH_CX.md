@@ -111,7 +111,12 @@ funciona normalmente con correo y contraseña.
 | Analítica CX | Pendiente de política de privacidad y metas |
 | Pruebas E2E de OAuth | Requieren proveedor real o simulador de navegador |
 
-## 9. Commits
+## 9. Commits del incremento
 
-Los commits del incremento se registran al cierre de esta iteración en el
-`CHANGELOG.md` y en el historial de Git.
+```text
+cc8efb2 docs(incremento): planificar autenticacion social y experiencia v1.1
+7f446ce feat(auth): autenticacion social con Google y Facebook (v1.1)
+88f73ce docs(incremento): cerrar autenticacion social y experiencia v1.1
+cb0e4b5 chore(deps): actualizar lock de Composer
+487fc2c chore(test): estabilizar workers de Vitest
+```
