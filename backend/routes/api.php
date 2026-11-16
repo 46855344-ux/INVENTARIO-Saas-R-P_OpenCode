@@ -18,6 +18,7 @@ use App\Modules\Inventory\Http\Controllers\UnitController;
 use App\Modules\Inventory\Http\Controllers\UnitConversionController;
 use App\Modules\Metrics\Http\Controllers\AlertController;
 use App\Modules\Metrics\Http\Controllers\AlertRuleController;
+use App\Modules\Metrics\Http\Controllers\ChatAssistantController;
 use App\Modules\Metrics\Http\Controllers\MetricsController;
 use App\Modules\Purchasing\Http\Controllers\PurchaseController;
 use App\Modules\Purchasing\Http\Controllers\SupplierController;
@@ -208,6 +209,11 @@ Route::prefix('v1')->group(function () {
 
         Route::get('/audit-events', [AuditLogController::class, 'index'])
             ->middleware('can:audit.view');
+
+        Route::post('/assistant/query', [ChatAssistantController::class, 'query'])
+            ->middleware('can:assistant.use');
+        Route::get('/assistant/suggestions', [ChatAssistantController::class, 'suggestions'])
+            ->middleware('can:assistant.use');
 
         Route::get('/roles', [RoleController::class, 'index'])
             ->middleware('can:identity.roles.view');

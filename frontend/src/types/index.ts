@@ -347,6 +347,15 @@ export interface AuditLog {
   user: { id: number; name: string } | null;
 }
 
+export interface ChatResponse {
+  intent: string;
+  answer: string;
+  evidence: Array<Record<string, unknown>>;
+  status: 'ok' | 'empty' | 'rejected' | 'forbidden';
+  read_only: boolean;
+  generated_at: string;
+}
+
 /** Proveedor de la empresa activa. */
 export interface Supplier {
   id: number;

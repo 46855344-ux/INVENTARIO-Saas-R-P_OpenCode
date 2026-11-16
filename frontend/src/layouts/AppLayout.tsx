@@ -57,6 +57,11 @@ export function AppLayout() {
               Conteos
             </NavLink>
           )}
+          {hasPermission('assistant.use') && (
+            <NavLink to="/assistant" className={linkClass}>
+              Asistente
+            </NavLink>
+          )}
           <Can permission="identity.users.view">
             <NavLink to="/users" className={linkClass}>
               Usuarios

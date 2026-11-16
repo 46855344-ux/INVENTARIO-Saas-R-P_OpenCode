@@ -290,6 +290,30 @@ a {
   color: var(--color-warning, #92400e);
 }
 
+.chat-log {
+  display: grid;
+  gap: 0.75rem;
+  margin: 1rem 0;
+}
+
+.chat-message {
+  max-width: 720px;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  background-color: var(--color-surface);
+}
+
+.chat-message.is-user {
+  margin-left: auto;
+  background-color: #eef4ff;
+}
+
+.chat-message p {
+  margin: 0.35rem 0 0;
+  white-space: pre-line;
+}
+
 .loading {
   color: var(--color-muted);
 }
