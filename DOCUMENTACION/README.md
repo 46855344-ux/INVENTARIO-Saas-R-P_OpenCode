@@ -57,6 +57,7 @@ Sprint 0:
 | 6 | [`README_SPRINT_6.md`](./README_SPRINT_6.md) | Cerrado técnicamente |
 | 7 | [`README_SPRINT_7.md`](./README_SPRINT_7.md) | Cerrado técnicamente |
 | 8 | [`README_SPRINT_8.md`](./README_SPRINT_8.md) | Cerrado técnicamente |
+| 9 | [`README_SPRINT_9.md`](./README_SPRINT_9.md) | Release candidate |
 
 > Los READMEs de cierre resumen objetivo, entregables, historias, decisiones,
 > evidencias de prueba, DoD, demo y pendientes de cada iteración.
@@ -105,6 +106,18 @@ Sprint 0:
 | Documento | Contenido |
 | --- | --- |
 | [`SDD/PLAN_SPRINT_7_CONTEOS_AUDITORIA.md`](./SDD/PLAN_SPRINT_7_CONTEOS_AUDITORIA.md) | Conteos físicos, aprobación de diferencias, auditoría, contratos y pruebas |
+
+## Planificación del Sprint 8
+
+| Documento | Contenido |
+| --- | --- |
+| [`SDD/PLAN_SPRINT_8_CHATBOT_LECTURA.md`](./SDD/PLAN_SPRINT_8_CHATBOT_LECTURA.md) | Asistente de solo lectura, intenciones, seguridad y pruebas |
+
+## Planificación del Sprint 9
+
+| Documento | Contenido |
+| --- | --- |
+| [`SDD/PLAN_SPRINT_9_ESTABILIZACION_PRODUCCION.md`](./SDD/PLAN_SPRINT_9_ESTABILIZACION_PRODUCCION.md) | Calidad, CI, despliegue, backup/restore y aceptación del MVP |
 
 ## Integración documental v1.1 — CX, UX, UI y autenticación social
 

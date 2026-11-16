@@ -34,7 +34,7 @@ Se usa `concurrency` para cancelar ejecuciones anteriores de la misma rama.
 | Estilo | `vendor/bin/pint --test` |
 | Pruebas | `php artisan test` (SQLite en memoria) |
 
-### 3.2 Frontend (React)
+## 3.2 Frontend (React)
 
 | Paso | Acción |
 | --- | --- |
@@ -43,6 +43,17 @@ Se usa `concurrency` para cancelar ejecuciones anteriores de la misma rama.
 | Lint | `npm run lint` |
 | Pruebas | `npm run test` |
 | Compilación | `npm run build` |
+
+### 3.3 Seguridad de dependencias
+
+| Paso | Acción |
+| --- | --- |
+| Backend | `composer install` y `composer audit --format=summary` |
+| Frontend | `npm ci` y `npm audit --omit=dev --audit-level=high` |
+| Resultado | Falla el job ante vulnerabilidades altas/críticas |
+
+Ver [`GUIA_PRODUCCION.md`](./GUIA_PRODUCCION.md) y
+[`../TESTING/ACEPTACION_MVP.md`](../TESTING/ACEPTACION_MVP.md).
 
 ## 4. Criterios de éxito
 
@@ -54,6 +65,7 @@ Un cambio se considera válido cuando:
 4. El frontend compila con TypeScript sin errores.
 5. Oxlint no reporta problemas.
 6. Todas las pruebas Vitest pasan.
+7. `composer audit` y `npm audit --omit=dev --audit-level=high` no reportan vulnerabilidades altas o críticas.
 
 ## 5. Ejecución local equivalente
 

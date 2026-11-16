@@ -130,6 +130,12 @@ y el versionado semántico de [SemVer](https://semver.org/lang/es/).
     - Pantalla React «Asistente» con sugerencias, estados y aviso de solo lectura.
     - US-0802 diferida por falta de fuente verificable de temporada.
     - Pruebas de API (4) y de frontend para el asistente.
+  - **Sprint 9 — US-0901 a US-0904 (estabilización y producción):**
+    - Job `security` en CI con `composer audit` y `npm audit --omit=dev --audit-level=high`.
+    - Runbook de despliegue, TLS, migraciones, smoke tests, rollback y monitoreo.
+    - Procedimiento de backup/restore y brechas RPO/RTO documentadas.
+    - Matriz de aceptación del MVP con evidencia local y pendientes explícitos.
+    - Estado **release candidate**; producción no habilitada.
   - **Documentación de cierre de sprints:**
     - `DOCUMENTACION/README_SPRINT_1.md`: cierre del Sprint 1 (identidad, usuarios, permisos y aislamiento).
     - `DOCUMENTACION/README_SPRINT_2.md`: cierre del Sprint 2 (catálogo de productos y variantes).
