@@ -98,6 +98,12 @@ Sprint 0:
 | --- | --- |
 | [`SDD/PLAN_SPRINT_6_METRICAS_ALERTAS.md`](./SDD/PLAN_SPRINT_6_METRICAS_ALERTAS.md) | Métricas y alertas: indicadores, reglas, evaluación, UI/UX, contratos y pruebas |
 
+## Planificación del Sprint 7
+
+| Documento | Contenido |
+| --- | --- |
+| [`SDD/PLAN_SPRINT_7_CONTEOS_AUDITORIA.md`](./SDD/PLAN_SPRINT_7_CONTEOS_AUDITORIA.md) | Conteos físicos, aprobación de diferencias, auditoría, contratos y pruebas |
+
 ## Integración documental v1.1 — CX, UX, UI y autenticación social
 
 > **Estado:** propuesta documental. No hay código, migraciones ni pantallas
