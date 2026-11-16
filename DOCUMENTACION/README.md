@@ -91,6 +91,12 @@ Sprint 0:
 | --- | --- |
 | [`SDD/PLAN_SPRINT_5_COMPRAS_TRASLADOS.md`](./SDD/PLAN_SPRINT_5_COMPRAS_TRASLADOS.md) | Compras y traslados: alcance, decisiones, modelo, contratos, reglas transaccionales, pruebas y DoR/DoD |
 
+## Planificación del Sprint 6
+
+| Documento | Contenido |
+| --- | --- |
+| [`SDD/PLAN_SPRINT_6_METRICAS_ALERTAS.md`](./SDD/PLAN_SPRINT_6_METRICAS_ALERTAS.md) | Métricas y alertas: indicadores, reglas, evaluación, UI/UX, contratos y pruebas |
+
 ## Integración documental v1.1 — CX, UX, UI y autenticación social
 
 > **Estado:** propuesta documental. No hay código, migraciones ni pantallas
