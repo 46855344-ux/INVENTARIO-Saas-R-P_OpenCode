@@ -32,6 +32,9 @@ class IdentitySeeder extends Seeder
         'purchases.receive' => 'Confirmar recepción de compras',
         'transfers.view' => 'Ver traslados',
         'transfers.manage' => 'Registrar traslados',
+        'metrics.view' => 'Ver métricas de inventario',
+        'alerts.view' => 'Ver alertas de inventario',
+        'alerts.manage' => 'Administrar reglas y alertas',
         'metrics.costs.view' => 'Ver costos y márgenes',
         'audit.view' => 'Ver auditoría',
     ];
@@ -65,6 +68,9 @@ class IdentitySeeder extends Seeder
                 'purchases.receive',
                 'transfers.view',
                 'transfers.manage',
+                'metrics.view',
+                'alerts.view',
+                'alerts.manage',
                 'metrics.costs.view',
                 'audit.view',
             ],
@@ -80,6 +86,8 @@ class IdentitySeeder extends Seeder
                 'purchases.view',
                 'transfers.view',
                 'transfers.manage',
+                'metrics.view',
+                'alerts.view',
             ],
         ],
         'viewer' => [
@@ -91,6 +99,8 @@ class IdentitySeeder extends Seeder
                 'inventory.view',
                 'purchases.view',
                 'transfers.view',
+                'metrics.view',
+                'alerts.view',
             ],
         ],
     ];

@@ -257,6 +257,39 @@ a {
   text-decoration: none;
 }
 
+.metric-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.metric-card {
+  display: grid;
+  gap: 0.35rem;
+  padding: 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  background-color: var(--color-surface);
+}
+
+.metric-label {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.metric-value {
+  font-size: 1.75rem;
+  line-height: 1.1;
+}
+
+.metric-pending {
+  font-size: 1.25rem;
+  color: var(--color-warning, #92400e);
+}
+
 .loading {
   color: var(--color-muted);
 }

@@ -14,6 +14,9 @@ use App\Modules\Inventory\Http\Controllers\StockController;
 use App\Modules\Inventory\Http\Controllers\StockMovementController;
 use App\Modules\Inventory\Http\Controllers\UnitController;
 use App\Modules\Inventory\Http\Controllers\UnitConversionController;
+use App\Modules\Metrics\Http\Controllers\AlertController;
+use App\Modules\Metrics\Http\Controllers\AlertRuleController;
+use App\Modules\Metrics\Http\Controllers\MetricsController;
 use App\Modules\Purchasing\Http\Controllers\PurchaseController;
 use App\Modules\Purchasing\Http\Controllers\SupplierController;
 use App\Modules\Purchasing\Http\Controllers\TransferController;
@@ -174,6 +177,23 @@ Route::prefix('v1')->group(function () {
             ->middleware('can:transfers.manage');
         Route::get('/transfers/{id}', [TransferController::class, 'show'])
             ->middleware('can:transfers.view');
+
+        Route::get('/metrics/overview', [MetricsController::class, 'overview'])
+            ->middleware('can:metrics.view');
+        Route::get('/metrics/stock-detail', [MetricsController::class, 'stockDetail'])
+            ->middleware('can:metrics.view');
+
+        Route::get('/alerts', [AlertController::class, 'index'])
+            ->middleware('can:alerts.view');
+        Route::patch('/alerts/{id}/status', [AlertController::class, 'updateStatus'])
+            ->middleware('can:alerts.manage');
+
+        Route::get('/alert-rules', [AlertRuleController::class, 'index'])
+            ->middleware('can:alerts.view');
+        Route::post('/alert-rules', [AlertRuleController::class, 'store'])
+            ->middleware('can:alerts.manage');
+        Route::patch('/alert-rules/{id}', [AlertRuleController::class, 'update'])
+            ->middleware('can:alerts.manage');
 
         Route::get('/roles', [RoleController::class, 'index'])
             ->middleware('can:identity.roles.view');

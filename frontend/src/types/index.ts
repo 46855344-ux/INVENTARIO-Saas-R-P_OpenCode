@@ -256,6 +256,59 @@ export interface SocialIdentity {
   linked_at: string | null;
 }
 
+export type AlertType = 'min_stock' | 'inactivity';
+export type AlertStatus = 'open' | 'resolved';
+
+export interface MetricsOverview {
+  total_products: number;
+  total_variants: number;
+  total_stock: string;
+  out_of_stock: number;
+  low_stock: number;
+  total_value: null;
+  valuation_status: 'pending';
+  valuation_message: string;
+  top_outflows: Array<{
+    variant_id: number;
+    sku: string;
+    name: string;
+    quantity: string;
+  }>;
+  inactive: Array<{
+    variant_id: number;
+    sku: string | null;
+    name: string | null;
+    location_id: number;
+    location_code: string | null;
+    quantity: string;
+  }>;
+  period_days: number;
+  generated_at: string;
+}
+
+export interface AlertRule {
+  id: number;
+  type: AlertType;
+  threshold: string | null;
+  inactivity_days: number | null;
+  status: 'active' | 'inactive';
+  variant: { id: number; sku: string; name: string } | null;
+  location: { id: number; code: string; name: string } | null;
+  created_at?: string;
+}
+
+export interface StockAlert {
+  id: number;
+  type: AlertType;
+  status: AlertStatus;
+  message: string;
+  alert_rule_id: number;
+  detected_at: string | null;
+  resolved_at: string | null;
+  variant: { id: number; sku: string; name: string } | null;
+  location: { id: number; code: string; name: string } | null;
+}
+
 /** Proveedor de la empresa activa. */
 export interface Supplier {
   id: number;

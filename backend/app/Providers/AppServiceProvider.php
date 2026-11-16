@@ -27,6 +27,10 @@ use App\Modules\Inventory\Policies\StockBalancePolicy;
 use App\Modules\Inventory\Policies\StockMovementPolicy;
 use App\Modules\Inventory\Policies\UnitConversionPolicy;
 use App\Modules\Inventory\Policies\UnitPolicy;
+use App\Modules\Metrics\Models\AlertRule;
+use App\Modules\Metrics\Models\StockAlert;
+use App\Modules\Metrics\Policies\AlertRulePolicy;
+use App\Modules\Metrics\Policies\StockAlertPolicy;
 use App\Modules\Purchasing\Models\Purchase;
 use App\Modules\Purchasing\Models\Supplier;
 use App\Modules\Purchasing\Models\Transfer;
@@ -82,5 +86,7 @@ class AppServiceProvider extends ServiceProvider
         Gate::policy(Supplier::class, SupplierPolicy::class);
         Gate::policy(Purchase::class, PurchasePolicy::class);
         Gate::policy(Transfer::class, TransferPolicy::class);
+        Gate::policy(AlertRule::class, AlertRulePolicy::class);
+        Gate::policy(StockAlert::class, StockAlertPolicy::class);
     }
 }

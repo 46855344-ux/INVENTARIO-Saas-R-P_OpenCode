@@ -47,6 +47,11 @@ export function AppLayout() {
               Compras
             </NavLink>
           )}
+          {(hasPermission('metrics.view') || hasPermission('alerts.view')) && (
+            <NavLink to="/metrics" className={linkClass}>
+              Métricas
+            </NavLink>
+          )}
           <Can permission="identity.users.view">
             <NavLink to="/users" className={linkClass}>
               Usuarios
