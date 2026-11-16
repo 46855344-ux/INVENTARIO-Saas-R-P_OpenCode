@@ -89,3 +89,23 @@ npm run build
 - Las credenciales de CI se gestionan con *GitHub Secrets*; no se escriben en el
   workflow.
 - El pipeline no despliega en producción en el Sprint 0.
+
+## 8. Actualización v1.1 — autenticación social (propuesta)
+
+> **Estado:** recomendaciones documentales. No se modificó el pipeline ni se
+> agregaron dependencias al 2026-11-15.
+
+Si se aprueba el incremento de autenticación con Google/Facebook:
+
+| Control | Implementación propuesta |
+| --- | --- |
+| Secretos OAuth | Solo en GitHub Secrets/variables del entorno; nunca en el repositorio ni en el bundle React |
+| Pruebas automatizadas | Mocks/fixtures de proveedores; sin credenciales reales ni llamadas externas en CI |
+| Callbacks | URLs de prueba registradas por ambiente; prohibido usar producción en CI |
+| Análisis de dependencias | Incorporar OWASP Dependency-Check o equivalente antes de agregar Socialite |
+| Escaneo de secretos | Verificación previa al merge y en el pipeline |
+| Regresión | Mantener backend, frontend, Pint, Oxlint, Vitest y build como gates obligatorios |
+
+Ver `../SEGURIDAD/AUTH-01_AUTENTICACION_SOCIAL.md`,
+`../TESTING/QA-01_PLAN_DE_PRUEBAS_CX_UX_UI_AUTH.md` y
+`../SDD/ADR/REGISTRO_DECISIONES_V1_1_CX_UX_AUTH.md`.

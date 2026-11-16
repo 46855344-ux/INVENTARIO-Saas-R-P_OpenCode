@@ -2,6 +2,7 @@
 
 **Proyecto:** SaaS Inversiones R&P
 **Versión:** 1.0 — Sprint 0 (US-0002)
+**Actualización:** v1.1 — 2026-11-15 (propuesta de identidad social; no implementada)
 **Fecha:** 2026-11-12
 **Estado:** Modelo lógico propuesto para aprobación
 
@@ -58,6 +59,31 @@ Controles obligatorios:
 | Rol | `roles` | `id`, `company_id` (nullable si es global), `name`, `code` |
 | Permiso | `permissions` | `id`, `code`, `name` |
 | Rol-permiso | `permission_role` | `role_id`, `permission_id` |
+
+#### 3.1.1 Identidad social (propuesta v1.1 — no implementada)
+
+> **Estado:** diseño propuesto. No existe migración, tabla ni modelo de
+> identidad social al 2026-11-15. No ejecutar esta estructura sin aprobación.
+
+| Entidad | Tabla propuesta | Campos principales |
+| --- | --- | --- |
+| Identidad externa | `social_identities` | `id`, `user_id`, `provider`, `provider_user_id`, `provider_email` (opcional), `linked_at`, timestamps |
+
+Reglas:
+
+- `provider` limitado a `google` y `facebook`.
+- `UNIQUE (provider, provider_user_id)`; índice por `user_id`.
+- `user_id` referencia a `users`; **sin `company_id`**, porque la identidad es
+  global. La empresa se sigue resolviendo con `company_user`.
+- No imponer `UNIQUE (user_id, provider)` hasta que el producto decida si un
+  usuario puede tener varias identidades del mismo proveedor.
+- No guardar tokens del proveedor ni perfiles completos; `provider_email` es
+  opcional y **no** se usa para vincular cuentas.
+- La vinculación exige sesión válida y prueba de control del proveedor.
+- Desvincular no puede dejar al usuario sin método de acceso.
+
+Ver ADR-0005 y
+[`AUTH-01_AUTENTICACION_SOCIAL.md`](../SEGURIDAD/AUTH-01_AUTENTICACION_SOCIAL.md).
 
 ### 3.2 Catálogo
 

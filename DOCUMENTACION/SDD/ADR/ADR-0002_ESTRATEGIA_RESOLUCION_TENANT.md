@@ -57,3 +57,10 @@ Reglas obligatorias:
 Aprobada el **2026-11-13**. El `TenantContext`, el middleware `tenant`, el trait
 `BelongsToCompany` y el `TenantScope` global están implementados. US-0102 cubrió
 la resolución de la empresa y US-0104 el aislamiento de los modelos de dominio.
+
+## 7. Nota v1.1 — autenticación social
+
+> **Propuesta, no implementada.** El login con Google o Facebook no modifica esta
+> decisión: la empresa activa sigue viajando en `X-Company-Id` y se valida contra
+> `company_user` en cada petición. Una identidad social no concede pertenencia ni
+> cambia el tenant. Ver ADR-0004/0005 y `INTEGRACION_V1_1_CX_UX_AUTH.md`.

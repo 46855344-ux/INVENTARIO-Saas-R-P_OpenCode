@@ -58,3 +58,10 @@ Aprobada el **2026-11-13**, junto con DD-04. El modelo de roles y permisos se
 implementó en **US-0102** y su aplicación en **US-0103**: `Gate::before` resuelve
 los códigos `modulo.accion`, las policies autorizan recursos y las rutas usan el
 middleware `can:`. `user_permission` queda fuera del alcance del Sprint 1.
+
+## 7. Nota v1.1 — autenticación social
+
+> **Propuesta, no implementada.** El método de login no altera roles ni permisos.
+`company_user.role_id` sigue siendo la fuente de autorización por empresa y el
+backend comprueba `modulo.accion` en cada operación. Ningún proveedor social
+concede permisos por sí mismo. Ver ADR-0004/0005.

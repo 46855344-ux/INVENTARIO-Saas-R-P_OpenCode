@@ -113,6 +113,29 @@ y el versionado semántico de [SemVer](https://semver.org/lang/es/).
   - **Planificación del Sprint 4 (EP-04):**
     - `DOCUMENTACION/SDD/PLAN_SPRINT_4_INVENTARIO_CENTRAL.md`: alcance US-0401 a US-0406, decisiones, modelo, contratos, reglas transaccionales, matriz de pruebas y DoR/DoD.
 
+### Documentación — integración v1.1 (2026-11-15)
+
+Integración documental de los requisitos de CX, UX, UI y autenticación con
+Google/Facebook. **No se modificó código ni se ejecutaron migraciones.**
+
+- Nuevo `DOCUMENTACION/SDD/INTEGRACION_V1_1_CX_UX_AUTH.md` con comparación de
+  fuentes, conflictos C-01 a C-12, resoluciones y archivos afectados.
+- Nuevo `DOCUMENTACION/SDD/ADR/REGISTRO_DECISIONES_V1_1_CX_UX_AUTH.md` con
+  ADR-0004 a ADR-0007 en estado «propuesta».
+- `SDD-01` ampliado con la arquitectura de auth social y la capa CX/UX/UI.
+- `SDD-04` ampliado con la propuesta `social_identities` (sin migración).
+- `SDD-05` ampliado con endpoints sociales propuestos, errores y estados UX.
+- `ADR-0001` a `ADR-0003` ampliados con notas de compatibilidad; decisiones
+  originales conservadas.
+- Nuevos índices `DOCUMENTACION/Docs/README.md` y
+  `DOCUMENTACION/CX_UX_UI/README.md` que distinguen referencia de documento
+  canónico.
+- `DOCUMENTACION/README.md` actualizado con la sección de integración v1.1.
+- `DEVSECOPS/CI_CD.md` ampliado con controles propuestos para secretos OAuth y
+  pruebas con mocks.
+- Documentos de entrada conservados sin reemplazar los SDD existentes.
+- Cierres de Sprint 0 a 5 sin cambios.
+
 ### Cambiado
 
 - `README.md` actualizado con stack, estructura, inicio rápido, scripts y estado del Sprint 0.

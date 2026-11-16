@@ -3,6 +3,7 @@
 **Proyecto:** SaaS Inversiones R&P
 **Documento:** Diseño de arquitectura general
 **Versión:** 1.0 — Sprint 0
+**Actualización:** v1.1 — 2026-11-15 (integración documental CX/UX/UI y auth social; no implementada)
 **Fecha:** 2026-11-12
 **Estado:** Borrador aprobado para el MVP
 
@@ -81,7 +82,8 @@ Servicios transversales en `app/Services`, validaciones en
 ## 5. Comunicación y contratos
 
 - Formato: JSON UTF-8.
-- Autenticación: Laravel Sanctum (tokens de API para SPA).
+- Autenticación: Laravel Sanctum (cookie de SPA + CSRF; tokens Bearer
+  disponibles para integraciones futuras, ver ADR-0001).
 - Autorización: verificada en el backend con Policies y middleware; el frontend
   solo oculta opciones, nunca es la única barrera.
 - Errores: contrato único `{ "error": { "code", "message", "details", "trace_id" } }`
@@ -128,3 +130,55 @@ Servicios transversales en `app/Services`, validaciones en
 - `SDD-08_INFRAESTRUCTURA.md` *(pendiente)*
 - `SDD-09_ESTRUCTURA_REPOSITORIO.md`
 - `ADR/REGISTRO_DECISIONES_SPRINT_0.md`
+
+## 10. Actualización v1.1 — autenticación social y experiencia
+
+> **Estado:** propuesta documental. No hay código, migraciones ni pantallas
+> nuevas de autenticación social al 2026-11-15. Esta sección amplía el diseño;
+> no reemplaza las decisiones de los Sprints 0–5.
+
+### 10.1 Autenticación con Google y Facebook
+
+Se incorporan Google (OpenID Connect) y Facebook (flujo oficial de Meta) como
+métodos adicionales al login local. La identidad externa **solo autentica**:
+la empresa activa, el rol y los permisos se siguen resolviendo en la base
+interna (`company_user`, `roles`, `permissions`).
+
+Flujo propuesto:
+
+1. React muestra «Continuar con Google» y «Continuar con Facebook».
+2. Laravel inicia OAuth en rutas `web` con `state` de un solo uso.
+3. El proveedor autentica y llama al callback; Laravel valida la respuesta.
+4. Se busca la identidad en `social_identities` por
+   `(provider, provider_user_id)`; nunca por correo.
+5. Si está vinculada y el usuario está activo, se crea la sesión Sanctum
+   existente y se redirige a React.
+6. Si no está vinculada, se ofrece un flujo autorizado de invitación o
+   vinculación; no se concede acceso al inventario.
+
+Controles: HTTPS, callbacks registrados, PKCE cuando corresponda, cookies
+`HttpOnly`/`Secure`/`SameSite`, rate limiting, secretos solo en servidor y
+auditoría sin tokens. El detalle está en
+[`SEGURIDAD/AUTH-01_AUTENTICACION_SOCIAL.md`](../SEGURIDAD/AUTH-01_AUTENTICACION_SOCIAL.md)
+y en los ADR-0004/0005.
+
+### 10.2 Capa de experiencia y sistema de diseño
+
+Se adopta como referencia el sistema de diseño propuesto en
+[`CX_UX_UI/UI-01_SISTEMA_DE_DISENO.md`](../CX_UX_UI/UI-01_SISTEMA_DE_DISENO.md)
+y los flujos de
+[`CX_UX_UI/UX-01_FLUJOS_DE_USUARIO.md`](../CX_UX_UI/UX-01_FLUJOS_DE_USUARIO.md).
+Criterios compatibles con la arquitectura actual:
+
+- Componentes React reutilizables y estados explícitos de carga, vacío, error,
+  éxito y sin permisos.
+- Objetivo WCAG 2.2 AA: teclado, foco visible, etiquetas persistentes,
+  contraste y mensajes asociados.
+- Confirmación y resumen antes de operaciones de stock; el backend sigue siendo
+  la única autoridad de validación.
+- No exponer costos/márgenes a roles sin `metrics.costs.view`.
+- Diseño responsive sin depender de una app móvil nativa.
+
+La implementación es incremental y no modifica reglas de inventario ni API.
+Ver ADR-0006 y el registro
+[`INTEGRACION_V1_1_CX_UX_AUTH.md`](./INTEGRACION_V1_1_CX_UX_AUTH.md).

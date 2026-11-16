@@ -3,6 +3,7 @@
 **Proyecto:** SaaS Inversiones R&P
 **Documento:** Contratos y convenciones de la API
 **Versión:** 1.0 — Sprint 0
+**Actualización:** v1.1 — 2026-11-15 (extensión propuesta de auth social; no implementada)
 **Fecha:** 2026-11-13
 **Estado:** Convenciones vigentes; endpoints funcionales marcados como implementados
 
@@ -25,7 +26,7 @@
 | API versionada | `/api/v1/...` |
 | Sonda operativa | `/api/health` (sin versión) |
 | Formato | JSON UTF-8 (`Accept: application/json`) |
-| Autenticación | Laravel Sanctum (token Bearer o cookie de SPA) |
+| Autenticación | Laravel Sanctum (cookie de SPA + CSRF; tokens Bearer para integraciones) |
 
 **Implementado (Sprints 0 a 5):**
 
@@ -102,6 +103,51 @@
 | `GET` | `/api/v1/transfers/{id}` | `auth:sanctum` + `X-Company-Id` | `transfers.view` |
 
 **Propuesto para sprints siguientes:** métricas, alertas y auditoría.
+
+### 2.1 Autenticación social — propuesta v1.1 (no implementada)
+
+> **Estado:** contrato propuesto. No existen rutas, controladores ni pruebas de
+> login social al 2026-11-15. No se debe consumir desde React hasta aprobar e
+> implementar el incremento. Ver ADR-0004/0005 y
+> [`AUTH-01`](../SEGURIDAD/AUTH-01_AUTENTICACION_SOCIAL.md).
+
+**Flujo.** El inicio y el callback OAuth viven en rutas `web` para disponer de
+sesión y `state`; después Laravel crea la sesión Sanctum existente y redirige a
+React. Las rutas de gestión de métodos viven en `/api/v1` y usan CSRF.
+
+| Método | Ruta propuesta | Ámbito | Propósito |
+| --- | --- | --- | --- |
+| `GET` | `/auth/social/{provider}/redirect` | `web` | Iniciar OAuth; `provider` en `google,facebook`; genera `state` |
+| `GET` | `/auth/social/{provider}/callback` | `web` | Validar `state` y respuesta; crear sesión o volver con error controlado |
+| `GET` | `/api/v1/auth/social/accounts` | API autenticada | Listar métodos vinculados, sin secretos |
+| `POST` | `/api/v1/auth/social/{provider}/link` | API autenticada + CSRF | Iniciar vinculación desde una sesión válida |
+| `DELETE` | `/api/v1/auth/social/{provider}/link` | API autenticada + CSRF | Desvincular sin dejar al usuario sin acceso |
+
+Reglas de contrato:
+
+- No se acepta `provider_user_id` ni correo enviados por React como prueba de
+  identidad.
+- El callback no devuelve tokens; redirige a una ruta permitida de la SPA.
+- La identidad se resuelve por `(provider, provider_user_id)`, nunca por email.
+- El login social no otorga empresa, rol ni permisos.
+- Los errores no revelan si un correo o una identidad ajena existe.
+
+**Errores propuestos** (mantienen el contrato `error.code`/`message`):
+
+| Código | HTTP | Situación |
+| --- | --- | --- |
+| `SOCIAL_AUTH_FAILED` | 401 | `state` inválido, callback manipulado o proveedor rechazó |
+| `SOCIAL_IDENTITY_NOT_LINKED` | 403 | Identidad válida sin vínculo interno; ofrecer invitación/vinculación |
+| `SOCIAL_IDENTITY_CONFLICT` | 409 | Identidad ya vinculada a otro usuario |
+| `LAST_AUTH_METHOD` | 409 | La desvinculación dejaría al usuario sin acceso |
+| `SOCIAL_PROVIDER_UNAVAILABLE` | 503 | Proveedor no disponible; permitir login local |
+
+**Estados UX propuestos:** acceso completado, acceso cancelado, proveedor no
+disponible, cuenta no vinculada, empresa no permitida y cuenta inhabilitada.
+La interfaz no muestra códigos OAuth, tokens ni mensajes internos.
+
+> El contrato de éxito sigue siendo `data` + `meta` cuando corresponda; **no se
+> adopta** la envoltura `success: true` de los documentos de entrada.
 
 ## 3. Recursos previstos
 

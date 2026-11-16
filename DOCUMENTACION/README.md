@@ -90,3 +90,40 @@ Sprint 0:
 | Documento | Contenido |
 | --- | --- |
 | [`SDD/PLAN_SPRINT_5_COMPRAS_TRASLADOS.md`](./SDD/PLAN_SPRINT_5_COMPRAS_TRASLADOS.md) | Compras y traslados: alcance, decisiones, modelo, contratos, reglas transaccionales, pruebas y DoR/DoD |
+
+## Integración documental v1.1 — CX, UX, UI y autenticación social
+
+> **Estado:** propuesta documental. No hay código, migraciones ni pantallas
+> nuevas de autenticación social. Los cierres de Sprint 0 a 5 se conservan.
+
+| Documento | Contenido |
+| --- | --- |
+| [`SDD/INTEGRACION_V1_1_CX_UX_AUTH.md`](./SDD/INTEGRACION_V1_1_CX_UX_AUTH.md) | Comparación de fuentes, conflictos, resoluciones y archivos afectados |
+| [`SDD/ADR/REGISTRO_DECISIONES_V1_1_CX_UX_AUTH.md`](./SDD/ADR/REGISTRO_DECISIONES_V1_1_CX_UX_AUTH.md) | ADR-0004 a ADR-0007 propuestos (auth social, identidad, UI e incremento) |
+| [`SEGURIDAD/AUTH-01_AUTENTICACION_SOCIAL.md`](./SEGURIDAD/AUTH-01_AUTENTICACION_SOCIAL.md) | Diseño de seguridad para Google/Facebook (propuesto) |
+| [`TESTING/QA-01_PLAN_DE_PRUEBAS_CX_UX_UI_AUTH.md`](./TESTING/QA-01_PLAN_DE_PRUEBAS_CX_UX_UI_AUTH.md) | Plan de pruebas y regresión propuesto (no ejecutado) |
+
+### CX / UX / UI
+
+| Documento | Contenido |
+| --- | --- |
+| [`CX_UX_UI/README.md`](./CX_UX_UI/README.md) | Índice y estado de los requisitos de experiencia |
+| [`CX_UX_UI/CX-01_EXPERIENCIA_CLIENTE.md`](./CX_UX_UI/CX-01_EXPERIENCIA_CLIENTE.md) | Recorrido del cliente, onboarding y soporte |
+| [`CX_UX_UI/UX-01_FLUJOS_DE_USUARIO.md`](./CX_UX_UI/UX-01_FLUJOS_DE_USUARIO.md) | Flujos de usuario y criterios de interacción |
+| [`CX_UX_UI/UI-01_SISTEMA_DE_DISENO.md`](./CX_UX_UI/UI-01_SISTEMA_DE_DISENO.md) | Tokens, componentes y accesibilidad |
+
+### Documentos de entrada (referencia, no canónicos)
+
+| Documento | Contenido |
+| --- | --- |
+| [`Docs/README.md`](./Docs/README.md) | Reglas de uso de los documentos de entrada |
+| [`Docs/01_DOCUMENTO_MAESTRO_ANALISIS_REQUISITOS_SAAS_INVERSIONES_RP.md`](./Docs/01_DOCUMENTO_MAESTRO_ANALISIS_REQUISITOS_SAAS_INVERSIONES_RP.md) | Requisitos maestros v1.1 |
+| [`Docs/05_PROJECT_CANVAS_RESUMEN_EJECUTIVO_SAAS_INVERSIONES_RP.md`](./Docs/05_PROJECT_CANVAS_RESUMEN_EJECUTIVO_SAAS_INVERSIONES_RP.md) | Canvas ejecutivo v1.1 |
+| [`SDD/03_CANVAS_DISENO_DE_DATOS_SAAS_INVERSIONES_RP.md`](./SDD/03_CANVAS_DISENO_DE_DATOS_SAAS_INVERSIONES_RP.md) | Canvas de datos v1.1 (referencia) |
+| [`SDD/04_BACKLOG_TECNICO_IMPLEMENTACION_SAAS_INVERSIONES_RP.md`](./SDD/04_BACKLOG_TECNICO_IMPLEMENTACION_SAAS_INVERSIONES_RP.md) | Backlog v1.1 (referencia) |
+| [`SDD/ADR/ADR-01_DECISIONES_ARQUITECTONICAS.md`](./SDD/ADR/ADR-01_DECISIONES_ARQUITECTONICAS.md) | Registro ADR de entrada (no reemplaza ADR-0001..0003) |
+| [`SDD/SDD-05_DISENO_API_REST_SAAS_INVERSIONES_RP.md`](./SDD/SDD-05_DISENO_API_REST_SAAS_INVERSIONES_RP.md) | API REST de entrada (no reemplaza `SDD-05_DISENO_API.md`) |
+
+> El contrato API vigente es [`SDD/SDD-05_DISENO_API.md`](./SDD/SDD-05_DISENO_API.md).
+> Las decisiones vigentes son ADR-0001 a ADR-0003; las nuevas están en estado
+> «propuesta» en el registro v1.1.

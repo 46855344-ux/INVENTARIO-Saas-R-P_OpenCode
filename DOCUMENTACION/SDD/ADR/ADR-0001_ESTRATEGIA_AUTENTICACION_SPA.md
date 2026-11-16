@@ -58,3 +58,20 @@ Aprobada el **2026-11-13** e implementada en **US-0101**:
 - CORS con credenciales y `SANCTUM_STATEFUL_DOMAINS` para `http://localhost:5173`.
 - `POST /api/v1/auth/logout` invalida la sesión y rota el token CSRF.
 - Pruebas `T-01` a `T-04` cubiertas en `tests/Feature/Auth/AuthenticationTest.php`.
+
+## 7. Extensión v1.1 — login con Google y Facebook (propuesta)
+
+> **Estado:** propuesta. No implementada al 2026-11-15.
+
+La decisión de Sanctum se mantiene. Google y Facebook se añaden como métodos de
+autenticación, no como un segundo sistema de sesión:
+
+1. El inicio y el callback OAuth se atienden en rutas `web` para conservar
+   sesión y `state`.
+2. Tras validar al proveedor, Laravel resuelve la identidad interna y crea la
+   misma sesión Sanctum con cookie de SPA y CSRF.
+3. No se emiten tokens en la URL ni se guardan en `localStorage`.
+4. El login social no cambia empresa, rol ni permisos.
+
+Ver ADR-0004/0005 y `SEGURIDAD/AUTH-01_AUTENTICACION_SOCIAL.md`. La decisión
+original de US-0101 permanece vigente.
