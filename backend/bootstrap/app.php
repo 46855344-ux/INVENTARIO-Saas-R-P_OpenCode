@@ -3,6 +3,10 @@
 use App\Modules\Identity\Exceptions\AuthenticationFailedException;
 use App\Modules\Identity\Exceptions\ForbiddenException;
 use App\Modules\Identity\Exceptions\ForbiddenTenantException;
+use App\Modules\Identity\Exceptions\LastAuthMethodException;
+use App\Modules\Identity\Exceptions\SocialAuthFailedException;
+use App\Modules\Identity\Exceptions\SocialIdentityConflictException;
+use App\Modules\Identity\Exceptions\SocialIdentityNotLinkedException;
 use App\Modules\Identity\Http\Middleware\ResolveTenant;
 use App\Modules\Inventory\Exceptions\ConversionNotDefinedException;
 use App\Modules\Inventory\Exceptions\IncompatibleUnitsException;
@@ -87,6 +91,38 @@ return Application::configure(basePath: dirname(__DIR__))
             }
 
             return ErrorResponse::make('FORBIDDEN', $e->getMessage(), 403);
+        });
+
+        $exceptions->render(function (SocialAuthFailedException $e, Request $request) {
+            if (! $request->is('api/*') && ! $request->expectsJson()) {
+                return null;
+            }
+
+            return ErrorResponse::make('SOCIAL_AUTH_FAILED', $e->getMessage(), 401);
+        });
+
+        $exceptions->render(function (SocialIdentityNotLinkedException $e, Request $request) {
+            if (! $request->is('api/*') && ! $request->expectsJson()) {
+                return null;
+            }
+
+            return ErrorResponse::make('SOCIAL_IDENTITY_NOT_LINKED', $e->getMessage(), 403);
+        });
+
+        $exceptions->render(function (SocialIdentityConflictException $e, Request $request) {
+            if (! $request->is('api/*') && ! $request->expectsJson()) {
+                return null;
+            }
+
+            return ErrorResponse::make('SOCIAL_IDENTITY_CONFLICT', $e->getMessage(), 409);
+        });
+
+        $exceptions->render(function (LastAuthMethodException $e, Request $request) {
+            if (! $request->is('api/*') && ! $request->expectsJson()) {
+                return null;
+            }
+
+            return ErrorResponse::make('LAST_AUTH_METHOD', $e->getMessage(), 409);
         });
 
         $exceptions->render(function (IncompatibleUnitsException $e, Request $request) {

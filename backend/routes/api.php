@@ -7,6 +7,7 @@ use App\Modules\Catalog\Http\Controllers\ProductVariantController;
 use App\Modules\Identity\Http\Controllers\AuthController;
 use App\Modules\Identity\Http\Controllers\PermissionController;
 use App\Modules\Identity\Http\Controllers\RoleController;
+use App\Modules\Identity\Http\Controllers\SocialAccountController;
 use App\Modules\Identity\Http\Controllers\UserController;
 use App\Modules\Inventory\Http\Controllers\LocationController;
 use App\Modules\Inventory\Http\Controllers\StockController;
@@ -37,10 +38,14 @@ Route::get('/health', function () {
 Route::prefix('v1')->group(function () {
     Route::prefix('auth')->group(function () {
         Route::post('/login', [AuthController::class, 'login']);
+        Route::get('/social/providers', [SocialAccountController::class, 'providers']);
 
         Route::middleware('auth:sanctum')->group(function () {
             Route::post('/logout', [AuthController::class, 'logout']);
             Route::get('/me', [AuthController::class, 'me']);
+            Route::get('/social/accounts', [SocialAccountController::class, 'index']);
+            Route::delete('/social/{provider}', [SocialAccountController::class, 'destroy'])
+                ->whereIn('provider', ['google', 'facebook']);
         });
     });
 

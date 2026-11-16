@@ -52,6 +52,9 @@ export function AppLayout() {
               Usuarios
             </NavLink>
           </Can>
+          <NavLink to="/account" className={linkClass}>
+            Mi cuenta
+          </NavLink>
           {companies.length > 1 && (
             <label className="company-picker">
               <span>Empresa</span>

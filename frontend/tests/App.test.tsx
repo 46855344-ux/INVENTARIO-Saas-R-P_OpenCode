@@ -11,6 +11,14 @@ const { me, login, logout } = vi.hoisted(() => ({
 
 vi.mock('../src/services/auth', () => ({ me, login, logout }));
 
+vi.mock('../src/services/social', () => ({
+  listSocialProviders: vi.fn().mockResolvedValue([]),
+  listSocialAccounts: vi.fn().mockResolvedValue([]),
+  unlinkSocialAccount: vi.fn(),
+  socialLoginUrl: (provider: string) => `http://localhost:8000/auth/social/${provider}/redirect`,
+  socialLinkUrl: (provider: string) => `http://localhost:8000/auth/social/${provider}/link`,
+}));
+
 const session = {
   user: {
     id: 1,

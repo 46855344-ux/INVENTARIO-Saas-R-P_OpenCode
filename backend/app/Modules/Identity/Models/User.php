@@ -59,6 +59,16 @@ class User extends Authenticatable
         return $this->hasMany(CompanyUser::class);
     }
 
+    /**
+     * Identidades externas (Google/Facebook) vinculadas al usuario.
+     *
+     * @return HasMany<SocialIdentity, $this>
+     */
+    public function socialIdentities(): HasMany
+    {
+        return $this->hasMany(SocialIdentity::class);
+    }
+
     public function membershipIn(Company $company): ?CompanyUser
     {
         return $this->memberships()->where('company_id', $company->id)->first();

@@ -243,6 +243,19 @@ export interface StockMovement {
 
 export type PurchaseStatus = 'draft' | 'received';
 
+export type SocialProvider = 'google' | 'facebook';
+
+export interface SocialProviderOption {
+  provider: SocialProvider;
+  label: string;
+}
+
+export interface SocialIdentity {
+  provider: SocialProvider;
+  label: string;
+  linked_at: string | null;
+}
+
 /** Proveedor de la empresa activa. */
 export interface Supplier {
   id: number;

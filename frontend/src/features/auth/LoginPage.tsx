@@ -1,7 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { FormEvent } from 'react';
-import { Navigate, useLocation } from 'react-router-dom';
+import { Navigate, useLocation, useSearchParams } from 'react-router-dom';
 import { resolveApiError } from '../../services/errors';
+import { listSocialProviders, socialLoginUrl } from '../../services/social';
+import type { SocialProviderOption } from '../../types';
 import { useAuth } from './AuthContext';
 
 interface RedirectState {
@@ -10,16 +12,50 @@ interface RedirectState {
   };
 }
 
+const SOCIAL_ERRORS: Record<string, string> = {
+  provider_unavailable: 'El proveedor no está disponible. Ingrese con su correo y contraseña.',
+  not_linked: 'La cuenta social no está vinculada. Ingrese con su contraseña y vincúlela desde Mi cuenta.',
+  account_inactive: 'La cuenta está inhabilitada. Comuníquese con el administrador.',
+  session_expired: 'La sesión expiró. Intente nuevamente.',
+  failed: 'No se pudo completar el acceso con el proveedor. Intente nuevamente.',
+};
+
 export function LoginPage() {
   const { status, login } = useAuth();
   const location = useLocation();
+  const [searchParams] = useSearchParams();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
+  const [providers, setProviders] = useState<SocialProviderOption[]>([]);
 
   const state = location.state as RedirectState | null;
   const redirectTo = state?.from?.pathname ?? '/';
+  const socialError = searchParams.get('social_error');
+  const socialMessage = socialError
+    ? SOCIAL_ERRORS[socialError] ?? 'No se pudo completar el acceso social.'
+    : null;
+
+  useEffect(() => {
+    let active = true;
+
+    listSocialProviders()
+      .then((options) => {
+        if (active) {
+          setProviders(options);
+        }
+      })
+      .catch(() => {
+        if (active) {
+          setProviders([]);
+        }
+      });
+
+    return () => {
+      active = false;
+    };
+  }, []);
 
   if (status === 'authenticated') {
     return <Navigate to={redirectTo} replace />;
@@ -54,6 +90,12 @@ export function LoginPage() {
           </p>
         )}
 
+        {socialMessage && (
+          <p className="form-error" role="alert">
+            {socialMessage}
+          </p>
+        )}
+
         <form className="auth-form" onSubmit={handleSubmit} noValidate>
           <label className="field">
             <span>Correo electrónico</span>
@@ -83,6 +125,25 @@ export function LoginPage() {
             {submitting ? 'Ingresando…' : 'Ingresar'}
           </button>
         </form>
+
+        {providers.length > 0 && (
+          <div className="auth-social">
+            <p className="auth-divider">
+              <span>O continúa con</span>
+            </p>
+            <div className="social-buttons">
+              {providers.map((option) => (
+                <a
+                  key={option.provider}
+                  className="button-secondary social-button"
+                  href={socialLoginUrl(option.provider)}
+                >
+                  Continuar con {option.label}
+                </a>
+              ))}
+            </div>
+          </div>
+        )}
 
         <p className="auth-hint">Demo: admin@empresa-demo.test · contraseña: password</p>
       </section>
