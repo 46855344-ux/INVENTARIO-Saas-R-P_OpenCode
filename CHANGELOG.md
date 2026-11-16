@@ -120,6 +120,8 @@ Google/Facebook. **No se modificó código ni se ejecutaron migraciones.**
 
 - Nuevo `DOCUMENTACION/SDD/INTEGRACION_V1_1_CX_UX_AUTH.md` con comparación de
   fuentes, conflictos C-01 a C-12, resoluciones y archivos afectados.
+- Nuevo `DOCUMENTACION/SDD/PLAN_INCREMENTO_V1_1_AUTH_CX.md` con alcance,
+  decisiones a ratificar, arquitectura, fases y pruebas del incremento v1.1.
 - Nuevo `DOCUMENTACION/SDD/ADR/REGISTRO_DECISIONES_V1_1_CX_UX_AUTH.md` con
   ADR-0004 a ADR-0007 en estado «propuesta».
 - `SDD-01` ampliado con la arquitectura de auth social y la capa CX/UX/UI.

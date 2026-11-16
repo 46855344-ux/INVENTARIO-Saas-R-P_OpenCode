@@ -99,6 +99,7 @@ Sprint 0:
 | Documento | Contenido |
 | --- | --- |
 | [`SDD/INTEGRACION_V1_1_CX_UX_AUTH.md`](./SDD/INTEGRACION_V1_1_CX_UX_AUTH.md) | Comparación de fuentes, conflictos, resoluciones y archivos afectados |
+| [`SDD/PLAN_INCREMENTO_V1_1_AUTH_CX.md`](./SDD/PLAN_INCREMENTO_V1_1_AUTH_CX.md) | Plan del incremento v1.1: alcance, decisiones, arquitectura, fases y pruebas |
 | [`SDD/ADR/REGISTRO_DECISIONES_V1_1_CX_UX_AUTH.md`](./SDD/ADR/REGISTRO_DECISIONES_V1_1_CX_UX_AUTH.md) | ADR-0004 a ADR-0007 propuestos (auth social, identidad, UI e incremento) |
 | [`SEGURIDAD/AUTH-01_AUTENTICACION_SOCIAL.md`](./SEGURIDAD/AUTH-01_AUTENTICACION_SOCIAL.md) | Diseño de seguridad para Google/Facebook (propuesto) |
 | [`TESTING/QA-01_PLAN_DE_PRUEBAS_CX_UX_UI_AUTH.md`](./TESTING/QA-01_PLAN_DE_PRUEBAS_CX_UX_UI_AUTH.md) | Plan de pruebas y regresión propuesto (no ejecutado) |
