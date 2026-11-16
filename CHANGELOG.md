@@ -106,6 +106,14 @@ y el versionado semántico de [SemVer](https://semver.org/lang/es/).
     - Endpoints `/api/v1/suppliers`, `/purchases`, `/purchases/{id}/receive` y `/transfers`.
     - Pantalla React «Compras y traslados» con proveedores, compras y traslados.
     - Pruebas de API (24) y de frontend para compras y traslados.
+  - **Sprint 6 — US-0601 a US-0603 (métricas y alertas):**
+    - Migraciones `alert_rules`, `stock_alerts` y `alert_evaluation_runs`.
+    - `InventoryMetricsService` con indicadores, detalle, más salidas e inactividad.
+    - `InventoryAlertService` con reglas por variante + ubicación, deduplicación, resolución y corridas.
+    - Comando `alerts:evaluate` programado a diario; notificaciones solo in-app.
+    - Endpoints `/api/v1/metrics/overview`, `/metrics/stock-detail`, `/alerts` y `/alert-rules`.
+    - Pantalla React «Métricas y alertas» con tarjetas, tablas, filtros y estados.
+    - Pruebas de API (7) y de frontend para métricas y alertas.
   - **Documentación de cierre de sprints:**
     - `DOCUMENTACION/README_SPRINT_1.md`: cierre del Sprint 1 (identidad, usuarios, permisos y aislamiento).
     - `DOCUMENTACION/README_SPRINT_2.md`: cierre del Sprint 2 (catálogo de productos y variantes).

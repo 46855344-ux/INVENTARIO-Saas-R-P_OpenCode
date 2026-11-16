@@ -28,7 +28,7 @@
 | Formato | JSON UTF-8 (`Accept: application/json`) |
 | Autenticación | Laravel Sanctum (cookie de SPA + CSRF; tokens Bearer para integraciones) |
 
-**Implementado (Sprints 0 a 5 + incremento v1.1):**
+**Implementado (Sprints 0 a 5, incremento v1.1 y Sprint 6):**
 
 | Método | Ruta | Autenticación | Permiso |
 | --- | --- | --- | --- |
@@ -104,8 +104,15 @@
 | `GET` | `/api/v1/transfers` | `auth:sanctum` + `X-Company-Id` | `transfers.view` |
 | `POST` | `/api/v1/transfers` | `auth:sanctum` + `X-Company-Id` | `transfers.manage` |
 | `GET` | `/api/v1/transfers/{id}` | `auth:sanctum` + `X-Company-Id` | `transfers.view` |
+| `GET` | `/api/v1/metrics/overview` | `auth:sanctum` + `X-Company-Id` | `metrics.view` |
+| `GET` | `/api/v1/metrics/stock-detail` | `auth:sanctum` + `X-Company-Id` | `metrics.view` |
+| `GET` | `/api/v1/alerts` | `auth:sanctum` + `X-Company-Id` | `alerts.view` |
+| `PATCH` | `/api/v1/alerts/{id}/status` | `auth:sanctum` + `X-Company-Id` | `alerts.manage` |
+| `GET` | `/api/v1/alert-rules` | `auth:sanctum` + `X-Company-Id` | `alerts.view` |
+| `POST` | `/api/v1/alert-rules` | `auth:sanctum` + `X-Company-Id` | `alerts.manage` |
+| `PATCH` | `/api/v1/alert-rules/{id}` | `auth:sanctum` + `X-Company-Id` | `alerts.manage` |
 
-**Propuesto para sprints siguientes:** métricas, alertas y auditoría.
+**Propuesto para sprints siguientes:** conteos físicos, auditoría integral y chatbot.
 
 ### 2.1 Autenticación social — propuesta v1.1 (no implementada)
 

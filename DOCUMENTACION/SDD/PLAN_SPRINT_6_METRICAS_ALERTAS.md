@@ -4,7 +4,7 @@
 **Épica:** EP-06 — Métricas y alertas
 **Versión:** 1.0
 **Fecha:** 2026-11-16
-**Estado:** En implementación
+**Estado:** Implementado — validación con MySQL real pendiente
 **Decisiones ratificadas:** umbral por variante + ubicación; notificaciones solo in-app
 
 ---
@@ -105,7 +105,7 @@ existente (`error.code`, `message`, `details`, `trace_id`).
 - [x] Decisiones DD-02, DP-02 y canal in-app delimitados.
 - [x] Historias y contratos definidos.
 - [x] Permisos propuestos.
-- [ ] Implementación y pruebas completas.
+- [x] Implementación y pruebas completas.
 - [ ] Validación con MySQL real (entorno pendiente).
 
 ## 10. Riesgos
@@ -117,3 +117,20 @@ existente (`error.code`, `message`, `details`, `trace_id`).
 | Crecimiento de consultas | Índices por empresa, estado y fecha; límites de periodo |
 | Notificaciones repetidas | Solo in-app y deduplicación persistente |
 | Diferencias SQLite/MySQL | Pruebas con SQLite y validación pendiente en MySQL |
+
+## 11. Estado de implementación
+
+**Implementado el 2026-11-16.**
+
+- Migraciones `alert_rules`, `stock_alerts` y `alert_evaluation_runs`.
+- `InventoryMetricsService` con indicadores, detalle, más salidas e inactividad.
+- `InventoryAlertService` con reglas por variante + ubicación, deduplicación,
+  resolución y corridas de evaluación.
+- Comando `alerts:evaluate` programado a diario; sin correo externo.
+- Endpoints de métricas, alertas y reglas con permisos `metrics.view`,
+  `alerts.view` y `alerts.manage`.
+- Pantalla React `/metrics` con pestañas Indicadores y Alertas, estados de carga,
+  error y vacío, tarjetas accesibles y tablas semánticas.
+- Pruebas backend: 147 pruebas / 562 aserciones; frontend: 71 pruebas; Pint,
+  lint y build correctos.
+- Limitación: valorización pendiente (DP-02); validación con MySQL real pendiente.

@@ -54,6 +54,7 @@ Sprint 0:
 | 3 | [`README_SPRINT_3.md`](./README_SPRINT_3.md) | Cerrado técnicamente |
 | 4 | [`README_SPRINT_4.md`](./README_SPRINT_4.md) | Cerrado técnicamente |
 | 5 | [`README_SPRINT_5.md`](./README_SPRINT_5.md) | Cerrado técnicamente |
+| 6 | [`README_SPRINT_6.md`](./README_SPRINT_6.md) | Cerrado técnicamente |
 
 > Los READMEs de cierre resumen objetivo, entregables, historias, decisiones,
 > evidencias de prueba, DoD, demo y pendientes de cada iteración.

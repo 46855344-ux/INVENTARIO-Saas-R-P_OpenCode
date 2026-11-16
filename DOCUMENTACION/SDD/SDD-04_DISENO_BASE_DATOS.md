@@ -167,6 +167,17 @@ Tipos de movimiento: `purchase_entry`, `sale_exit`, `return`, `adjustment`,
 | Alerta | `stock_alerts` | `id`, `company_id`, `variant_id`, `location_id`, `type`, `threshold`, `status` |
 | Auditoría | `audit_logs` | `id`, `company_id`, `user_id`, `action`, `entity_type`, `entity_id`, `before`, `after`, `ip`, `created_at` |
 
+> **Implementado (Sprint 6, US-0601 a US-0603):** `alert_rules`,
+> `stock_alerts` y `alert_evaluation_runs` existen con `company_id`,
+> deduplicación por `UNIQUE(company_id, dedup_key)` y reglas por variante +
+> ubicación. `audit_logs` y los conteos físicos siguen pendientes del Sprint 7.
+>
+> - `alert_rules`: `type` (`min_stock`/`inactivity`), `variant_id`,
+>   `location_id`, `threshold`, `inactivity_days`, `status`.
+> - `stock_alerts`: `alert_rule_id`, mensaje, estado `open`/`resolved`,
+>   `detected_at`, `resolved_at` y `dedup_key`.
+> - `alert_evaluation_runs`: corrida por empresa con conteos y error resumido.
+
 ## 4. Diagrama entidad-relación (resumen)
 
 ```mermaid
