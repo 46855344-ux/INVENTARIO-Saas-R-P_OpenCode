@@ -28,7 +28,7 @@
 | Formato | JSON UTF-8 (`Accept: application/json`) |
 | Autenticación | Laravel Sanctum (cookie de SPA + CSRF; tokens Bearer para integraciones) |
 
-**Implementado (Sprints 0 a 5, incremento v1.1 y Sprint 6):**
+**Implementado (Sprints 0 a 5, incremento v1.1, Sprint 6 y Sprint 7):**
 
 | Método | Ruta | Autenticación | Permiso |
 | --- | --- | --- | --- |
@@ -111,8 +111,13 @@
 | `GET` | `/api/v1/alert-rules` | `auth:sanctum` + `X-Company-Id` | `alerts.view` |
 | `POST` | `/api/v1/alert-rules` | `auth:sanctum` + `X-Company-Id` | `alerts.manage` |
 | `PATCH` | `/api/v1/alert-rules/{id}` | `auth:sanctum` + `X-Company-Id` | `alerts.manage` |
+| `GET` | `/api/v1/stock-counts` | `auth:sanctum` + `X-Company-Id` | `counts.view` |
+| `POST` | `/api/v1/stock-counts` | `auth:sanctum` + `X-Company-Id` | `counts.manage` |
+| `GET` | `/api/v1/stock-counts/{id}` | `auth:sanctum` + `X-Company-Id` | `counts.view` |
+| `PATCH` | `/api/v1/stock-counts/{id}/status` | `auth:sanctum` + `X-Company-Id` | `counts.manage`/`counts.approve` |
+| `GET` | `/api/v1/audit-events` | `auth:sanctum` + `X-Company-Id` | `audit.view` |
 
-**Propuesto para sprints siguientes:** conteos físicos, auditoría integral y chatbot.
+**Propuesto para sprints siguientes:** chatbot de solo lectura y estabilización.
 
 ### 2.1 Autenticación social — propuesta v1.1 (no implementada)
 

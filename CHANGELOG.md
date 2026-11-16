@@ -114,6 +114,14 @@ y el versionado semántico de [SemVer](https://semver.org/lang/es/).
     - Endpoints `/api/v1/metrics/overview`, `/metrics/stock-detail`, `/alerts` y `/alert-rules`.
     - Pantalla React «Métricas y alertas» con tarjetas, tablas, filtros y estados.
     - Pruebas de API (7) y de frontend para métricas y alertas.
+  - **Sprint 7 — US-0701 a US-0703 (conteos y auditoría):**
+    - Migraciones `stock_counts`, `stock_count_items` y `audit_logs`.
+    - Conteos con stock teórico congelado, diferencias y estados open/reviewing/approved.
+    - Aprobación transaccional con ajustes vía `InventoryMovementService` y bloqueo de doble aprobación.
+    - Auditoría append-only de creación, revisión y aprobación.
+    - Endpoints `/api/v1/stock-counts` y `/api/v1/audit-events`.
+    - Pantalla React «Conteos y auditoría» con formulario, revisión, aprobación y filtros.
+    - Pruebas de API (4) y de frontend para conteos y auditoría.
   - **Documentación de cierre de sprints:**
     - `DOCUMENTACION/README_SPRINT_1.md`: cierre del Sprint 1 (identidad, usuarios, permisos y aislamiento).
     - `DOCUMENTACION/README_SPRINT_2.md`: cierre del Sprint 2 (catálogo de productos y variantes).

@@ -177,6 +177,11 @@ Tipos de movimiento: `purchase_entry`, `sale_exit`, `return`, `adjustment`,
 > - `stock_alerts`: `alert_rule_id`, mensaje, estado `open`/`resolved`,
 >   `detected_at`, `resolved_at` y `dedup_key`.
 > - `alert_evaluation_runs`: corrida por empresa con conteos y error resumido.
+>
+> **Implementado (Sprint 7, US-0701 a US-0703):** `stock_counts`,
+> `stock_count_items` y `audit_logs` existen con `company_id` y estados
+> `open`/`reviewing`/`approved`. La aprobación ajusta stock solo mediante
+> `InventoryMovementService` y `audit_logs` es append-only.
 
 ## 4. Diagrama entidad-relación (resumen)
 

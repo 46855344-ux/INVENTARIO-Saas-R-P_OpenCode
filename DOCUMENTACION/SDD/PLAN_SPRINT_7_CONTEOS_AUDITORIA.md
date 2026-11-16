@@ -3,7 +3,7 @@
 **Proyecto:** SaaS Inversiones R&P
 **Épica:** EP-07
 **Fecha:** 2026-11-16
-**Estado:** En implementación
+**Estado:** Implementado — validación con MySQL real pendiente
 
 ## 1. Objetivo
 
@@ -88,3 +88,12 @@ por línea y auditoría de todos los módulos (se amplía incrementalmente).
 | Doble ajuste | Estado + transacción + restricción de referencia |
 | Auditoría sensible | Contexto mínimo, sin tokens |
 | MySQL real | Validación pendiente de entorno |
+
+## 10. Estado de implementación
+
+Implementado el 2026-11-16: migraciones `stock_counts`, `stock_count_items` y
+`audit_logs`; servicio de conteos con foto teórica, revisión y aprobación
+transaccional; ajustes vía `InventoryMovementService`; auditoría de creación,
+revisión y aprobación; pantalla `/counts` con pestañas Conteos y Auditoría.
+Evidencia: backend 151 pruebas / 588 aserciones; frontend 76 pruebas; Pint,
+lint y build correctos. La validación con MySQL real sigue pendiente.
