@@ -2,7 +2,7 @@
 
 **Proyecto:** SaaS Inversiones R&P
 **Versión:** 1.0 — Sprint 0 (US-0002)
-**Actualización:** v1.1 — 2026-11-15 (propuesta de identidad social; no implementada)
+**Actualización:** v1.1 — 2026-11-15 (identidad social implementada; email del proveedor fuera de alcance)
 **Fecha:** 2026-11-12
 **Estado:** Modelo lógico propuesto para aprobación
 
@@ -60,14 +60,15 @@ Controles obligatorios:
 | Permiso | `permissions` | `id`, `code`, `name` |
 | Rol-permiso | `permission_role` | `role_id`, `permission_id` |
 
-#### 3.1.1 Identidad social (propuesta v1.1 — no implementada)
+#### 3.1.1 Identidad social (implementada en el incremento v1.1)
 
-> **Estado:** diseño propuesto. No existe migración, tabla ni modelo de
-> identidad social al 2026-11-15. No ejecutar esta estructura sin aprobación.
+> **Estado:** implementada con migración `2026_11_15_090000_create_social_identities_table`.
+> La vinculación real con Google/Meta queda pendiente de credenciales; las
+> pruebas usan proveedores simulados.
 
-| Entidad | Tabla propuesta | Campos principales |
+| Entidad | Tabla | Campos principales |
 | --- | --- | --- |
-| Identidad externa | `social_identities` | `id`, `user_id`, `provider`, `provider_user_id`, `provider_email` (opcional), `linked_at`, timestamps |
+| Identidad externa | `social_identities` | `id`, `user_id`, `provider`, `provider_user_id`, `linked_at`, timestamps |
 
 Reglas:
 
@@ -77,8 +78,8 @@ Reglas:
   global. La empresa se sigue resolviendo con `company_user`.
 - No imponer `UNIQUE (user_id, provider)` hasta que el producto decida si un
   usuario puede tener varias identidades del mismo proveedor.
-- No guardar tokens del proveedor ni perfiles completos; `provider_email` es
-  opcional y **no** se usa para vincular cuentas.
+- No guardar tokens del proveedor ni perfiles completos; el email del proveedor
+  quedó fuera del MVP y **no** se usa para vincular cuentas.
 - La vinculación exige sesión válida y prueba de control del proveedor.
 - Desvincular no puede dejar al usuario sin método de acceso.
 

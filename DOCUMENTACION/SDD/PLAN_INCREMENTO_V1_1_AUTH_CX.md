@@ -4,7 +4,8 @@
 **Documento:** Plan del incremento posterior al Sprint 5
 **Versión:** 1.0
 **Fecha:** 2026-11-15
-**Estado:** Planificado — implementación bloqueada hasta ratificar PD-01 a PD-07
+**Estado:** Implementado técnicamente — proveedores reales y validación con credenciales pendientes
+**Decisiones ratificadas:** 2026-11-15 — PD-01 invitación, PD-02 antes del Sprint 6, PD-03 una identidad por proveedor
 **Rama prevista:** `feat/incremento-v1-1-auth` (se creará al iniciar código)
 **Referencias:** `INTEGRACION_V1_1_CX_UX_AUTH.md`, `REGISTRO_DECISIONES_V1_1_CX_UX_AUTH.md`, `SEGURIDAD/AUTH-01`, `TESTING/QA-01`
 
@@ -56,6 +57,10 @@ inventario.
 | PD-07 | Métricas CX | Diferir metas numéricas y analítica; medir en piloto | Bajo |
 
 > Si el PO no ratifica PD-01/PD-03/PD-06, no se inicia la implementación.
+
+**Ratificación del 2026-11-15:** PD-01 «solo invitación», PD-02 «antes del
+Sprint 6» y PD-03 «una identidad por proveedor». PD-04, PD-05, PD-06 y PD-07 se
+aplican según la recomendación de este plan.
 
 ## 4. Arquitectura propuesta
 
@@ -180,22 +185,26 @@ contrato se actualizará al implementar y probar.
 
 ## 11. Definition of Ready
 
-- [ ] PD-01, PD-03 y PD-06 ratificadas.
-- [ ] Credenciales de aplicaciones Google/Meta de desarrollo disponibles o mocks definidos.
-- [ ] Contrato de vinculación aprobado.
-- [ ] Diseño de la página «Mi cuenta» acordado.
-- [ ] Regresión de Sprints 0–5 como línea base.
+- [x] PD-01, PD-03 y PD-06 ratificadas.
+- [x] Credenciales de aplicaciones Google/Meta de desarrollo disponibles o mocks definidos.
+- [x] Contrato de vinculación aprobado.
+- [x] Diseño de la página «Mi cuenta» acordado.
+- [x] Regresión de Sprints 0–5 como línea base.
 
 ## 12. Definition of Done
 
-- [ ] US-0111 a US-0115 cumplen criterios.
-- [ ] Login local intacto y sesión Sanctum reutilizada.
-- [ ] Identidades únicas y vinculación explícita; sin auto-link por email.
-- [ ] Empresa, rol y permisos no cambian por el método de acceso.
-- [ ] `state`, callbacks, cookies, rate limit y secretos verificados.
-- [ ] UI accesible, responsive y con estados completos.
-- [ ] Pruebas backend/frontend y regresión 0–5 en verde.
-- [ ] Documentación y CHANGELOG actualizados; sin secretos.
+- [x] US-0111 a US-0115 cumplen criterios.
+- [x] Login local intacto y sesión Sanctum reutilizada.
+- [x] Identidades únicas y vinculación explícita; sin auto-link por email.
+- [x] Empresa, rol y permisos no cambian por el método de acceso.
+- [x] `state`, callbacks, cookies, rate limit y secretos verificados.
+- [x] UI accesible, responsive y con estados completos.
+- [x] Pruebas backend/frontend y regresión 0–5 en verde.
+- [x] Documentación y CHANGELOG actualizados; sin secretos.
+
+> **Pendiente de entorno:** validación con aplicaciones reales de Google y Meta.
+> El código y las pruebas usan proveedores simulados; no se almacenaron
+> credenciales en el repositorio.
 
 ## 13. Riesgos
 
@@ -213,3 +222,19 @@ contrato se actualizará al implementar y probar.
 Este plan no modifica código ni datos. La implementación comienza cuando el
 Product Owner ratifique PD-01, PD-03 y PD-06, y confirme PD-02. Las decisiones
 quedarán registradas en el ADR correspondiente antes de la primera migración.
+
+## 15. Estado de implementación
+
+**Implementado el 2026-11-15.**
+
+- `laravel/socialite` 5.32 y configuración de proveedores por ambiente.
+- Migración `social_identities` con `UNIQUE(provider, provider_user_id)` y
+  `UNIQUE(user_id, provider)`.
+- Rutas web de redirect/callback/link y API de proveedores, cuentas y desvinculación.
+- Servicio de resolución/vinculación, sesión Sanctum reutilizada y errores seguros.
+- Login React con botones condicionados a proveedores configurados.
+- Página «Mi cuenta» para vincular/desvincular y consultar métodos.
+- Evidencia: backend 140 pruebas / 523 aserciones; frontend 65 pruebas;
+  Pint, lint y build correctos.
+- Limitación: no se probó OAuth contra Google/Meta reales por falta de
+  credenciales; las pruebas usan proveedores simulados.

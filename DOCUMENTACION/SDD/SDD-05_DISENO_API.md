@@ -28,7 +28,7 @@
 | Formato | JSON UTF-8 (`Accept: application/json`) |
 | Autenticación | Laravel Sanctum (cookie de SPA + CSRF; tokens Bearer para integraciones) |
 
-**Implementado (Sprints 0 a 5):**
+**Implementado (Sprints 0 a 5 + incremento v1.1):**
 
 | Método | Ruta | Autenticación | Permiso |
 | --- | --- | --- | --- |
@@ -36,6 +36,9 @@
 | `POST` | `/api/v1/auth/login` | Pública | — |
 | `POST` | `/api/v1/auth/logout` | `auth:sanctum` | — |
 | `GET` | `/api/v1/auth/me` | `auth:sanctum` | — |
+| `GET` | `/api/v1/auth/social/providers` | Pública | — |
+| `GET` | `/api/v1/auth/social/accounts` | `auth:sanctum` | — |
+| `DELETE` | `/api/v1/auth/social/{provider}` | `auth:sanctum` | — |
 | `GET` | `/api/v1/users` | `auth:sanctum` + `X-Company-Id` | `identity.users.view` |
 | `POST` | `/api/v1/users` | `auth:sanctum` + `X-Company-Id` | `identity.users.manage` |
 | `GET` | `/api/v1/users/{id}` | `auth:sanctum` + `X-Company-Id` | `identity.users.view` |
@@ -106,9 +109,9 @@
 
 ### 2.1 Autenticación social — propuesta v1.1 (no implementada)
 
-> **Estado:** contrato propuesto. No existen rutas, controladores ni pruebas de
-> login social al 2026-11-15. No se debe consumir desde React hasta aprobar e
-> implementar el incremento. Ver ADR-0004/0005 y
+> **Estado:** contrato implementado en el incremento v1.1 (2026-11-15) con
+> proveedores simulados en pruebas. La validación contra Google/Meta reales
+> queda pendiente de credenciales. Ver ADR-0004/0005 y
 > [`AUTH-01`](../SEGURIDAD/AUTH-01_AUTENTICACION_SOCIAL.md).
 
 **Flujo.** El inicio y el callback OAuth viven en rutas `web` para disponer de
@@ -119,9 +122,10 @@ React. Las rutas de gestión de métodos viven en `/api/v1` y usan CSRF.
 | --- | --- | --- | --- |
 | `GET` | `/auth/social/{provider}/redirect` | `web` | Iniciar OAuth; `provider` en `google,facebook`; genera `state` |
 | `GET` | `/auth/social/{provider}/callback` | `web` | Validar `state` y respuesta; crear sesión o volver con error controlado |
+| `GET` | `/auth/social/{provider}/link` | `web` autenticada | Iniciar vinculación desde una sesión válida |
+| `GET` | `/api/v1/auth/social/providers` | API pública | Listar proveedores configurados para el login |
 | `GET` | `/api/v1/auth/social/accounts` | API autenticada | Listar métodos vinculados, sin secretos |
-| `POST` | `/api/v1/auth/social/{provider}/link` | API autenticada + CSRF | Iniciar vinculación desde una sesión válida |
-| `DELETE` | `/api/v1/auth/social/{provider}/link` | API autenticada + CSRF | Desvincular sin dejar al usuario sin acceso |
+| `DELETE` | `/api/v1/auth/social/{provider}` | API autenticada + CSRF | Desvincular sin dejar al usuario sin acceso |
 
 Reglas de contrato:
 

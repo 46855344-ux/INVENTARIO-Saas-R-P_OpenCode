@@ -113,6 +113,18 @@ y el versionado semántico de [SemVer](https://semver.org/lang/es/).
   - **Planificación del Sprint 4 (EP-04):**
     - `DOCUMENTACION/SDD/PLAN_SPRINT_4_INVENTARIO_CENTRAL.md`: alcance US-0401 a US-0406, decisiones, modelo, contratos, reglas transaccionales, matriz de pruebas y DoR/DoD.
 
+### Incremento v1.1 — autenticación social y experiencia (2026-11-15)
+
+- Dependencia `laravel/socialite` 5.32 y configuración Google/Facebook por ambiente.
+- Migración `social_identities` con `UNIQUE(provider, provider_user_id)` y `UNIQUE(user_id, provider)`.
+- Servicio `SocialAuthService`, rutas web de redirect/callback/link y API de proveedores, cuentas y desvinculación.
+- Sesión Sanctum reutilizada; el login social no concede empresa, rol ni permisos.
+- Login React con botones condicionados a proveedores configurados.
+- Página «Mi cuenta» para vincular, desvincular y consultar métodos de acceso.
+- Errores seguros `SOCIAL_AUTH_FAILED`, `SOCIAL_IDENTITY_NOT_LINKED`, `SOCIAL_IDENTITY_CONFLICT` y `LAST_AUTH_METHOD`.
+- Pruebas backend (140/523) y frontend (65), Pint, lint y build correctos.
+- Validación con Google/Meta reales pendiente de credenciales; pruebas con proveedores simulados.
+
 ### Documentación — integración v1.1 (2026-11-15)
 
 Integración documental de los requisitos de CX, UX, UI y autenticación con

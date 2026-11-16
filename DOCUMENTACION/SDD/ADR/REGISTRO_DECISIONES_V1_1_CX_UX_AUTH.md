@@ -26,7 +26,7 @@ Sprint 5 son 131/488 en backend y 56 en frontend.
 
 ## ADR-0004 — Autenticación social sobre Sanctum SPA
 
-**Estado:** Propuesta — pendiente de aprobación e implementación
+**Estado:** Aprobada e implementada (proveedores reales pendientes de credenciales)
 **Fecha:** 2026-11-15
 **Relacionados:** `ADR-0001`, `AUTH-01`, `SDD-05`, `SDD-01`
 
@@ -64,7 +64,7 @@ de identidad, pruebas y revisión de seguridad.
 
 ## ADR-0005 — Identidad social vinculada explícitamente
 
-**Estado:** Propuesta — pendiente de aprobación
+**Estado:** Aprobada e implementada (proveedores reales pendientes de credenciales)
 **Fecha:** 2026-11-15
 **Relacionados:** `AUTH-01`, `SDD-04`, `03_CANVAS_DISENO_DE_DATOS...`
 
@@ -99,7 +99,7 @@ privacidad.
 
 ## ADR-0006 — Sistema de diseño y accesibilidad incremental
 
-**Estado:** Propuesta — pendiente de aprobación
+**Estado:** Aprobada — implementación incremental en curso
 **Fecha:** 2026-11-15
 **Relacionados:** `UI-01`, `UX-01`, `CX-01`, `SDD-01`
 
@@ -133,7 +133,7 @@ catálogo, inventario, compras ni traslados.
 
 ## ADR-0007 — Incorporación como incremento v1.1, sin reabrir Sprints 0–5
 
-**Estado:** Recomendación operativa — pendiente de asignación por el PO
+**Estado:** Aprobada — incremento ejecutado antes del Sprint 6
 **Fecha:** 2026-11-15
 **Relacionados:** `04_BACKLOG_TECNICO...`, `QA-01`, `Docs/05`
 
@@ -161,10 +161,10 @@ aprobación del PO.
 
 | ADR | Tema | Estado | Implementado |
 | --- | --- | --- | --- |
-| ADR-0004 | Login social sobre Sanctum | Propuesta | No |
-| ADR-0005 | Identidad social | Propuesta | No |
-| ADR-0006 | UI/accesibilidad | Propuesta | No |
-| ADR-0007 | Incremento v1.1 | Recomendación | No |
+| ADR-0004 | Login social sobre Sanctum | Aprobada | Sí, con mocks |
+| ADR-0005 | Identidad social | Aprobada | Sí |
+| ADR-0006 | UI/accesibilidad | Aprobada | Parcial |
+| ADR-0007 | Incremento v1.1 | Aprobada | Sí |
 
 ## 3. Decisiones que requieren aprobación
 
