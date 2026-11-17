@@ -15,16 +15,16 @@ sin rediseñar las reglas de negocio ni todas las pantallas.
 | Área | Entregable |
 | --- | --- |
 | Tokens | Colores semánticos, radios, foco visible |
-| Componentes | `Button`, `TextField`, `SelectField`, `Alert`, `EmptyState`, `PageHeader` |
-| Accesibilidad | Skip link, `aria-invalid`, `aria-describedby`, `aria-busy`, roles de estado |
-| Pantallas | Login migrado a componentes; cuenta y nuevas pantallas reutilizan patrones |
+| Componentes | `Button`, `TextField`, `SelectField`, `Alert`, `EmptyState`, `PageHeader`, `Dialog`, `ReasonDialog` |
+| Accesibilidad | Skip link, `aria-invalid`, `aria-describedby`, `aria-busy`, `role="dialog"`, Escape y foco |
+| Pantallas | Login migrado; reversión de movimientos y revisión/aprobación de conteos usan diálogos accesibles |
 | Pruebas | Componentes, error accesible, carga y activación por teclado |
 
 ## 3. Evidencia
 
 | Verificación | Resultado |
 | --- | --- |
-| Frontend | 82 pruebas — OK |
+| Frontend | 84 pruebas — OK |
 | Lint | Sin errores (advertencias de efectos existentes) |
 | Build | Correcto |
 
