@@ -15,7 +15,7 @@ sin rediseñar las reglas de negocio ni todas las pantallas.
 | Área | Entregable |
 | --- | --- |
 | Tokens | Colores semánticos, radios, foco visible |
-| Componentes | `Button`, `TextField`, `SelectField`, `Alert`, `EmptyState`, `PageHeader`, `Dialog`, `ReasonDialog` |
+| Componentes | `Button`, `TextField`, `SelectField`, `Alert`, `EmptyState`, `PageHeader`, `Dialog`, `ReasonDialog`, `Tabs`, `DataTable` |
 | Accesibilidad | Skip link, `aria-invalid`, `aria-describedby`, `aria-busy`, `role="dialog"`, Escape y foco |
 | Pantallas | Login migrado; reversión de movimientos, revisión/aprobación de conteos, recepción de compras y desvinculación usan diálogos accesibles |
 | Pruebas | Componentes, error accesible, carga y activación por teclado |
@@ -24,16 +24,15 @@ sin rediseñar las reglas de negocio ni todas las pantallas.
 
 | Verificación | Resultado |
 | --- | --- |
-| Frontend | 84 pruebas — OK |
+| Frontend | 86 pruebas — OK |
 | Lint | Sin errores (advertencias de efectos existentes) |
 | Build | Correcto |
 
 ## 4. Pendientes
 
-- Migrar el resto de formularios y tablas a los componentes (`DataTable`/`Tabs`).
+- Migrar los formularios restantes de Inventario, Compras y Conteos a los componentes.
 - Auditoría WCAG 2.2 AA completa con lector de pantalla.
-- Pruebas responsive y de usabilidad con usuarios.
-- Onboarding por rol y ayuda contextual.
+- Pruebas de usabilidad y onboarding por rol.
 
 ## 5. Conclusión
 
