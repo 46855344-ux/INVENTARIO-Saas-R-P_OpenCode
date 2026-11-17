@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import type { FormEvent } from 'react';
 import { resolveApiError } from '../../services/errors';
+import { ReasonDialog } from '../../components/ui/Dialog';
 import {
   createAdjustment,
   createEntry,
@@ -63,6 +64,8 @@ export function MovementsSection({ canMove, canAdjust, canApprove }: MovementsSe
   const [error, setError] = useState<string | null>(null);
   const [actionError, setActionError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+  const [reverseTarget, setReverseTarget] = useState<StockMovement | null>(null);
+  const [reversing, setReversing] = useState(false);
 
   const [typeFilter, setTypeFilter] = useState<StockMovementType | ''>('');
   const [formOpen, setFormOpen] = useState(false);
@@ -220,22 +223,29 @@ export function MovementsSection({ canMove, canAdjust, canApprove }: MovementsSe
     }
   };
 
-  const handleReverse = async (movement: StockMovement) => {
+  const handleReverse = (movement: StockMovement) => {
     setActionError(null);
     setSuccess(null);
+    setReverseTarget(movement);
+  };
 
-    const reversalReason = window.prompt('Motivo de la reversión:');
-
-    if (reversalReason === null || reversalReason.trim() === '') {
+  const confirmReverse = async (reason: string) => {
+    if (reverseTarget === null) {
       return;
     }
 
+    setReversing(true);
+
     try {
-      await reverseMovement(movement.id, reversalReason.trim());
+      await reverseMovement(reverseTarget.id, reason);
       setSuccess('Movimiento revertido correctamente.');
+      setReverseTarget(null);
       setReloadToken((token) => token + 1);
     } catch (reverseError) {
       setActionError(resolveApiError(reverseError).message);
+      setReverseTarget(null);
+    } finally {
+      setReversing(false);
     }
   };
 
@@ -543,6 +553,19 @@ export function MovementsSection({ canMove, canAdjust, canApprove }: MovementsSe
           Siguiente
         </button>
       </nav>
+
+      <ReasonDialog
+        open={reverseTarget !== null}
+        title={`Revertir movimiento #${reverseTarget?.id ?? ''}`}
+        label="Motivo de la reversión"
+        confirmLabel="Revertir"
+        loading={reversing}
+        danger
+        onConfirm={(reason) => {
+          void confirmReverse(reason);
+        }}
+        onClose={() => setReverseTarget(null)}
+      />
     </div>
   );
 }

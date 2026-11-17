@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import type { FormEvent } from 'react';
 import { listAllVariants } from '../../services/catalog';
+import { ReasonDialog } from '../../components/ui/Dialog';
 import { resolveApiError } from '../../services/errors';
 import {
   createStockCount,
@@ -50,6 +51,9 @@ export function CountsPage() {
   const [actionError, setActionError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const [reloadToken, setReloadToken] = useState(0);
+  const [dialogTarget, setDialogTarget] = useState<StockCount | null>(null);
+  const [dialogStatus, setDialogStatus] = useState<'reviewing' | 'approved'>('reviewing');
+  const [dialogBusy, setDialogBusy] = useState(false);
 
   const [formOpen, setFormOpen] = useState(false);
   const [locationId, setLocationId] = useState(0);
@@ -134,24 +138,30 @@ export function CountsPage() {
     }
   };
 
-  const handleStatus = async (count: StockCount, status: 'reviewing' | 'approved') => {
+  const handleStatus = (count: StockCount, status: 'reviewing' | 'approved') => {
     setActionError(null);
     setSuccess(null);
+    setDialogTarget(count);
+    setDialogStatus(status);
+  };
 
-    const reason = window.prompt(
-      status === 'approved' ? 'Motivo de aprobación:' : 'Motivo de revisión:',
-    );
-
-    if (reason === null || reason.trim() === '') {
+  const confirmStatus = async (reason: string) => {
+    if (dialogTarget === null) {
       return;
     }
 
+    setDialogBusy(true);
+
     try {
-      await updateStockCountStatus(count.id, status, reason.trim());
-      setSuccess(status === 'approved' ? 'Conteo aprobado y stock ajustado.' : 'Conteo enviado a revisión.');
+      await updateStockCountStatus(dialogTarget.id, dialogStatus, reason);
+      setSuccess(dialogStatus === 'approved' ? 'Conteo aprobado y stock ajustado.' : 'Conteo enviado a revisión.');
+      setDialogTarget(null);
       setReloadToken((token) => token + 1);
     } catch (statusError) {
       setActionError(resolveApiError(statusError).message);
+      setDialogTarget(null);
+    } finally {
+      setDialogBusy(false);
     }
   };
 
@@ -285,6 +295,19 @@ export function CountsPage() {
           <nav className="pagination"><span>Página {auditMeta.current_page} de {auditMeta.last_page} · {auditMeta.total} eventos</span></nav>
         </div>
       )}
+
+      <ReasonDialog
+        open={dialogTarget !== null}
+        title={dialogStatus === 'approved' ? 'Aprobar conteo' : 'Enviar a revisión'}
+        label={dialogStatus === 'approved' ? 'Motivo de aprobación' : 'Motivo de revisión'}
+        confirmLabel={dialogStatus === 'approved' ? 'Aprobar' : 'Enviar a revisión'}
+        loading={dialogBusy}
+        danger={dialogStatus === 'approved'}
+        onConfirm={(reason) => {
+          void confirmStatus(reason);
+        }}
+        onClose={() => setDialogTarget(null)}
+      />
     </section>
   );
 }

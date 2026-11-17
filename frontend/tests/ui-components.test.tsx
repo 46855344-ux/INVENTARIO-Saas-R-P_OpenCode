@@ -3,6 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 import { Alert } from '../src/components/ui/Alert';
 import { Button } from '../src/components/ui/Button';
+import { Dialog, ReasonDialog } from '../src/components/ui/Dialog';
 import { TextField } from '../src/components/ui/TextField';
 
 describe('UI components', () => {
@@ -51,5 +52,39 @@ describe('UI components', () => {
     await userEvent.keyboard('{Enter}');
 
     expect(onClick).toHaveBeenCalled();
+  });
+
+  it('expone el diálogo como modal y cierra con Escape', async () => {
+    const onClose = vi.fn();
+    render(
+      <Dialog open title="Confirmar" onConfirm={vi.fn()} onClose={onClose}>
+        Contenido
+      </Dialog>,
+    );
+
+    expect(screen.getByRole('dialog', { name: 'Confirmar' })).toHaveAttribute(
+      'aria-modal',
+      'true',
+    );
+
+    await userEvent.keyboard('{Escape}');
+    expect(onClose).toHaveBeenCalled();
+  });
+
+  it('exige motivo en el diálogo de reversión', async () => {
+    const onConfirm = vi.fn();
+    render(
+      <ReasonDialog
+        open
+        title="Revertir"
+        label="Motivo"
+        onConfirm={onConfirm}
+        onClose={vi.fn()}
+      />,
+    );
+
+    await userEvent.click(screen.getByRole('button', { name: 'Confirmar' }));
+    expect(screen.getByText(/el motivo es obligatorio/i)).toBeInTheDocument();
+    expect(onConfirm).not.toHaveBeenCalled();
   });
 });

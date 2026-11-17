@@ -79,6 +79,44 @@ a {
 
 .button-danger { color: var(--color-error); }
 
+.dialog-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background-color: rgba(15, 23, 42, 0.45);
+}
+
+.dialog {
+  width: 100%;
+  max-width: 480px;
+  display: grid;
+  gap: 1rem;
+  padding: 1.5rem;
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface);
+  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.2);
+}
+
+.dialog h2 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.dialog-description {
+  color: var(--color-muted);
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
 .app-shell {
   display: flex;
   flex-direction: column;
