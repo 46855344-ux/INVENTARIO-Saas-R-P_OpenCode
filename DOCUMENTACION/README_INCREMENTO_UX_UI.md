@@ -17,7 +17,7 @@ sin rediseñar las reglas de negocio ni todas las pantallas.
 | Tokens | Colores semánticos, radios, foco visible |
 | Componentes | `Button`, `TextField`, `SelectField`, `Alert`, `EmptyState`, `PageHeader`, `Dialog`, `ReasonDialog`, `Tabs`, `DataTable` |
 | Accesibilidad | Skip link, `aria-invalid`, `aria-describedby`, `aria-busy`, `role="dialog"`, Escape y foco |
-| Pantallas | Login migrado; reversión de movimientos, revisión/aprobación de conteos, recepción de compras y desvinculación usan diálogos accesibles |
+| Pantallas | Login, cabecera de Compras, formulario de Conteos y acciones de Inventario migrados a componentes; diálogos accesibles en flujos críticos |
 | Pruebas | Componentes, error accesible, carga y activación por teclado |
 
 ## 3. Evidencia
@@ -30,7 +30,7 @@ sin rediseñar las reglas de negocio ni todas las pantallas.
 
 ## 4. Pendientes
 
-- Migrar los formularios restantes de Inventario, Compras y Conteos a los componentes.
+- Migrar los campos restantes de Inventario y las tablas de líneas de Compras/Conteos.
 - Auditoría WCAG 2.2 AA completa con lector de pantalla.
 - Pruebas de usabilidad y onboarding por rol.
 
