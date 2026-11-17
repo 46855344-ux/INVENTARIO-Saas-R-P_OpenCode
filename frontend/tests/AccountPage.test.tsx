@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
@@ -92,6 +92,9 @@ describe('AccountPage', () => {
     renderAccount();
 
     await userEvent.click(await screen.findByRole('button', { name: 'Desvincular' }));
+    await userEvent.click(
+      within(screen.getByRole('dialog')).getByRole('button', { name: 'Desvincular' }),
+    );
 
     expect(mocks.unlinkSocialAccount).toHaveBeenCalledWith('google');
   });

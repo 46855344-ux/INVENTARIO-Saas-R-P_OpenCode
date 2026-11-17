@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useAuth } from '../auth/AuthContext';
+import { Dialog } from '../../components/ui/Dialog';
 import { resolveApiError } from '../../services/errors';
 import {
   listSocialAccounts,
@@ -27,7 +28,8 @@ export function AccountPage() {
   const [actionError, setActionError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const [reloadToken, setReloadToken] = useState(0);
-  const [removing, setRemoving] = useState<SocialProvider | null>(null);
+  const [unlinkTarget, setUnlinkTarget] = useState<SocialProvider | null>(null);
+  const [unlinking, setUnlinking] = useState(false);
 
   const linkedQuery = searchParams.get('social');
   const errorQuery = searchParams.get('social_error');
@@ -58,28 +60,29 @@ export function AccountPage() {
     };
   }, [reloadToken]);
 
-  const handleUnlink = async (provider: SocialProvider) => {
+  const handleUnlink = (provider: SocialProvider) => {
     setActionError(null);
     setSuccess(null);
+    setUnlinkTarget(provider);
+  };
 
-    const confirmed = window.confirm(
-      '¿Desvincular esta cuenta social? Podrá seguir ingresando con su correo y contraseña.',
-    );
-
-    if (!confirmed) {
+  const confirmUnlink = async () => {
+    if (unlinkTarget === null) {
       return;
     }
 
-    setRemoving(provider);
+    setUnlinking(true);
 
     try {
-      await unlinkSocialAccount(provider);
+      await unlinkSocialAccount(unlinkTarget);
       setSuccess('Cuenta social desvinculada.');
+      setUnlinkTarget(null);
       setReloadToken((token) => token + 1);
     } catch (unlinkError) {
       setActionError(resolveApiError(unlinkError).message);
+      setUnlinkTarget(null);
     } finally {
-      setRemoving(null);
+      setUnlinking(false);
     }
   };
 
@@ -178,9 +181,9 @@ export function AccountPage() {
                           onClick={() => {
                             void handleUnlink(option.provider);
                           }}
-                          disabled={removing === option.provider}
+                          disabled={unlinking}
                         >
-                          {removing === option.provider ? 'Desvinculando…' : 'Desvincular'}
+                          {unlinking ? 'Desvinculando…' : 'Desvincular'}
                         </button>
                       ) : (
                         <a
@@ -204,6 +207,19 @@ export function AccountPage() {
           </p>
         )}
       </div>
+
+      <Dialog
+        open={unlinkTarget !== null}
+        title={`Desvincular ${unlinkTarget === 'google' ? 'Google' : 'Facebook'}`}
+        description="Podrá seguir ingresando con su correo y contraseña."
+        confirmLabel="Desvincular"
+        loading={unlinking}
+        danger
+        onConfirm={() => {
+          void confirmUnlink();
+        }}
+        onClose={() => setUnlinkTarget(null)}
+      />
     </section>
   );
 }

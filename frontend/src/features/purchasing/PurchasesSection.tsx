@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import type { FormEvent } from 'react';
 import { listAllVariants } from '../../services/catalog';
+import { Dialog } from '../../components/ui/Dialog';
 import { resolveApiError } from '../../services/errors';
 import {
   createPurchase,
@@ -69,6 +70,8 @@ export function PurchasesSection({ canManage, canReceive }: PurchasesSectionProp
   const [error, setError] = useState<string | null>(null);
   const [actionError, setActionError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+  const [receiveTarget, setReceiveTarget] = useState<Purchase | null>(null);
+  const [receiving, setReceiving] = useState(false);
 
   const [searchInput, setSearchInput] = useState('');
   const [statusInput, setStatusInput] = useState<PurchaseStatus | ''>('');
@@ -256,24 +259,29 @@ export function PurchasesSection({ canManage, canReceive }: PurchasesSectionProp
     }
   };
 
-  const handleReceive = async (purchase: Purchase) => {
+  const handleReceive = (purchase: Purchase) => {
     setActionError(null);
     setSuccess(null);
+    setReceiveTarget(purchase);
+  };
 
-    const confirmed = window.confirm(
-      `¿Confirmar la recepción de la compra #${purchase.id}? El stock se actualizará una sola vez.`,
-    );
-
-    if (!confirmed) {
+  const confirmReceive = async () => {
+    if (receiveTarget === null) {
       return;
     }
 
+    setReceiving(true);
+
     try {
-      await receivePurchase(purchase.id);
+      await receivePurchase(receiveTarget.id);
       setSuccess('Recepción confirmada. El stock fue actualizado.');
+      setReceiveTarget(null);
       setReloadToken((token) => token + 1);
     } catch (receiveError) {
       setActionError(resolveApiError(receiveError).message);
+      setReceiveTarget(null);
+    } finally {
+      setReceiving(false);
     }
   };
 
@@ -627,6 +635,18 @@ export function PurchasesSection({ canManage, canReceive }: PurchasesSectionProp
           Siguiente
         </button>
       </nav>
+
+      <Dialog
+        open={receiveTarget !== null}
+        title={`Recibir compra #${receiveTarget?.id ?? ''}`}
+        description="El stock se actualizará una sola vez. Esta acción no se puede repetir."
+        confirmLabel="Confirmar recepción"
+        loading={receiving}
+        onConfirm={() => {
+          void confirmReceive();
+        }}
+        onClose={() => setReceiveTarget(null)}
+      />
     </div>
   );
 }
