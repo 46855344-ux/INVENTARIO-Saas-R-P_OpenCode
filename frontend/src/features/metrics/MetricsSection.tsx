@@ -211,7 +211,7 @@ export function MetricsSection() {
         <p className="empty-state">No hay existencias registradas.</p>
       )}
       {!detailLoading && detail.length > 0 && (
-        <table className="users-table">
+        <table className="users-table" aria-label="Detalle de stock">
           <thead>
             <tr>
               <th>Producto / variante</th>

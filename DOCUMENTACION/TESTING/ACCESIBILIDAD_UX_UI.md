@@ -23,7 +23,7 @@
 | Contraste de tokens | Cumple: `--color-muted` ajustado; Lighthouse 100 |
 | Lector de pantalla | **Pendiente** |
 | Auditoría automatizada (Lighthouse/axe) | Cumple en `/login`, `/metrics` y `/counts` (100) |
-| Zoom al 200 % y anchos móviles | **Pendiente** |
+| Zoom al 200 % y anchos móviles | Cumple en `/metrics`: sin desborde horizontal; tablas con scroll |
 | Controles de línea (compras/conteos) | Migrados a `DataTable` con `aria-label` por fila |
 
 ## 1.1 Resultados Lighthouse
@@ -42,8 +42,13 @@ Se corrigió el contraste de `--color-muted` (`#6b7280` → `#4b5563`) y se agre
 1. Los controles de línea ya están migrados a `DataTable` y etiquetados con `aria-label`.
 2. Falta anunciar cambios de listados asíncronos con `aria-live`.
 3. Falta prueba manual con lector de pantalla.
-4. Falta validar zoom al 200 % y dispositivos móviles reales.
+4. Validación en dispositivo móvil físico pendiente; zoom 200 % simulado sin desborde.
 5. Falta prueba de usabilidad con usuarios.
+
+> **Validación realizada:** Lighthouse 100 en `/login`, `/metrics` y `/counts`;
+> inspección del árbol de accesibilidad (main, headings y tablas); zoom 200 %
+> simulado sin desborde horizontal. **No** se dispone de lector de pantalla real
+> ni dispositivo móvil físico en este entorno.
 
 ## 3. Próximos pasos
 
