@@ -23,6 +23,7 @@
 | CI | Pint, PHPUnit, Oxlint, Vitest, build y auditoría | `.github/workflows/ci.yml` | Configurado y validado localmente |
 | Índices | Movimientos por empresa/tipo/fecha y líneas por empresa/variante/ubicación | Migración `2026_11_17_090000` | Aplicado |
 | E2E | Smoke, login/métricas/asistente y flujo inventario completo | Cypress (3 specs) | OK local |
+| MySQL/MariaDB | Migraciones, seed y E2E sobre MariaDB 10.11 | Base `saas_inversiones_rp` | OK local |
 | Seeder demo | Catálogo/locations/stock E2E | `DemoDataSeeder` | OK |
 
 ## 2. Evidencia cuantitativa
@@ -39,7 +40,7 @@
 
 ## 3. Pendientes para aceptación
 
-- Ejecutar la suite contra MySQL real y Docker.
+- MySQL/MariaDB local validado con migraciones, seed y E2E 3/3; Docker y HTTPS pendientes.
 - Validar HTTPS, cookies seguras y CORS en staging.
 - Ejecutar backup/restore real y registrar RPO/RTO.
 - Validar OAuth con Google/Meta reales.

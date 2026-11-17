@@ -40,7 +40,7 @@ declaración de producción.
 
 **Candidato local**, con las siguientes brechas bloqueantes:
 
-- MySQL real y Docker no validados en este entorno.
+- MySQL/MariaDB local y E2E 3/3 validados; Docker Desktop y HTTPS pendientes.
 - HTTPS, cookies seguras y CORS de staging pendientes.
 - Restauración real y RPO/RTO pendientes (DP-06/DP-07).
 - OAuth con Google/Meta reales pendiente.
