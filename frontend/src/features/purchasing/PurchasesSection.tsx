@@ -358,6 +358,7 @@ export function PurchasesSection({ canManage, canReceive }: PurchasesSectionProp
           <div className="user-form-grid">
             <SelectField
               label="Proveedor"
+              name="supplier_id"
               value={supplierId}
               onChange={(event) => setSupplierId(Number(event.target.value))}
               required
@@ -368,6 +369,7 @@ export function PurchasesSection({ canManage, canReceive }: PurchasesSectionProp
             </SelectField>
             <TextField
               label="Fecha"
+              name="ordered_at"
               type="date"
               value={orderedAt}
               onChange={(event) => setOrderedAt(event.target.value)}
@@ -375,12 +377,14 @@ export function PurchasesSection({ canManage, canReceive }: PurchasesSectionProp
             />
             <TextField
               label="Documento"
+              name="document_number"
               value={documentNumber}
               onChange={(event) => setDocumentNumber(event.target.value)}
               maxLength={50}
             />
             <TextField
               label="Notas"
+              name="notes"
               value={notes}
               onChange={(event) => setNotes(event.target.value)}
               maxLength={255}

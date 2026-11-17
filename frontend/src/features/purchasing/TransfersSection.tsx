@@ -350,6 +350,7 @@ export function TransfersSection({ canManage }: TransfersSectionProps) {
                   <td>
                     <select
                       name={`variant-${line.key}`}
+                      aria-label={`Variante del traslado ${lines.indexOf(line) + 1}`}
                       value={line.variant_id}
                       onChange={(event) =>
                         updateLine(line.key, { variant_id: Number(event.target.value) })
@@ -366,6 +367,7 @@ export function TransfersSection({ canManage }: TransfersSectionProps) {
                   <td>
                     <input
                       name={`quantity-${line.key}`}
+                      aria-label={`Cantidad del traslado ${lines.indexOf(line) + 1}`}
                       type="number"
                       step="0.0001"
                       min="0.0001"

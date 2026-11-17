@@ -20,7 +20,7 @@
 | Multiempresa | Aislamiento A/B | Pruebas de todos los módulos | OK local |
 | Seguridad de dependencias | `composer audit`, `npm audit` | Ejecución local 2026-11-16 | OK |
 | CI | Pint, PHPUnit, Oxlint, Vitest, build y auditoría | `.github/workflows/ci.yml` | Configurado |
-| E2E | Login, métricas y asistente | Cypress `critical-flow.cy.ts` | OK local |
+| E2E | Smoke, login/métricas/asistente y flujo inventario completo | Cypress (3 specs) | OK local |
 | Seeder demo | Catálogo/locations/stock E2E | `DemoDataSeeder` | OK |
 
 ## 2. Evidencia cuantitativa

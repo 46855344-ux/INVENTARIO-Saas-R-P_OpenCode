@@ -50,9 +50,9 @@ class DemoDataSeeder extends Seeder
             ],
         );
 
-        StockBalance::query()->firstOrCreate(
+        StockBalance::query()->updateOrCreate(
             ['company_id' => $company->id, 'variant_id' => $variant->id, 'location_id' => $origin->id],
-            ['quantity' => '10.0000', 'reserved_quantity' => '0.0000'],
+            ['quantity' => '100.0000', 'reserved_quantity' => '0.0000'],
         );
 
         Supplier::query()->firstOrCreate(
