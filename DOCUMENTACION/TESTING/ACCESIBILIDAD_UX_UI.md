@@ -20,18 +20,30 @@
 | Mensajes de éxito/error con `role` | Cumple |
 | Tablas con encabezados `th scope="col"` | Cumple en `DataTable` |
 | Tablas responsive con desplazamiento | Cumple |
-| Contraste de tokens | Revisión visual; falta medición formal |
+| Contraste de tokens | Cumple: `--color-muted` ajustado; Lighthouse 100 |
 | Lector de pantalla | **Pendiente** |
-| Auditoría automatizada (axe/Lighthouse) | **Pendiente** |
+| Auditoría automatizada (Lighthouse/axe) | Cumple en `/login`, `/metrics` y `/counts` (100) |
+| Zoom al 200 % y anchos móviles | **Pendiente** |
 | Controles de línea (compras/conteos) | Migrados a `DataTable` con `aria-label` por fila |
+
+## 1.1 Resultados Lighthouse
+
+| Página | Accesibilidad | Best Practices | SEO |
+| --- | --- | --- | --- |
+| `/login` | 100 | 100 | 100 |
+| `/metrics` | 100 | 100 | 100 |
+| `/counts` | 100 | 100 | 100 |
+
+Se corrigió el contraste de `--color-muted` (`#6b7280` → `#4b5563`) y se agregó
+`robots.txt` para eliminar el único fallo de SEO.
 
 ## 2. Brechas
 
 1. Los controles de línea ya están migrados a `DataTable` y etiquetados con `aria-label`.
 2. Falta anunciar cambios de listados asíncronos con `aria-live`.
-3. No se ejecutó axe ni una prueba con lector de pantalla.
-4. No se midió contraste con herramienta dedicada.
-5. No se validó zoom al 200 % ni anchos móviles reales.
+3. Falta prueba manual con lector de pantalla.
+4. Falta validar zoom al 200 % y dispositivos móviles reales.
+5. Falta prueba de usabilidad con usuarios.
 
 ## 3. Próximos pasos
 

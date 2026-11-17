@@ -25,6 +25,7 @@ sin rediseñar las reglas de negocio ni todas las pantallas.
 | Verificación | Resultado |
 | --- | --- |
 | Frontend | 86 pruebas — OK |
+| Lighthouse | 100 accesibilidad, 100 best practices y 100 SEO en `/login`, `/metrics` y `/counts` |
 | Lint | Sin errores (advertencias de efectos existentes) |
 | Build | Correcto |
 
