@@ -43,7 +43,8 @@ Route::get('/health', function () {
 
 Route::prefix('v1')->group(function () {
     Route::prefix('auth')->group(function () {
-        Route::post('/login', [AuthController::class, 'login']);
+        Route::post('/login', [AuthController::class, 'login'])
+            ->middleware('throttle:login');
         Route::get('/social/providers', [SocialAccountController::class, 'providers']);
 
         Route::middleware('auth:sanctum')->group(function () {
@@ -211,9 +212,9 @@ Route::prefix('v1')->group(function () {
             ->middleware('can:audit.view');
 
         Route::post('/assistant/query', [ChatAssistantController::class, 'query'])
-            ->middleware('can:assistant.use');
+            ->middleware(['can:assistant.use', 'throttle:assistant']);
         Route::get('/assistant/suggestions', [ChatAssistantController::class, 'suggestions'])
-            ->middleware('can:assistant.use');
+            ->middleware(['can:assistant.use', 'throttle:assistant']);
 
         Route::get('/roles', [RoleController::class, 'index'])
             ->middleware('can:identity.roles.view');

@@ -41,7 +41,10 @@ use App\Modules\Purchasing\Models\Transfer;
 use App\Modules\Purchasing\Policies\PurchasePolicy;
 use App\Modules\Purchasing\Policies\SupplierPolicy;
 use App\Modules\Purchasing\Policies\TransferPolicy;
+use Illuminate\Cache\RateLimiting\Limit;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -59,6 +62,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        RateLimiter::for('login', fn (Request $request) => Limit::perMinute(10)->by($request->ip()));
+        RateLimiter::for('assistant', fn (Request $request) => Limit::perMinute(30)->by($request->user()?->id ?: $request->ip()));
+
         // Los códigos `modulo.accion` se resuelven contra los permisos del rol
         // activo en la empresa de la petición (ver ADR-0003).
         Gate::before(function ($user, $ability): ?bool {

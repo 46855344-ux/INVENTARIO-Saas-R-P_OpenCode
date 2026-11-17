@@ -67,6 +67,14 @@ Reglas:
 - Espacio en disco y estado de backups.
 - Intentos de login fallidos y errores OAuth.
 
+## 7. Controles de seguridad aplicados
+
+- Cabeceras `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy` y
+  `Permissions-Policy` en todas las respuestas.
+- Rate limit de login: 10 intentos por minuto por IP.
+- Rate limit del asistente: 30 solicitudes por minuto por usuario/IP.
+- Cookies de sesión y CSRF mediante Sanctum.
+
 ## 7. Pendientes bloqueantes
 
 - Validación en staging con MySQL real y HTTPS.

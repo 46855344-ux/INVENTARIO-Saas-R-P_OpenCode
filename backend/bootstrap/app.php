@@ -17,6 +17,7 @@ use App\Modules\Inventory\Exceptions\MovementNotReversibleException;
 use App\Modules\Purchasing\Exceptions\IdempotencyConflictException;
 use App\Modules\Purchasing\Exceptions\PurchaseNotEditableException;
 use App\Modules\Shared\Http\ErrorResponse;
+use App\Modules\Shared\Http\Middleware\SecurityHeaders;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -39,6 +40,8 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'tenant' => ResolveTenant::class,
         ]);
+
+        $middleware->append(SecurityHeaders::class);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->shouldRenderJsonWhen(

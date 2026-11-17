@@ -19,6 +19,7 @@
 | Asistente | Solo lectura, permisos y prompt injection | Pruebas Sprint 8 | OK local |
 | Multiempresa | Aislamiento A/B | Pruebas de todos los módulos | OK local |
 | Seguridad de dependencias | `composer audit`, `npm audit` | Ejecución local 2026-11-16 | OK |
+| Cabeceras y rate limiting | Login 10/min, asistente 30/min, headers de seguridad | Pruebas de seguridad | OK local |
 | CI | Pint, PHPUnit, Oxlint, Vitest, build y auditoría | `.github/workflows/ci.yml` | Configurado |
 | E2E | Smoke, login/métricas/asistente y flujo inventario completo | Cypress (3 specs) | OK local |
 | Seeder demo | Catálogo/locations/stock E2E | `DemoDataSeeder` | OK |

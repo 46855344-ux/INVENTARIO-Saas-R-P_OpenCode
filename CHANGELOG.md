@@ -137,6 +137,7 @@ y el versionado semántico de [SemVer](https://semver.org/lang/es/).
     - Matriz de aceptación del MVP con evidencia local y pendientes explícitos.
     - Estado **release candidate**; producción no habilitada.
     - E2E Cypress (3 specs): smoke, login/métricas/asistente y compra→recepción→traslado→conteo; seeder demo determinista.
+    - Cabeceras de seguridad globales y rate limiting en login y asistente.
   - **Incremento UX/UI transversal:**
     - Tokens de color, foco visible y radios.
     - Componentes `Button`, `TextField`, `SelectField`, `Alert`, `EmptyState`, `PageHeader`, `Dialog`, `ReasonDialog`, `Tabs` y `DataTable`.
