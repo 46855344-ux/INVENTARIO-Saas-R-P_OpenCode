@@ -118,6 +118,7 @@ Sprint 0:
 | Documento | Contenido |
 | --- | --- |
 | [`SDD/PLAN_SPRINT_9_ESTABILIZACION_PRODUCCION.md`](./SDD/PLAN_SPRINT_9_ESTABILIZACION_PRODUCCION.md) | Calidad, CI, despliegue, backup/restore y aceptación del MVP |
+| [`RELEASE_NOTES_v1.0.0-rc1.md`](./RELEASE_NOTES_v1.0.0-rc1.md) | Alcance, evidencia y limitaciones del release candidate |
 
 ## Integración documental v1.1 — CX, UX, UI y autenticación social
 
