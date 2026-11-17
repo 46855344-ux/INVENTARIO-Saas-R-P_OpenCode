@@ -127,6 +127,7 @@ Sprint 0:
 | Documento | Contenido |
 | --- | --- |
 | [`README_INCREMENTO_V1_1_AUTH_CX.md`](./README_INCREMENTO_V1_1_AUTH_CX.md) | Cierre del incremento: entregables, evidencia, configuración y demo |
+| [`README_INCREMENTO_UX_UI.md`](./README_INCREMENTO_UX_UI.md) | Componentes, tokens, accesibilidad y pendientes del incremento UX/UI |
 | [`SDD/INTEGRACION_V1_1_CX_UX_AUTH.md`](./SDD/INTEGRACION_V1_1_CX_UX_AUTH.md) | Comparación de fuentes, conflictos, resoluciones y archivos afectados |
 | [`SDD/PLAN_INCREMENTO_V1_1_AUTH_CX.md`](./SDD/PLAN_INCREMENTO_V1_1_AUTH_CX.md) | Plan del incremento v1.1: alcance, decisiones, arquitectura, fases y pruebas |
 | [`SDD/ADR/REGISTRO_DECISIONES_V1_1_CX_UX_AUTH.md`](./SDD/ADR/REGISTRO_DECISIONES_V1_1_CX_UX_AUTH.md) | ADR-0004 a ADR-0007 propuestos (auth social, identidad, UI e incremento) |

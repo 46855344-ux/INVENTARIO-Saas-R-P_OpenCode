@@ -136,6 +136,12 @@ y el versionado semántico de [SemVer](https://semver.org/lang/es/).
     - Procedimiento de backup/restore y brechas RPO/RTO documentadas.
     - Matriz de aceptación del MVP con evidencia local y pendientes explícitos.
     - Estado **release candidate**; producción no habilitada.
+  - **Incremento UX/UI transversal:**
+    - Tokens de color, foco visible y radios.
+    - Componentes `Button`, `TextField`, `SelectField`, `Alert`, `EmptyState` y `PageHeader`.
+    - Skip link, `aria-invalid`, `aria-describedby`, `aria-busy` y roles de estado.
+    - Login migrado a componentes; base reutilizable para el resto de pantallas.
+    - Pruebas de componentes y accesibilidad básica; frontend 82 pruebas.
   - **Documentación de cierre de sprints:**
     - `DOCUMENTACION/README_SPRINT_1.md`: cierre del Sprint 1 (identidad, usuarios, permisos y aislamiento).
     - `DOCUMENTACION/README_SPRINT_2.md`: cierre del Sprint 2 (catálogo de productos y variantes).

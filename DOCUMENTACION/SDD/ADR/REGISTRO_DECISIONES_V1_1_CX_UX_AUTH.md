@@ -99,7 +99,7 @@ privacidad.
 
 ## ADR-0006 — Sistema de diseño y accesibilidad incremental
 
-**Estado:** Aprobada — implementación incremental en curso
+**Estado:** Aprobada — base implementada, migración de pantallas en curso
 **Fecha:** 2026-11-15
 **Relacionados:** `UI-01`, `UX-01`, `CX-01`, `SDD-01`
 
