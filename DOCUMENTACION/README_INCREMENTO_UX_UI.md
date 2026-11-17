@@ -17,7 +17,7 @@ sin rediseñar las reglas de negocio ni todas las pantallas.
 | Tokens | Colores semánticos, radios, foco visible |
 | Componentes | `Button`, `TextField`, `SelectField`, `Alert`, `EmptyState`, `PageHeader`, `Dialog`, `ReasonDialog`, `Tabs`, `DataTable` |
 | Accesibilidad | Skip link, `aria-invalid`, `aria-describedby`, `aria-busy`, `role="dialog"`, Escape y foco |
-| Pantallas | Login, Inventario, cabecera de Compras y formulario de Conteos migrados; diálogos accesibles en flujos críticos |
+| Pantallas | Login, Inventario, Compras y Conteos migrados; líneas de compra/conteo usan `DataTable`; diálogos accesibles en flujos críticos |
 | Pruebas | Componentes, error accesible, carga y activación por teclado |
 
 ## 3. Evidencia
@@ -30,8 +30,8 @@ sin rediseñar las reglas de negocio ni todas las pantallas.
 
 ## 4. Pendientes
 
-- Migrar las tablas de líneas de Compras/Conteos.
-- Completar auditoría WCAG con axe/lector de pantalla ([`TESTING/ACCESIBILIDAD_UX_UI.md`](./TESTING/ACCESIBILIDAD_UX_UI.md)).
+- Ejecutar axe/Lighthouse y prueba con lector de pantalla.
+- Medir contraste y zoom al 200 %.
 - Pruebas de usabilidad y onboarding por rol.
 
 ## 5. Conclusión

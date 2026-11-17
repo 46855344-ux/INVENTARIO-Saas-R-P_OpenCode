@@ -23,11 +23,11 @@
 | Contraste de tokens | Revisión visual; falta medición formal |
 | Lector de pantalla | **Pendiente** |
 | Auditoría automatizada (axe/Lighthouse) | **Pendiente** |
-| Controles de línea (compras/conteos) | `aria-label` por fila; migración visual a componentes pendiente |
+| Controles de línea (compras/conteos) | Migrados a `DataTable` con `aria-label` por fila |
 
 ## 2. Brechas
 
-1. Los controles de línea de Compras/Conteos ya tienen `aria-label`; falta migrarlos visualmente a componentes.
+1. Los controles de línea ya están migrados a `DataTable` y etiquetados con `aria-label`.
 2. Falta anunciar cambios de listados asíncronos con `aria-live`.
 3. No se ejecutó axe ni una prueba con lector de pantalla.
 4. No se midió contraste con herramienta dedicada.
