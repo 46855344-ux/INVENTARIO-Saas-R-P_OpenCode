@@ -3,6 +3,7 @@ import type { FormEvent } from 'react';
 import { listAllVariants } from '../../services/catalog';
 import { Alert } from '../../components/ui/Alert';
 import { Button } from '../../components/ui/Button';
+import { DataTable } from '../../components/ui/DataTable';
 import { Dialog } from '../../components/ui/Dialog';
 import { SelectField } from '../../components/ui/SelectField';
 import { TextField } from '../../components/ui/TextField';
@@ -387,98 +388,95 @@ export function PurchasesSection({ canManage, canReceive }: PurchasesSectionProp
           </div>
 
           <h3>Detalle</h3>
-          <table className="users-table">
-            <thead>
-              <tr>
-                <th>Variante</th>
-                <th>Ubicación destino</th>
-                <th>Cantidad</th>
-                <th>Costo unitario</th>
-                <th>Subtotal</th>
-                <th>Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              {lines.map((line, index) => (
-                <tr key={line.key}>
-                  <td>
-                    <select
-                      name={`variant-${line.key}`}
-                      aria-label={`Variante de la línea ${index + 1}`}
-                      value={line.variant_id}
-                      onChange={(event) =>
-                        updateLine(line.key, { variant_id: Number(event.target.value) })
-                      }
-                      required
-                    >
-                      {variants.map((variant) => (
-                        <option key={variant.id} value={variant.id}>
-                          {variant.sku} — {variant.name}
-                        </option>
-                      ))}
-                    </select>
-                  </td>
-                  <td>
-                    <select
-                      name={`location-${line.key}`}
-                      aria-label={`Ubicación de la línea ${index + 1}`}
-                      value={line.location_id}
-                      onChange={(event) =>
-                        updateLine(line.key, { location_id: Number(event.target.value) })
-                      }
-                      required
-                    >
-                      {locations.map((location) => (
-                        <option key={location.id} value={location.id}>
-                          {location.code} — {location.name}
-                        </option>
-                      ))}
-                    </select>
-                  </td>
-                  <td>
-                    <input
-                      name={`quantity-${line.key}`}
-                      aria-label={`Cantidad de la línea ${index + 1}`}
-                      type="number"
-                      step="0.0001"
-                      min="0.0001"
-                      value={line.quantity}
-                      onChange={(event) =>
-                        updateLine(line.key, { quantity: event.target.value })
-                      }
-                      required
-                    />
-                  </td>
-                  <td>
-                    <input
-                      name={`unit-cost-${line.key}`}
-                      type="number"
-                      step="0.0001"
-                      min="0"
-                      value={line.unit_cost}
-                      onChange={(event) =>
-                        updateLine(line.key, { unit_cost: event.target.value })
-                      }
-                      required
-                    />
-                  </td>
-                  <td>
-                    {(Number(line.quantity || 0) * Number(line.unit_cost || 0)).toFixed(2)}
-                  </td>
-                  <td>
-                    <button
-                      type="button"
-                      className="button-link"
-                      onClick={() => removeLine(line.key)}
-                      disabled={lines.length === 1}
-                    >
-                      Quitar
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <DataTable
+            ariaLabel="Líneas de la compra"
+            columns={[
+              { key: 'variant', label: 'Variante' },
+              { key: 'location', label: 'Ubicación destino' },
+              { key: 'quantity', label: 'Cantidad' },
+              { key: 'unit_cost', label: 'Costo unitario' },
+              { key: 'subtotal', label: 'Subtotal' },
+              { key: 'actions', label: 'Acciones' },
+            ]}
+            rows={lines.map((line, index) => ({
+              id: line.key,
+              variant: (
+                <select
+                  name={`variant-${line.key}`}
+                  aria-label={`Variante de la línea ${index + 1}`}
+                  value={line.variant_id}
+                  onChange={(event) =>
+                    updateLine(line.key, { variant_id: Number(event.target.value) })
+                  }
+                  required
+                >
+                  {variants.map((variant) => (
+                    <option key={variant.id} value={variant.id}>
+                      {variant.sku} — {variant.name}
+                    </option>
+                  ))}
+                </select>
+              ),
+              location: (
+                <select
+                  name={`location-${line.key}`}
+                  aria-label={`Ubicación de la línea ${index + 1}`}
+                  value={line.location_id}
+                  onChange={(event) =>
+                    updateLine(line.key, { location_id: Number(event.target.value) })
+                  }
+                  required
+                >
+                  {locations.map((location) => (
+                    <option key={location.id} value={location.id}>
+                      {location.code} — {location.name}
+                    </option>
+                  ))}
+                </select>
+              ),
+              quantity: (
+                <input
+                  name={`quantity-${line.key}`}
+                  aria-label={`Cantidad de la línea ${index + 1}`}
+                  type="number"
+                  step="0.0001"
+                  min="0.0001"
+                  value={line.quantity}
+                  onChange={(event) =>
+                    updateLine(line.key, { quantity: event.target.value })
+                  }
+                  required
+                />
+              ),
+              unit_cost: (
+                <input
+                  name={`unit-cost-${line.key}`}
+                  aria-label={`Costo unitario de la línea ${index + 1}`}
+                  type="number"
+                  step="0.0001"
+                  min="0"
+                  value={line.unit_cost}
+                  onChange={(event) =>
+                    updateLine(line.key, { unit_cost: event.target.value })
+                  }
+                  required
+                />
+              ),
+              subtotal: (Number(line.quantity || 0) * Number(line.unit_cost || 0)).toFixed(2),
+              actions: (
+                <button
+                  type="button"
+                  className="button-link"
+                  aria-label={`Quitar línea ${index + 1}`}
+                  onClick={() => removeLine(line.key)}
+                  disabled={lines.length === 1}
+                >
+                  Quitar
+                </button>
+              ),
+            }))}
+            rowKey={(row) => String(row.id)}
+          />
 
           <p className="hint">Total estimado: {previewTotal.toFixed(2)}</p>
 

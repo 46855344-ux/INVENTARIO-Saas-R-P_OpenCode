@@ -3,6 +3,7 @@ import type { FormEvent } from 'react';
 import { listAllVariants } from '../../services/catalog';
 import { Alert } from '../../components/ui/Alert';
 import { Button } from '../../components/ui/Button';
+import { DataTable } from '../../components/ui/DataTable';
 import { ReasonDialog } from '../../components/ui/Dialog';
 import { SelectField } from '../../components/ui/SelectField';
 import { TextField } from '../../components/ui/TextField';
@@ -223,20 +224,49 @@ export function CountsPage() {
                   maxLength={255}
                 />
               </div>
-              <table className="users-table">
-                <thead><tr><th>Variante</th><th>Cantidad física</th><th>Acciones</th></tr></thead>
-                <tbody>
-                  {lines.map((line, index) => (
-                    <tr key={line.key}>
-                      <td><select aria-label={`Variante de la línea ${index + 1}`} value={line.variant_id} onChange={(event) => setLines((current) => current.map((item) => item.key === line.key ? { ...item, variant_id: Number(event.target.value) } : item))}>
-                        {variants.map((variant) => <option key={variant.id} value={variant.id}>{variant.sku} — {variant.name}</option>)}
-                      </select></td>
-                      <td><input aria-label={`Cantidad física de la línea ${index + 1}`} type="number" step="0.0001" min="0" value={line.counted_quantity} onChange={(event) => setLines((current) => current.map((item) => item.key === line.key ? { ...item, counted_quantity: event.target.value } : item))} required /></td>
-                      <td><button type="button" className="button-link" aria-label={`Quitar línea ${index + 1}`} disabled={lines.length === 1} onClick={() => setLines((current) => current.filter((item) => item.key !== line.key))}>Quitar</button></td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+              <DataTable
+                ariaLabel="Líneas del conteo"
+                columns={[
+                  { key: 'variant', label: 'Variante' },
+                  { key: 'quantity', label: 'Cantidad física' },
+                  { key: 'actions', label: 'Acciones' },
+                ]}
+                rows={lines.map((line, index) => ({
+                  id: line.key,
+                  variant: (
+                    <select
+                      aria-label={`Variante de la línea ${index + 1}`}
+                      value={line.variant_id}
+                      onChange={(event) => setLines((current) => current.map((item) => item.key === line.key ? { ...item, variant_id: Number(event.target.value) } : item))}
+                    >
+                      {variants.map((variant) => <option key={variant.id} value={variant.id}>{variant.sku} — {variant.name}</option>)}
+                    </select>
+                  ),
+                  quantity: (
+                    <input
+                      aria-label={`Cantidad física de la línea ${index + 1}`}
+                      type="number"
+                      step="0.0001"
+                      min="0"
+                      value={line.counted_quantity}
+                      onChange={(event) => setLines((current) => current.map((item) => item.key === line.key ? { ...item, counted_quantity: event.target.value } : item))}
+                      required
+                    />
+                  ),
+                  actions: (
+                    <button
+                      type="button"
+                      className="button-link"
+                      aria-label={`Quitar línea ${index + 1}`}
+                      disabled={lines.length === 1}
+                      onClick={() => setLines((current) => current.filter((item) => item.key !== line.key))}
+                    >
+                      Quitar
+                    </button>
+                  ),
+                }))}
+                rowKey={(row) => String(row.id)}
+              />
               <div className="user-form-actions">
                 <Button variant="secondary" onClick={() => setLines((current) => [...current, makeLine(variants[0]?.id ?? 0)])}>Agregar línea</Button>
                 <Button type="submit" loading={submitting}>{submitting ? 'Guardando…' : 'Guardar conteo'}</Button>
