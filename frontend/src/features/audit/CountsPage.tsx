@@ -105,6 +105,24 @@ export function CountsPage() {
       .finally(() => setAuditLoading(false));
   }, [tab, actionFilter, reloadToken, canAudit]);
 
+  useEffect(() => {
+    if (!formOpen) {
+      return;
+    }
+
+    if (locationId === 0 && locations.length > 0) {
+      setLocationId(locations[0].id);
+    }
+
+    if (variants.length > 0) {
+      setLines((current) =>
+        current.map((line) =>
+          line.variant_id === 0 ? { ...line, variant_id: variants[0].id } : line,
+        ),
+      );
+    }
+  }, [formOpen, locations, variants, locationId]);
+
   const openCreate = () => {
     setLocationId(locations[0]?.id ?? 0);
     setNotes('');
