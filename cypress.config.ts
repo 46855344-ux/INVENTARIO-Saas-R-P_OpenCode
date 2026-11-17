@@ -1,6 +1,7 @@
 import { defineConfig } from 'cypress';
 
 export default defineConfig({
+  chromeWebSecurity: false,
   e2e: {
     // Se puede sobreescribir con la variable de entorno CYPRESS_BASE_URL.
     baseUrl: 'http://localhost:5173',

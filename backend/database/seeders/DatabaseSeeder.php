@@ -58,5 +58,7 @@ class DatabaseSeeder extends Seeder
             'status' => Company::STATUS_ACTIVE,
             'role_id' => $operatorRole->id,
         ]);
+
+        $this->call(DemoDataSeeder::class);
     }
 }
