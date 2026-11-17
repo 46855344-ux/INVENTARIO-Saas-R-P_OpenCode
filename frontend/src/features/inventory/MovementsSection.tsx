@@ -4,6 +4,8 @@ import { resolveApiError } from '../../services/errors';
 import { Alert } from '../../components/ui/Alert';
 import { Button } from '../../components/ui/Button';
 import { ReasonDialog } from '../../components/ui/Dialog';
+import { SelectField } from '../../components/ui/SelectField';
+import { TextField } from '../../components/ui/TextField';
 import {
   createAdjustment,
   createEntry,
@@ -309,134 +311,116 @@ export function MovementsSection({ canMove, canAdjust, canApprove }: MovementsSe
           {formError && <Alert variant="error">{formError}</Alert>}
 
           <div className="user-form-grid">
-            <label className="field">
-              <span>Tipo</span>
-              <select
-                name="type"
-                value={type}
-                onChange={(event) => setType(event.target.value as StockMovementType)}
-                required
-              >
-                {typeOptions.map((option) => (
-                  <option key={option.value} value={option.value}>
-                    {option.label}
-                  </option>
-                ))}
-              </select>
-            </label>
+            <SelectField
+              label="Tipo"
+              name="type"
+              value={type}
+              onChange={(event) => setType(event.target.value as StockMovementType)}
+              required
+            >
+              {typeOptions.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </SelectField>
 
-            <label className="field">
-              <span>Variante</span>
-              <select
-                name="variant_id"
-                value={variantId}
-                onChange={(event) => setVariantId(Number(event.target.value))}
-                required
-              >
-                {variants.map((variant) => (
-                  <option key={variant.id} value={variant.id}>
-                    {variant.sku} — {variant.name}
-                  </option>
-                ))}
-              </select>
-            </label>
+            <SelectField
+              label="Variante"
+              name="variant_id"
+              value={variantId}
+              onChange={(event) => setVariantId(Number(event.target.value))}
+              required
+            >
+              {variants.map((variant) => (
+                <option key={variant.id} value={variant.id}>
+                  {variant.sku} — {variant.name}
+                </option>
+              ))}
+            </SelectField>
 
-            <label className="field">
-              <span>Ubicación</span>
-              <select
-                name="location_id"
-                value={locationId}
-                onChange={(event) => setLocationId(Number(event.target.value))}
-                required
-              >
-                {locations.map((location) => (
-                  <option key={location.id} value={location.id}>
-                    {location.code} — {location.name}
-                  </option>
-                ))}
-              </select>
-            </label>
+            <SelectField
+              label="Ubicación"
+              name="location_id"
+              value={locationId}
+              onChange={(event) => setLocationId(Number(event.target.value))}
+              required
+            >
+              {locations.map((location) => (
+                <option key={location.id} value={location.id}>
+                  {location.code} — {location.name}
+                </option>
+              ))}
+            </SelectField>
 
-            <label className="field">
-              <span>Unidad (opcional)</span>
-              <select
-                name="unit_id"
-                value={unitId}
-                onChange={(event) =>
-                  setUnitId(event.target.value === '' ? '' : Number(event.target.value))
-                }
-              >
-                <option value="">Sin unidad</option>
-                {units.map((unit) => (
-                  <option key={unit.id} value={unit.id}>
-                    {unit.code} — {unit.name}
-                  </option>
-                ))}
-              </select>
-            </label>
+            <SelectField
+              label="Unidad (opcional)"
+              name="unit_id"
+              value={unitId}
+              onChange={(event) =>
+                setUnitId(event.target.value === '' ? '' : Number(event.target.value))
+              }
+            >
+              <option value="">Sin unidad</option>
+              {units.map((unit) => (
+                <option key={unit.id} value={unit.id}>
+                  {unit.code} — {unit.name}
+                </option>
+              ))}
+            </SelectField>
 
-            <label className="field">
-              <span>Cantidad</span>
-              <input
-                name="quantity"
-                type="number"
-                step="0.0001"
-                min="0.0001"
-                value={quantity}
-                onChange={(event) => setQuantity(event.target.value)}
-                required
-              />
-            </label>
+            <TextField
+              label="Cantidad"
+              name="quantity"
+              type="number"
+              step="0.0001"
+              min="0.0001"
+              value={quantity}
+              onChange={(event) => setQuantity(event.target.value)}
+              required
+            />
 
-            <label className="field">
-              <span>Motivo</span>
-              <input
-                name="reason"
-                value={reason}
-                onChange={(event) => setReason(event.target.value)}
-                maxLength={255}
-                required
-              />
-            </label>
+            <TextField
+              label="Motivo"
+              name="reason"
+              value={reason}
+              onChange={(event) => setReason(event.target.value)}
+              maxLength={255}
+              required
+            />
 
-            <label className="field">
-              <span>Documento de referencia</span>
-              <input
-                name="document_reference"
-                value={documentReference}
-                onChange={(event) => setDocumentReference(event.target.value)}
-                maxLength={100}
-              />
-            </label>
+            <TextField
+              label="Documento de referencia"
+              name="document_reference"
+              value={documentReference}
+              onChange={(event) => setDocumentReference(event.target.value)}
+              maxLength={100}
+            />
 
             {type === 'adjustment' && (
-              <label className="field">
-                <span>Sentido del ajuste</span>
-                <select
-                  name="direction"
-                  value={direction}
-                  onChange={(event) => setDirection(event.target.value as 'in' | 'out')}
-                  required
-                >
-                  <option value="in">Ingreso (+)</option>
-                  <option value="out">Egreso (−)</option>
-                </select>
-              </label>
+              <SelectField
+                label="Sentido del ajuste"
+                name="direction"
+                value={direction}
+                onChange={(event) => setDirection(event.target.value as 'in' | 'out')}
+                required
+              >
+                <option value="in">Ingreso (+)</option>
+                <option value="out">Egreso (−)</option>
+              </SelectField>
             )}
 
             {type === 'return' && (
-              <label className="field">
-                <span>Movimiento de origen (opcional)</span>
-                <input
-                  name="original_movement_id"
-                  type="number"
-                  min="1"
-                  value={originalId}
-                  onChange={(event) =>
-                    setOriginalId(event.target.value === '' ? '' : Number(event.target.value))
-                  }
-                />
-              </label>
+              <TextField
+                label="Movimiento de origen (opcional)"
+                name="original_movement_id"
+                type="number"
+                min="1"
+                value={originalId}
+                onChange={(event) =>
+                  setOriginalId(event.target.value === '' ? '' : Number(event.target.value))
+                }
+              />
             )}
           </div>
 
