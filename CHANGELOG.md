@@ -138,10 +138,11 @@ y el versionado semántico de [SemVer](https://semver.org/lang/es/).
     - Estado **release candidate**; producción no habilitada.
   - **Incremento UX/UI transversal:**
     - Tokens de color, foco visible y radios.
-    - Componentes `Button`, `TextField`, `SelectField`, `Alert`, `EmptyState` y `PageHeader`.
+    - Componentes `Button`, `TextField`, `SelectField`, `Alert`, `EmptyState`, `PageHeader`, `Dialog`, `ReasonDialog`, `Tabs` y `DataTable`.
     - Skip link, `aria-invalid`, `aria-describedby`, `aria-busy` y roles de estado.
-    - Login migrado a componentes; base reutilizable para el resto de pantallas.
-    - Pruebas de componentes y accesibilidad básica; frontend 82 pruebas.
+    - Login, inventario, compras y conteos migrados; líneas editables con `DataTable`.
+    - Visual refresh: cabecera con gradiente, tarjetas con acentos, botones y pestañas con transiciones, fondo de login y diálogos animados.
+    - Pruebas de componentes y accesibilidad; Lighthouse 100 en login, métricas y conteos.
   - **Documentación de cierre de sprints:**
     - `DOCUMENTACION/README_SPRINT_1.md`: cierre del Sprint 1 (identidad, usuarios, permisos y aislamiento).
     - `DOCUMENTACION/README_SPRINT_2.md`: cierre del Sprint 2 (catálogo de productos y variantes).
