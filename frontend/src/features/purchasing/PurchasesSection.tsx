@@ -1,7 +1,11 @@
 import { useEffect, useState } from 'react';
 import type { FormEvent } from 'react';
 import { listAllVariants } from '../../services/catalog';
+import { Alert } from '../../components/ui/Alert';
+import { Button } from '../../components/ui/Button';
 import { Dialog } from '../../components/ui/Dialog';
+import { SelectField } from '../../components/ui/SelectField';
+import { TextField } from '../../components/ui/TextField';
 import { resolveApiError } from '../../services/errors';
 import {
   createPurchase,
@@ -314,16 +318,8 @@ export function PurchasesSection({ canManage, canReceive }: PurchasesSectionProp
         </p>
       )}
 
-      {actionError && (
-        <p className="form-error" role="alert">
-          {actionError}
-        </p>
-      )}
-      {success && (
-        <p className="simulator-result" role="status">
-          {success}
-        </p>
-      )}
+      {actionError && <Alert variant="error">{actionError}</Alert>}
+      {success && <Alert variant="success">{success}</Alert>}
 
       <form className="users-filters" onSubmit={handleFilter}>
         <label className="field">
@@ -356,56 +352,38 @@ export function PurchasesSection({ canManage, canReceive }: PurchasesSectionProp
         <form className="user-form" onSubmit={handleSubmit}>
           <h2>{editing ? `Editar compra #${editing.id}` : 'Nueva compra'}</h2>
 
-          {formError && (
-            <p className="form-error" role="alert">
-              {formError}
-            </p>
-          )}
+          {formError && <Alert variant="error">{formError}</Alert>}
 
           <div className="user-form-grid">
-            <label className="field">
-              <span>Proveedor</span>
-              <select
-                name="supplier_id"
-                value={supplierId}
-                onChange={(event) => setSupplierId(Number(event.target.value))}
-                required
-              >
-                {suppliers.map((supplier) => (
-                  <option key={supplier.id} value={supplier.id}>
-                    {supplier.name}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <label className="field">
-              <span>Fecha</span>
-              <input
-                name="ordered_at"
-                type="date"
-                value={orderedAt}
-                onChange={(event) => setOrderedAt(event.target.value)}
-                required
-              />
-            </label>
-            <label className="field">
-              <span>Documento</span>
-              <input
-                name="document_number"
-                value={documentNumber}
-                onChange={(event) => setDocumentNumber(event.target.value)}
-                maxLength={50}
-              />
-            </label>
-            <label className="field">
-              <span>Notas</span>
-              <input
-                name="notes"
-                value={notes}
-                onChange={(event) => setNotes(event.target.value)}
-                maxLength={255}
-              />
-            </label>
+            <SelectField
+              label="Proveedor"
+              value={supplierId}
+              onChange={(event) => setSupplierId(Number(event.target.value))}
+              required
+            >
+              {suppliers.map((supplier) => (
+                <option key={supplier.id} value={supplier.id}>{supplier.name}</option>
+              ))}
+            </SelectField>
+            <TextField
+              label="Fecha"
+              type="date"
+              value={orderedAt}
+              onChange={(event) => setOrderedAt(event.target.value)}
+              required
+            />
+            <TextField
+              label="Documento"
+              value={documentNumber}
+              onChange={(event) => setDocumentNumber(event.target.value)}
+              maxLength={50}
+            />
+            <TextField
+              label="Notas"
+              value={notes}
+              onChange={(event) => setNotes(event.target.value)}
+              maxLength={255}
+            />
           </div>
 
           <h3>Detalle</h3>
@@ -502,9 +480,8 @@ export function PurchasesSection({ canManage, canReceive }: PurchasesSectionProp
           <p className="hint">Total estimado: {previewTotal.toFixed(2)}</p>
 
           <div className="user-form-actions">
-            <button
-              type="button"
-              className="button-secondary"
+            <Button
+              variant="secondary"
               onClick={() =>
                 setLines((current) => [
                   ...current,
@@ -513,18 +490,13 @@ export function PurchasesSection({ canManage, canReceive }: PurchasesSectionProp
               }
             >
               Agregar línea
-            </button>
-            <button type="submit" className="button-primary" disabled={submitting}>
+            </Button>
+            <Button type="submit" loading={submitting}>
               {submitting ? 'Guardando…' : 'Guardar borrador'}
-            </button>
-            <button
-              type="button"
-              className="button-secondary"
-              onClick={closeForm}
-              disabled={submitting}
-            >
+            </Button>
+            <Button variant="secondary" onClick={closeForm} disabled={submitting}>
               Cancelar
-            </button>
+            </Button>
           </div>
         </form>
       )}

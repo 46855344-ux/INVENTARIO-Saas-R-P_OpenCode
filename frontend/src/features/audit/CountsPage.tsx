@@ -1,7 +1,11 @@
 import { useEffect, useState } from 'react';
 import type { FormEvent } from 'react';
 import { listAllVariants } from '../../services/catalog';
+import { Alert } from '../../components/ui/Alert';
+import { Button } from '../../components/ui/Button';
 import { ReasonDialog } from '../../components/ui/Dialog';
+import { SelectField } from '../../components/ui/SelectField';
+import { TextField } from '../../components/ui/TextField';
 import { resolveApiError } from '../../services/errors';
 import {
   createStockCount,
@@ -186,8 +190,8 @@ export function CountsPage() {
         {canAudit && <button type="button" className={activeTab === 'audit' ? 'catalog-tab is-active' : 'catalog-tab'} onClick={() => setTab('audit')}>Auditoría</button>}
       </nav>
 
-      {actionError && <p className="form-error" role="alert">{actionError}</p>}
-      {success && <p className="simulator-result" role="status">{success}</p>}
+      {actionError && <Alert variant="error">{actionError}</Alert>}
+      {success && <Alert variant="success">{success}</Alert>}
 
       {activeTab === 'counts' && (
         <div className="catalog-section">
@@ -202,16 +206,22 @@ export function CountsPage() {
           {formOpen && (
             <form className="user-form" onSubmit={handleSubmit}>
               <h2>Nuevo conteo</h2>
-              {formError && <p className="form-error" role="alert">{formError}</p>}
+              {formError && <Alert variant="error">{formError}</Alert>}
               <div className="user-form-grid">
-                <label className="field"><span>Ubicación</span>
-                  <select value={locationId} onChange={(event) => setLocationId(Number(event.target.value))} required>
-                    {locations.map((location) => <option key={location.id} value={location.id}>{location.code} — {location.name}</option>)}
-                  </select>
-                </label>
-                <label className="field"><span>Notas</span>
-                  <input value={notes} onChange={(event) => setNotes(event.target.value)} maxLength={255} />
-                </label>
+                <SelectField
+                  label="Ubicación"
+                  value={locationId}
+                  onChange={(event) => setLocationId(Number(event.target.value))}
+                  required
+                >
+                  {locations.map((location) => <option key={location.id} value={location.id}>{location.code} — {location.name}</option>)}
+                </SelectField>
+                <TextField
+                  label="Notas"
+                  value={notes}
+                  onChange={(event) => setNotes(event.target.value)}
+                  maxLength={255}
+                />
               </div>
               <table className="users-table">
                 <thead><tr><th>Variante</th><th>Cantidad física</th><th>Acciones</th></tr></thead>
@@ -228,9 +238,9 @@ export function CountsPage() {
                 </tbody>
               </table>
               <div className="user-form-actions">
-                <button type="button" className="button-secondary" onClick={() => setLines((current) => [...current, makeLine(variants[0]?.id ?? 0)])}>Agregar línea</button>
-                <button type="submit" className="button-primary" disabled={submitting}>{submitting ? 'Guardando…' : 'Guardar conteo'}</button>
-                <button type="button" className="button-secondary" onClick={() => setFormOpen(false)}>Cancelar</button>
+                <Button variant="secondary" onClick={() => setLines((current) => [...current, makeLine(variants[0]?.id ?? 0)])}>Agregar línea</Button>
+                <Button type="submit" loading={submitting}>{submitting ? 'Guardando…' : 'Guardar conteo'}</Button>
+                <Button variant="secondary" onClick={() => setFormOpen(false)}>Cancelar</Button>
               </div>
             </form>
           )}

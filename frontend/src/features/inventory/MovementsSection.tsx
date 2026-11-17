@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import type { FormEvent } from 'react';
 import { resolveApiError } from '../../services/errors';
+import { Alert } from '../../components/ui/Alert';
+import { Button } from '../../components/ui/Button';
 import { ReasonDialog } from '../../components/ui/Dialog';
 import {
   createAdjustment,
@@ -304,11 +306,7 @@ export function MovementsSection({ canMove, canAdjust, canApprove }: MovementsSe
         <form className="user-form" onSubmit={handleSubmit}>
           <h2>Registrar movimiento</h2>
 
-          {formError && (
-            <p className="form-error" role="alert">
-              {formError}
-            </p>
-          )}
+          {formError && <Alert variant="error">{formError}</Alert>}
 
           <div className="user-form-grid">
             <label className="field">
@@ -443,17 +441,12 @@ export function MovementsSection({ canMove, canAdjust, canApprove }: MovementsSe
           </div>
 
           <div className="user-form-actions">
-            <button type="submit" className="button-primary" disabled={submitting}>
+            <Button type="submit" loading={submitting}>
               {submitting ? 'Registrando…' : 'Confirmar'}
-            </button>
-            <button
-              type="button"
-              className="button-secondary"
-              onClick={closeForm}
-              disabled={submitting}
-            >
+            </Button>
+            <Button variant="secondary" onClick={closeForm} disabled={submitting}>
               Cancelar
-            </button>
+            </Button>
           </div>
         </form>
       )}
