@@ -1,6 +1,7 @@
-import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom';
+import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../features/auth/AuthContext';
 import { Can } from '../features/auth/Can';
+import { AssistantWidget } from '../features/assistant/AssistantWidget';
 
 const linkClass = ({ isActive }: { isActive: boolean }) =>
   isActive ? 'app-nav-link is-active' : 'app-nav-link';
@@ -9,8 +10,11 @@ export function AppLayout() {
   const { user, companies, activeCompany, setActiveCompany, logout, hasPermission } =
     useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
   const canViewPurchasing =
     hasPermission('purchases.view') || hasPermission('transfers.view');
+  const showAssistantWidget =
+    hasPermission('assistant.use') && location.pathname !== '/assistant';
 
   const handleLogout = async () => {
     await logout();
@@ -111,6 +115,8 @@ export function AppLayout() {
         <span>Sistema de inventario y almacén</span>
         <span>React · Laravel · MySQL</span>
       </footer>
+
+      {showAssistantWidget && <AssistantWidget />}
     </div>
   );
 }
