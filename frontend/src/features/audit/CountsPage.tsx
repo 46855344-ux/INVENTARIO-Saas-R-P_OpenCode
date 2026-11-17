@@ -226,13 +226,13 @@ export function CountsPage() {
               <table className="users-table">
                 <thead><tr><th>Variante</th><th>Cantidad física</th><th>Acciones</th></tr></thead>
                 <tbody>
-                  {lines.map((line) => (
+                  {lines.map((line, index) => (
                     <tr key={line.key}>
-                      <td><select value={line.variant_id} onChange={(event) => setLines((current) => current.map((item) => item.key === line.key ? { ...item, variant_id: Number(event.target.value) } : item))}>
+                      <td><select aria-label={`Variante de la línea ${index + 1}`} value={line.variant_id} onChange={(event) => setLines((current) => current.map((item) => item.key === line.key ? { ...item, variant_id: Number(event.target.value) } : item))}>
                         {variants.map((variant) => <option key={variant.id} value={variant.id}>{variant.sku} — {variant.name}</option>)}
                       </select></td>
-                      <td><input type="number" step="0.0001" min="0" value={line.counted_quantity} onChange={(event) => setLines((current) => current.map((item) => item.key === line.key ? { ...item, counted_quantity: event.target.value } : item))} required /></td>
-                      <td><button type="button" className="button-link" disabled={lines.length === 1} onClick={() => setLines((current) => current.filter((item) => item.key !== line.key))}>Quitar</button></td>
+                      <td><input aria-label={`Cantidad física de la línea ${index + 1}`} type="number" step="0.0001" min="0" value={line.counted_quantity} onChange={(event) => setLines((current) => current.map((item) => item.key === line.key ? { ...item, counted_quantity: event.target.value } : item))} required /></td>
+                      <td><button type="button" className="button-link" aria-label={`Quitar línea ${index + 1}`} disabled={lines.length === 1} onClick={() => setLines((current) => current.filter((item) => item.key !== line.key))}>Quitar</button></td>
                     </tr>
                   ))}
                 </tbody>

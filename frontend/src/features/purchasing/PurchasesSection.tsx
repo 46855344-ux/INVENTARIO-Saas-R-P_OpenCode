@@ -399,11 +399,12 @@ export function PurchasesSection({ canManage, canReceive }: PurchasesSectionProp
               </tr>
             </thead>
             <tbody>
-              {lines.map((line) => (
+              {lines.map((line, index) => (
                 <tr key={line.key}>
                   <td>
                     <select
                       name={`variant-${line.key}`}
+                      aria-label={`Variante de la línea ${index + 1}`}
                       value={line.variant_id}
                       onChange={(event) =>
                         updateLine(line.key, { variant_id: Number(event.target.value) })
@@ -420,6 +421,7 @@ export function PurchasesSection({ canManage, canReceive }: PurchasesSectionProp
                   <td>
                     <select
                       name={`location-${line.key}`}
+                      aria-label={`Ubicación de la línea ${index + 1}`}
                       value={line.location_id}
                       onChange={(event) =>
                         updateLine(line.key, { location_id: Number(event.target.value) })
@@ -436,6 +438,7 @@ export function PurchasesSection({ canManage, canReceive }: PurchasesSectionProp
                   <td>
                     <input
                       name={`quantity-${line.key}`}
+                      aria-label={`Cantidad de la línea ${index + 1}`}
                       type="number"
                       step="0.0001"
                       min="0.0001"
