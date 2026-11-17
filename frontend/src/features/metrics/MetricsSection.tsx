@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { DataTable } from '../../components/ui/DataTable';
 import { resolveApiError } from '../../services/errors';
 import { getMetricsOverview, listStockDetail } from '../../services/metrics';
 import type { MetricsOverview, PaginatedMeta, StockBalance } from '../../types';
@@ -158,56 +159,46 @@ export function MetricsSection() {
       </div>
 
       <h3>Más salidas del periodo</h3>
-      {overview.top_outflows.length === 0 ? (
-        <p className="empty-state">No hay salidas confirmadas en el periodo.</p>
-      ) : (
-        <table className="users-table">
-          <thead>
-            <tr>
-              <th>Variante</th>
-              <th>Producto</th>
-              <th>Cantidad salida</th>
-            </tr>
-          </thead>
-          <tbody>
-            {overview.top_outflows.map((item) => (
-              <tr key={item.variant_id}>
-                <td>{item.sku}</td>
-                <td>{item.name}</td>
-                <td>{item.quantity}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
+      <DataTable
+        ariaLabel="Más salidas del periodo"
+        columns={[
+          { key: 'sku', label: 'Variante' },
+          { key: 'name', label: 'Producto' },
+          { key: 'quantity', label: 'Cantidad salida' },
+        ]}
+        rows={overview.top_outflows.map((item) => ({
+          id: item.variant_id,
+          sku: item.sku,
+          name: item.name,
+          quantity: item.quantity,
+        }))}
+        rowKey={(row) => String(row.id)}
+        empty="No hay salidas confirmadas en el periodo."
+      />
 
       <h3>Sin movimiento en el periodo</h3>
-      {overview.inactive.length === 0 ? (
-        <p className="empty-state">No hay existencias sin movimiento.</p>
-      ) : (
-        <table className="users-table">
-          <thead>
-            <tr>
-              <th>Variante</th>
-              <th>Ubicación</th>
-              <th>Existencia</th>
-            </tr>
-          </thead>
-          <tbody>
-            {overview.inactive.map((item) => (
-              <tr key={`${item.variant_id}-${item.location_id}`}>
-                <td>
-                  {item.sku ?? '—'}
-                  <br />
-                  <span className="hint">{item.name ?? ''}</span>
-                </td>
-                <td>{item.location_code ?? '—'}</td>
-                <td>{item.quantity}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
+      <DataTable
+        ariaLabel="Existencias sin movimiento"
+        columns={[
+          { key: 'variant', label: 'Variante' },
+          { key: 'location', label: 'Ubicación' },
+          { key: 'quantity', label: 'Existencia' },
+        ]}
+        rows={overview.inactive.map((item) => ({
+          id: `${item.variant_id}-${item.location_id}`,
+          variant: (
+            <>
+              {item.sku ?? '—'}
+              <br />
+              <span className="hint">{item.name ?? ''}</span>
+            </>
+          ),
+          location: item.location_code ?? '—',
+          quantity: item.quantity,
+        }))}
+        rowKey={(row) => String(row.id)}
+        empty="No hay existencias sin movimiento."
+      />
 
       <h3>Detalle de stock</h3>
       {detailLoading && <p className="loading">Cargando detalle…</p>}

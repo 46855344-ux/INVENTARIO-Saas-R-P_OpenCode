@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useAuth } from '../auth/AuthContext';
+import { Tabs } from '../../components/ui/Tabs';
 import { PurchasesSection } from './PurchasesSection';
 import { SuppliersSection } from './SuppliersSection';
 import { TransfersSection } from './TransfersSection';
@@ -54,18 +55,12 @@ export function PurchasingPage() {
         </div>
       </header>
 
-      <nav className="catalog-tabs" aria-label="Secciones de compras y traslados">
-        {tabs.map((item) => (
-          <button
-            key={item}
-            type="button"
-            className={activeTab === item ? 'catalog-tab is-active' : 'catalog-tab'}
-            onClick={() => setTab(item)}
-          >
-            {TAB_LABELS[item]}
-          </button>
-        ))}
-      </nav>
+      <Tabs
+        items={tabs.map((item) => ({ id: item, label: TAB_LABELS[item] }))}
+        active={activeTab}
+        ariaLabel="Secciones de compras y traslados"
+        onChange={(id) => setTab(id as PurchasingTab)}
+      />
 
       {activeTab === 'suppliers' && <SuppliersSection canManage={canManagePurchases} />}
       {activeTab === 'purchases' && (

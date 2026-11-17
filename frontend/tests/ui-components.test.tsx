@@ -3,7 +3,9 @@ import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 import { Alert } from '../src/components/ui/Alert';
 import { Button } from '../src/components/ui/Button';
+import { DataTable } from '../src/components/ui/DataTable';
 import { Dialog, ReasonDialog } from '../src/components/ui/Dialog';
+import { Tabs } from '../src/components/ui/Tabs';
 import { TextField } from '../src/components/ui/TextField';
 
 describe('UI components', () => {
@@ -86,5 +88,52 @@ describe('UI components', () => {
     await userEvent.click(screen.getByRole('button', { name: 'Confirmar' }));
     expect(screen.getByText(/el motivo es obligatorio/i)).toBeInTheDocument();
     expect(onConfirm).not.toHaveBeenCalled();
+  });
+
+  it('marca la pestaña activa y notifica el cambio', async () => {
+    const onChange = vi.fn();
+    render(
+      <Tabs
+        items={[
+          { id: 'a', label: 'Uno' },
+          { id: 'b', label: 'Dos' },
+        ]}
+        active="a"
+        ariaLabel="Secciones"
+        onChange={onChange}
+      />,
+    );
+
+    expect(screen.getByRole('button', { name: 'Uno' })).toHaveAttribute(
+      'aria-pressed',
+      'true',
+    );
+    await userEvent.click(screen.getByRole('button', { name: 'Dos' }));
+    expect(onChange).toHaveBeenCalledWith('b');
+  });
+
+  it('muestra el estado vacío o las filas de la tabla', () => {
+    const { rerender } = render(
+      <DataTable
+        ariaLabel="Datos"
+        columns={[{ key: 'name', label: 'Nombre' }]}
+        rows={[]}
+        rowKey={(row) => String(row.name)}
+      />,
+    );
+
+    expect(screen.getByRole('status')).toHaveTextContent(/no hay datos/i);
+
+    rerender(
+      <DataTable
+        ariaLabel="Datos"
+        columns={[{ key: 'name', label: 'Nombre' }]}
+        rows={[{ name: 'Café' }]}
+        rowKey={(row) => String(row.name)}
+      />,
+    );
+
+    expect(screen.getByRole('table', { name: 'Datos' })).toBeInTheDocument();
+    expect(screen.getByText('Café')).toBeInTheDocument();
   });
 });

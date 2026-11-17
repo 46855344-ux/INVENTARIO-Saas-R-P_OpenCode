@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useAuth } from '../auth/AuthContext';
+import { Tabs } from '../../components/ui/Tabs';
 import { AlertsSection } from './AlertsSection';
 import { MetricsSection } from './MetricsSection';
 
@@ -44,18 +45,15 @@ export function MetricsPage() {
         </div>
       </header>
 
-      <nav className="catalog-tabs" aria-label="Secciones de métricas y alertas">
-        {tabs.map((item) => (
-          <button
-            key={item}
-            type="button"
-            className={activeTab === item ? 'catalog-tab is-active' : 'catalog-tab'}
-            onClick={() => setTab(item)}
-          >
-            {item === 'metrics' ? 'Indicadores' : 'Alertas'}
-          </button>
-        ))}
-      </nav>
+      <Tabs
+        items={tabs.map((item) => ({
+          id: item,
+          label: item === 'metrics' ? 'Indicadores' : 'Alertas',
+        }))}
+        active={activeTab}
+        ariaLabel="Secciones de métricas y alertas"
+        onChange={(id) => setTab(id as MetricsTab)}
+      />
 
       {activeTab === 'metrics' && <MetricsSection />}
       {activeTab === 'alerts' && <AlertsSection canManage={canManageAlerts} />}
