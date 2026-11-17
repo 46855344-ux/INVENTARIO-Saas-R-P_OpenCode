@@ -23,11 +23,11 @@
 | Contraste de tokens | Revisión visual; falta medición formal |
 | Lector de pantalla | **Pendiente** |
 | Auditoría automatizada (axe/Lighthouse) | **Pendiente** |
-| Formularios no migrados (líneas de compras/conteos) | **Pendiente** |
+| Controles de línea (compras/conteos) | `aria-label` por fila; migración visual a componentes pendiente |
 
 ## 2. Brechas
 
-1. Los formularios de líneas de Compras/Conteos aún usan controles nativos sin etiquetas asociadas.
+1. Los controles de línea de Compras/Conteos ya tienen `aria-label`; falta migrarlos visualmente a componentes.
 2. Falta anunciar cambios de listados asíncronos con `aria-live`.
 3. No se ejecutó axe ni una prueba con lector de pantalla.
 4. No se midió contraste con herramienta dedicada.
