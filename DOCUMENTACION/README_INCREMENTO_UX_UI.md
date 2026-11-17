@@ -29,10 +29,19 @@ sin rediseñar las reglas de negocio ni todas las pantallas.
 | Lint | Sin errores (advertencias de efectos existentes) |
 | Build | Correcto |
 
+### 3.1 Visual refresh
+
+- Cabecera con gradiente, navegación tipo pill y estado activo.
+- Tarjetas de métricas con acento de color, elevación y hover.
+- Botones, pestañas, tablas y diálogos con transiciones y profundidad.
+- Fondo del login con gradiente y tarjeta destacada.
+- Animaciones respetando `prefers-reduced-motion`.
+- Contraste revalidado con Lighthouse 100.
+
 ## 4. Pendientes
 
-- Ejecutar axe/Lighthouse y prueba con lector de pantalla.
-- Medir contraste y zoom al 200 %.
+- Prueba manual con lector de pantalla (NVDA/VoiceOver).
+- Validación en dispositivo móvil físico.
 - Pruebas de usabilidad y onboarding por rol.
 
 ## 5. Conclusión
