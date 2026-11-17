@@ -17,7 +17,7 @@ sin rediseñar las reglas de negocio ni todas las pantallas.
 | Tokens | Colores semánticos, radios, foco visible |
 | Componentes | `Button`, `TextField`, `SelectField`, `Alert`, `EmptyState`, `PageHeader`, `Dialog`, `ReasonDialog` |
 | Accesibilidad | Skip link, `aria-invalid`, `aria-describedby`, `aria-busy`, `role="dialog"`, Escape y foco |
-| Pantallas | Login migrado; reversión de movimientos y revisión/aprobación de conteos usan diálogos accesibles |
+| Pantallas | Login migrado; reversión de movimientos, revisión/aprobación de conteos, recepción de compras y desvinculación usan diálogos accesibles |
 | Pruebas | Componentes, error accesible, carga y activación por teclado |
 
 ## 3. Evidencia
@@ -30,7 +30,7 @@ sin rediseñar las reglas de negocio ni todas las pantallas.
 
 ## 4. Pendientes
 
-- Migrar el resto de formularios y tablas a los componentes.
+- Migrar el resto de formularios y tablas a los componentes (`DataTable`/`Tabs`).
 - Auditoría WCAG 2.2 AA completa con lector de pantalla.
 - Pruebas responsive y de usabilidad con usuarios.
 - Onboarding por rol y ayuda contextual.
