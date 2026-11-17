@@ -105,5 +105,6 @@ describe('App', () => {
     expect(screen.getByRole('link', { name: /configuración/i })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /inventario/i })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /usuarios/i })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /saltar al contenido/i })).toBeInTheDocument();
   });
 });

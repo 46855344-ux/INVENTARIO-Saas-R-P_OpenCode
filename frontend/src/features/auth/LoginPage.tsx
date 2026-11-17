@@ -4,6 +4,9 @@ import { Navigate, useLocation, useSearchParams } from 'react-router-dom';
 import { resolveApiError } from '../../services/errors';
 import { listSocialProviders, socialLoginUrl } from '../../services/social';
 import type { SocialProviderOption } from '../../types';
+import { Alert } from '../../components/ui/Alert';
+import { Button } from '../../components/ui/Button';
+import { TextField } from '../../components/ui/TextField';
 import { useAuth } from './AuthContext';
 
 interface RedirectState {
@@ -84,46 +87,34 @@ export function LoginPage() {
           Sistema de gestión de inventario y almacén. Inicie sesión para continuar.
         </p>
 
-        {error && (
-          <p className="form-error" role="alert">
-            {error}
-          </p>
-        )}
+        {error && <Alert variant="error">{error}</Alert>}
 
-        {socialMessage && (
-          <p className="form-error" role="alert">
-            {socialMessage}
-          </p>
-        )}
+        {socialMessage && <Alert variant="error">{socialMessage}</Alert>}
 
         <form className="auth-form" onSubmit={handleSubmit} noValidate>
-          <label className="field">
-            <span>Correo electrónico</span>
-            <input
-              type="email"
-              name="email"
-              autoComplete="username"
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
-              required
-            />
-          </label>
+          <TextField
+            label="Correo electrónico"
+            type="email"
+            name="email"
+            autoComplete="username"
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+            required
+          />
 
-          <label className="field">
-            <span>Contraseña</span>
-            <input
-              type="password"
-              name="password"
-              autoComplete="current-password"
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
-              required
-            />
-          </label>
+          <TextField
+            label="Contraseña"
+            type="password"
+            name="password"
+            autoComplete="current-password"
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+            required
+          />
 
-          <button type="submit" className="button-primary" disabled={submitting}>
+          <Button type="submit" loading={submitting}>
             {submitting ? 'Ingresando…' : 'Ingresar'}
-          </button>
+          </Button>
         </form>
 
         {providers.length > 0 && (

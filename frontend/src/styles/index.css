@@ -6,6 +6,12 @@
   --color-muted: #6b7280;
   --color-brand: #0f766e;
   --color-border: #e5e7eb;
+  --color-success: #166534;
+  --color-warning: #92400e;
+  --color-error: #b42318;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --focus-ring: 0 0 0 3px rgba(15, 118, 110, 0.35);
   font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   line-height: 1.6;
   color: var(--color-text);
@@ -24,6 +30,54 @@ body {
 a {
   color: inherit;
 }
+
+:focus-visible {
+  outline: 3px solid var(--color-brand);
+  outline-offset: 2px;
+  box-shadow: var(--focus-ring);
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -100px;
+  z-index: 100;
+  padding: 0.6rem 1rem;
+  border-radius: var(--radius-sm);
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+.alert {
+  margin: 0.75rem 0;
+  padding: 0.75rem 1rem;
+  border-left: 4px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-surface);
+}
+
+.alert-info { border-left-color: var(--color-brand); }
+.alert-success { border-left-color: var(--color-success); }
+.alert-warning { border-left-color: var(--color-warning); }
+.alert-error { border-left-color: var(--color-error); }
+
+.field-hint,
+.field-error {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.8125rem;
+}
+
+.field-hint { color: var(--color-muted); }
+.field-error { color: var(--color-error); }
+
+.button-danger { color: var(--color-error); }
 
 .app-shell {
   display: flex;

@@ -19,6 +19,9 @@ export function AppLayout() {
 
   return (
     <div className="app-shell">
+      <a className="skip-link" href="#main-content">
+        Saltar al contenido
+      </a>
       <header className="app-header">
         <Link to="/" className="app-brand">
           SAAS Inversiones R&amp;P
@@ -100,7 +103,7 @@ export function AppLayout() {
         </nav>
       </header>
 
-      <main className="app-main">
+      <main className="app-main" id="main-content" tabIndex={-1}>
         <Outlet key={activeCompany?.id ?? 'none'} />
       </main>
 
