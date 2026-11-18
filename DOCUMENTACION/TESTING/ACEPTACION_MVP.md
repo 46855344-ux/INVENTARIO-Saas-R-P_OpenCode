@@ -22,9 +22,10 @@
 | Cabeceras y rate limiting | Login 10/min, asistente 30/min, headers de seguridad | Pruebas de seguridad | OK local |
 | CI | Pint, PHPUnit, Oxlint, Vitest, build y auditoría | `.github/workflows/ci.yml` | Configurado y validado localmente |
 | Índices | Movimientos por empresa/tipo/fecha y líneas por empresa/variante/ubicación | Migración `2026_11_17_090000` | Aplicado |
-| E2E | Smoke, login/métricas/asistente y flujo inventario completo | Cypress (3 specs) | OK local |
+| E2E | Smoke, login/métricas/asistente, inventario completo y escáner QR | Cypress (4 specs) | OK local |
 | MySQL/MariaDB | Migraciones, seed y E2E sobre MariaDB 10.11 | Base `saas_inversiones_rp` | OK local |
-| Docker | `docker compose` con backend, frontend y MySQL; migraciones y E2E 3/3 | Imágenes `saas-inversiones-rp-*` | OK local |
+| Docker | `docker compose` con backend, frontend y MySQL; migraciones y E2E 4/4 | Imágenes `saas-inversiones-rp-*` | OK local |
+| QR y escáner | QR por variante, cámara con `jsqr`, búsqueda manual y stock | Vitest + `scanner.cy.ts` | OK local |
 | Seeder demo | Catálogo/locations/stock E2E | `DemoDataSeeder` | OK |
 
 ## 2. Evidencia cuantitativa

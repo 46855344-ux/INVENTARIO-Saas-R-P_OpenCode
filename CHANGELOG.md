@@ -155,7 +155,6 @@ y el versionado semántico de [SemVer](https://semver.org/lang/es/).
     - `DOCUMENTACION/SDD/PLAN_SPRINT_4_INVENTARIO_CENTRAL.md`: alcance US-0401 a US-0406, decisiones, modelo, contratos, reglas transaccionales, matriz de pruebas y DoR/DoD.
 
 ### Incremento v1.1 — autenticación social y experiencia (2026-11-15)
-
 - Dependencia `laravel/socialite` 5.32 y configuración Google/Facebook por ambiente.
 - Migración `social_identities` con `UNIQUE(provider, provider_user_id)` y `UNIQUE(user_id, provider)`.
 - Servicio `SocialAuthService`, rutas web de redirect/callback/link y API de proveedores, cuentas y desvinculación.
@@ -165,6 +164,15 @@ y el versionado semántico de [SemVer](https://semver.org/lang/es/).
 - Errores seguros `SOCIAL_AUTH_FAILED`, `SOCIAL_IDENTITY_NOT_LINKED`, `SOCIAL_IDENTITY_CONFLICT` y `LAST_AUTH_METHOD`.
 - Pruebas backend (140/523) y frontend (65), Pint, lint y build correctos.
 - Validación con Google/Meta reales pendiente de credenciales; pruebas con proveedores simulados.
+
+### Incremento QR y escáner (2026-11-18)
+
+- Dependencias `qrcode` y `jsqr` en el frontend: el escaneo corre en el navegador y no sube imágenes al backend.
+- QR por variante con la URL `<origen>/scan?variant=<id>`; también se acepta `RYP:V:<id>`, SKU y código de barras.
+- Diálogo de QR con descarga en PNG e impresión de etiqueta (producto, variante y SKU).
+- Página «Escáner» con vista de cámara, entrada manual, ficha del producto encontrado y stock por ubicación.
+- Al crear un producto se abre su detalle de variantes; al crear una variante se muestra su QR automáticamente.
+- Pruebas: Vitest del payload de QR y E2E `scanner.cy.ts`; suite Cypress 4/4.
 
 ### Documentación — integración v1.1 (2026-11-15)
 
