@@ -101,7 +101,9 @@ npm run e2e
   PHP-FPM + Nginx o un servidor equivalente.
 - La imagen de frontend ejecuta Vite en modo desarrollo; no es una build
   estática servida por Nginx.
-- Docker Desktop guarda su disco WSL en la unidad del sistema por defecto.
-  Para moverlo: **Settings → Resources → Advanced → Disk image location**.
+- En este equipo el disco de Docker Desktop se movió a `D:\Docker\data`
+  (`disk\docker_data.vhdx` y `main\ext4.vhdx`), verificado tras reiniciar con
+  imágenes, contenedores y datos intactos. En otras máquinas, la vía soportada
+  es **Settings → Resources → Advanced → Disk image location**.
 - Esta validación **no sustituye staging ni HTTPS**. Siguen pendientes TLS,
   cookies `Secure`, backups reales, RPO/RTO y aceptación del Product Owner.
