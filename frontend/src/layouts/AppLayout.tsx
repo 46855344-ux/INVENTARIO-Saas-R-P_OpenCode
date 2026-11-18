@@ -49,6 +49,11 @@ export function AppLayout() {
               Inventario
             </NavLink>
           </Can>
+          <Can permission="catalog.view">
+            <NavLink to="/scan" className={linkClass}>
+              Escáner
+            </NavLink>
+          </Can>
           {canViewPurchasing && (
             <NavLink to="/purchasing" className={linkClass}>
               Compras

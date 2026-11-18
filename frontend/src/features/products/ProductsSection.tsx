@@ -151,8 +151,15 @@ export function ProductsSection({ canManage }: ProductsSectionProps) {
 
     try {
       if (formMode === 'create') {
-        await createProduct(input);
-      } else if (editing !== null) {
+        const created = await createProduct(input);
+        closeForm();
+        setReloadToken((token) => token + 1);
+        // El QR se genera por variante: al crear el producto se abre su detalle.
+        setSelectedProduct(created);
+        return;
+      }
+
+      if (editing !== null) {
         await updateProduct(editing.id, input);
       }
 

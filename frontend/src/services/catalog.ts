@@ -256,3 +256,16 @@ export async function updateVariantStatus(
 
   return data.data;
 }
+
+export async function getVariant(id: number): Promise<ProductVariant> {
+  const { data } = await api.get<{ data: ProductVariant }>(`/v1/variants/${id}`);
+
+  return data.data;
+}
+
+export async function getProduct(id: number): Promise<Product> {
+  const { data } = await api.get<{ data: Product }>(`/v1/products/${id}`);
+
+  return data.data;
+}
+

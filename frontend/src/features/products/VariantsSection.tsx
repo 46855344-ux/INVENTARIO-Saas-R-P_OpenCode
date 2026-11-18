@@ -11,6 +11,7 @@ import type { VariantFilters, VariantInput } from '../../services/catalog';
 import type { CatalogStatus, PaginatedMeta, Product, ProductVariant } from '../../types';
 import { ProductVariantForm } from './ProductVariantForm';
 import type { VariantFormValues } from './ProductVariantForm';
+import { VariantQrDialog } from './VariantQrDialog';
 
 const PER_PAGE = 10;
 
@@ -43,6 +44,7 @@ export function VariantsSection({ product, canManage, onBack }: VariantsSectionP
   const [editing, setEditing] = useState<ProductVariant | null>(null);
   const [formError, setFormError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
+  const [qrVariant, setQrVariant] = useState<ProductVariant | null>(null);
 
   useEffect(() => {
     let active = true;
@@ -119,7 +121,8 @@ export function VariantsSection({ product, canManage, onBack }: VariantsSectionP
 
     try {
       if (formMode === 'create') {
-        await createVariant(product.id, input);
+        const created = await createVariant(product.id, input);
+        setQrVariant(created);
       } else if (editing !== null) {
         await updateVariant(editing.id, input);
       }
@@ -224,7 +227,9 @@ export function VariantsSection({ product, canManage, onBack }: VariantsSectionP
       )}
 
       {!loading && !error && variants.length === 0 && (
-        <p className="empty-state">No hay variantes para este producto.</p>
+        <p className="empty-state">
+          Este producto todavía no tiene variantes. Creá una para generar su código QR.
+        </p>
       )}
 
       {!loading && variants.length > 0 && (
@@ -237,7 +242,7 @@ export function VariantsSection({ product, canManage, onBack }: VariantsSectionP
               <th>Costo</th>
               <th>Precio</th>
               <th>Estado</th>
-              {canManage && <th>Acciones</th>}
+              <th>Acciones</th>
             </tr>
           </thead>
           <tbody>
@@ -253,26 +258,35 @@ export function VariantsSection({ product, canManage, onBack }: VariantsSectionP
                     {variant.status === 'active' ? 'Activo' : 'Inactivo'}
                   </span>
                 </td>
-                {canManage && (
-                  <td className="users-actions">
-                    <button
-                      type="button"
-                      className="button-link"
-                      onClick={() => openEdit(variant)}
-                    >
-                      Editar
-                    </button>
-                    <button
-                      type="button"
-                      className="button-link"
-                      onClick={() => {
-                        void handleToggleStatus(variant);
-                      }}
-                    >
-                      {variant.status === 'active' ? 'Desactivar' : 'Activar'}
-                    </button>
-                  </td>
-                )}
+                <td className="users-actions">
+                  <button
+                    type="button"
+                    className="button-link"
+                    onClick={() => setQrVariant(variant)}
+                  >
+                    QR
+                  </button>
+                  {canManage && (
+                    <>
+                      <button
+                        type="button"
+                        className="button-link"
+                        onClick={() => openEdit(variant)}
+                      >
+                        Editar
+                      </button>
+                      <button
+                        type="button"
+                        className="button-link"
+                        onClick={() => {
+                          void handleToggleStatus(variant);
+                        }}
+                      >
+                        {variant.status === 'active' ? 'Desactivar' : 'Activar'}
+                      </button>
+                    </>
+                  )}
+                </td>
               </tr>
             ))}
           </tbody>
@@ -304,6 +318,12 @@ export function VariantsSection({ product, canManage, onBack }: VariantsSectionP
           Siguiente
         </button>
       </nav>
+
+      <VariantQrDialog
+        variant={qrVariant}
+        productName={product.name}
+        onClose={() => setQrVariant(null)}
+      />
     </div>
   );
 }

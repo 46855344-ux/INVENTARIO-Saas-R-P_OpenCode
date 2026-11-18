@@ -1,3 +1,4 @@
+import { lazy, Suspense } from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { AuthProvider } from '../features/auth/AuthProvider';
 import { LoginPage } from '../features/auth/LoginPage';
@@ -14,6 +15,12 @@ import { ConfigurationPage } from '../features/settings/ConfigurationPage';
 import { AppLayout } from '../layouts/AppLayout';
 import { HomePage } from './HomePage';
 
+const ScannerPage = lazy(() =>
+  import('../features/scanner/ScannerPage').then((module) => ({
+    default: module.ScannerPage,
+  })),
+);
+
 export default function App() {
   return (
     <BrowserRouter>
@@ -25,6 +32,11 @@ export default function App() {
             <Route element={<AppLayout />}>
               <Route index element={<HomePage />} />
               <Route path="catalog" element={<CatalogPage />} />
+              <Route path="scan" element={
+                <Suspense fallback={<p className="loading">Cargando escáner…</p>}>
+                  <ScannerPage />
+                </Suspense>
+              } />
               <Route path="inventory" element={<InventoryPage />} />
               <Route path="purchasing" element={<PurchasingPage />} />
               <Route path="metrics" element={<MetricsPage />} />
