@@ -21,6 +21,8 @@ services:
       APP_ENV: ${APP_ENV:-local}
       APP_DEBUG: ${APP_DEBUG:-true}
       APP_URL: ${APP_URL:-http://localhost:8000}
+      FRONTEND_URL: ${FRONTEND_URL:-http://localhost:5173}
+      SANCTUM_STATEFUL_DOMAINS: ${SANCTUM_STATEFUL_DOMAINS:-localhost,localhost:5173,127.0.0.1,127.0.0.1:8000,::1}
       APP_TIMEZONE: ${APP_TIMEZONE:-UTC}
       APP_LOCALE: ${APP_LOCALE:-es}
       DB_CONNECTION: mysql
@@ -74,6 +76,10 @@ services:
     command:
       - --character-set-server=utf8mb4
       - --collation-server=utf8mb4_unicode_ci
+      # Entorno de desarrollo sobre Docker Desktop/WSL: prioriza velocidad.
+      # No usar estos valores en producción (riesgo de perder segundos de datos).
+      - --innodb-flush-log-at-trx-commit=2
+      - --skip-log-bin
     volumes:
       - db-data:/var/lib/mysql
       - ./database/scripts:/docker-entrypoint-initdb.d:ro

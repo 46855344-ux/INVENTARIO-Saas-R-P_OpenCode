@@ -28,8 +28,10 @@ fi
 # Esperar a MySQL y migrar. `db` es el nombre del servicio en compose.
 if [ "${DB_CONNECTION:-mysql}" = "mysql" ]; then
     echo "[entrypoint] Esperando a MySQL en ${DB_HOST:-db}:${DB_PORT:-3306}..."
+    # --skip-ssl: MySQL 8 usa un certificado autofirmado que el cliente
+    # MariaDB del contenedor rechaza al verificar TLS.
     until mysqladmin ping -h "${DB_HOST:-db}" -P "${DB_PORT:-3306}" \
-        -u "${DB_USERNAME:-saas}" -p"${DB_PASSWORD:-secret}" --silent 2>/dev/null; do
+        -u "${DB_USERNAME:-saas}" -p"${DB_PASSWORD:-secret}" --skip-ssl --silent 2>/dev/null; do
         sleep 2
     done
     echo "[entrypoint] Ejecutando migraciones..."

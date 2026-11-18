@@ -1,0 +1,19 @@
+# =============================================================================
+# Override de validacion tipo release.
+#
+# Uso:
+#   docker compose -f docker-compose.yml -f docker-compose.release.yml up -d --build
+#
+# Ejecuta el codigo horneado en las imagenes (sin bind mounts). En Windows el
+# bind mount de `./backend` sobre WSL2 hace que cada request tarde ~15 s por
+# el costo de `stat` sobre NTFS; con este override el stack se comporta como
+# staging/produccion y sirve para correr la suite E2E.
+# =============================================================================
+services:
+  backend:
+    volumes: !reset []
+
+  frontend:
+    volumes: !reset []
+    environment:
+      CHOKIDAR_USEPOLLING: "false"
