@@ -57,11 +57,27 @@ Requiere Docker Desktop en ejecución.
 ```bash
 cp .env.example .env
 docker compose up --build
+docker compose exec backend php artisan db:seed --force
 ```
 
 - Frontend: <http://localhost:5173>
 - API: <http://localhost:8000/api/health>
 - MySQL: `localhost:3306`
+
+El `.env` de la raíz define los puertos (`DOCKER_APP_PORT`, `DOCKER_WEB_PORT`,
+`DOCKER_DB_PORT`) y las URLs (`APP_URL`, `FRONTEND_URL`,
+`SANCTUM_STATEFUL_DOMAINS`, `VITE_API_URL`). Si hay servicios locales ocupando
+esos puertos, cambialos en conjunto.
+
+Para validar el stack como release (código horneado en la imagen, sin bind
+mounts; recomendado en Windows para que los requests no pasen por NTFS):
+
+```bash
+docker compose -f docker-compose.yml -f docker-compose.release.yml up -d --build
+CYPRESS_BASE_URL=http://localhost:5173 npm run e2e
+```
+
+Detalle de la validación: `DOCUMENTACION/DEVSECOPS/VALIDACION_DOCKER.md`.
 
 ### Opción B — Local (PHP + Node + MySQL/XAMPP)
 

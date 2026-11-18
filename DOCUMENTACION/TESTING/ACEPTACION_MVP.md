@@ -24,6 +24,7 @@
 | Índices | Movimientos por empresa/tipo/fecha y líneas por empresa/variante/ubicación | Migración `2026_11_17_090000` | Aplicado |
 | E2E | Smoke, login/métricas/asistente y flujo inventario completo | Cypress (3 specs) | OK local |
 | MySQL/MariaDB | Migraciones, seed y E2E sobre MariaDB 10.11 | Base `saas_inversiones_rp` | OK local |
+| Docker | `docker compose` con backend, frontend y MySQL; migraciones y E2E 3/3 | Imágenes `saas-inversiones-rp-*` | OK local |
 | Seeder demo | Catálogo/locations/stock E2E | `DemoDataSeeder` | OK |
 
 ## 2. Evidencia cuantitativa
@@ -40,7 +41,7 @@
 
 ## 3. Pendientes para aceptación
 
-- MySQL/MariaDB local validado con migraciones, seed y E2E 3/3; Docker y HTTPS pendientes.
+- MySQL/MariaDB local validado con migraciones, seed y E2E 3/3; Docker Compose y E2E validados; HTTPS/staging pendiente.
 - Validar HTTPS, cookies seguras y CORS en staging.
 - Ejecutar backup/restore real y registrar RPO/RTO.
 - Validar OAuth con Google/Meta reales.

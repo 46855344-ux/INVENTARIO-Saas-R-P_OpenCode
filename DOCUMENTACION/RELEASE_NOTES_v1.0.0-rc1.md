@@ -42,8 +42,8 @@ Ingreso demo: `admin@empresa-demo.test` / `password`.
 
 ## 4. Limitaciones conocidas
 
-- Validación real con MySQL/Docker pendiente.
-- MySQL/MariaDB local validado con migraciones, seed y E2E 3/3; Docker Desktop pendiente.
+- MySQL/MariaDB local validado con migraciones, seed y E2E 3/3; Docker Compose
+  validado con las tres imágenes y E2E 3/3.
 - HTTPS, cookies seguras y CORS de staging pendientes.
 - Backup/restore real y RPO/RTO (DP-06/DP-07) pendientes.
 - OAuth Google/Meta reales pendientes.
